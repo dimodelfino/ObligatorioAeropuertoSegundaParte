@@ -12,14 +12,7 @@ import java.util.Date;
  */
 public class LogicaFrecuenciaVuelo {
     
-    public int numero;
-    public String horaPartida;
-    public float duracionEstimada;
-    public LogicaEstado aeropuertoOrigen;
-    public LogicaEstado aeropuertoDestino;
-    public LogicaCompania compania; 
-    public DiaSemanaEnum diasSemana;
-    
+
     
 //    public bool ingresarFrecuencia(String partida, float duracion, String aeropuertoOrigen, String aeropuertoDestino, String diasSemana){
 //        

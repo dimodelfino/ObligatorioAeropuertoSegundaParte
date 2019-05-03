@@ -5,11 +5,13 @@
  */
 package modelo;
 
+import java.util.List;
+
 /**
  *
  * @author dmoreno
  */
-public class LogicaUsuarioCompania {
-    public LogicaCompania compania;
-    
+public class Aeropuerto {
+    public String nombre;
+    public List<FrecuenciaDeVuelo> frecuencias;
 }

@@ -5,6 +5,10 @@
  */
 package vistas;
 
+import modelo.LogicaAeropuerto;
+import modelo.LogicaCompania;
+import modelo.LogicaUsuario;
+
 /**
  *
  * @author dmoreno
@@ -15,14 +19,13 @@ public class ObligatorioAeropuerto {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        LogicaAeropuerto.getInstancia().iniciateAirportsList();
+        System.out.println(LogicaAeropuerto.getInstancia().getAeropuertos().get(3).nombre);
         
-        //Lleva a las vistas
-
-
-
+        LogicaUsuario.getInstancia().iniciateUsersList();
+        System.out.println(LogicaUsuario.getInstancia().getUsuarios().get(3).nombre);
+        
+        LogicaCompania.getInstancia().iniciateCompanyList();
+        System.out.println(LogicaCompania.getInstancia().getCompanias().get(3).nombre);
+    }
 }
-
-}
-    
-    
-

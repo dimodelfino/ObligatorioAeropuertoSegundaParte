@@ -4,14 +4,35 @@
  * and open the template in the editor.
  */
 package modelo;
-import java.util.List;        
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author dmoreno
  */
 public class LogicaCompania {
+
+    private static List<Compania> companias;
+    private static LogicaCompania instancia = new LogicaCompania();
     
-    public String nombre;
-    public String alias;
-    public List<LogicaFrecuenciaVuelo> frecuancias;
+    public static LogicaCompania getInstancia(){
+        return instancia;
+    }
+    
+    public List<Compania> getCompanias(){
+         return companias;
+     }
+
+    public void iniciateCompanyList() {
+        Compania c = new Compania();
+        this.companias = new ArrayList<Compania>();
+        for (int x = 0; x < 4; x++) {
+            c.nombre = "comp " + x;   
+            c.alias = "C.O.M " + x;
+            this.companias.add(c);
+        }
+    }
+
 }
