@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class LogicaUsuario {
 
-    private static List<Usuario> usuarios;
+    private List<Usuario> usuarios;
     private static LogicaUsuario instancia = new LogicaUsuario();
 
     public static LogicaUsuario getInstancia(){
@@ -44,5 +44,21 @@ public class LogicaUsuario {
                 this.usuarios.add(u);
             }
         }
+    }
+    
+    public Usuario buscarUsuario (String nombre, String contrasenia){
+        boolean existe = false;
+        int i = 0;
+        Usuario usu = null;
+        
+        while(!existe){
+            if(usuarios.get(i).nombre.equals(nombre) 
+                    && usuarios.get(i).contrasenia.equals(contrasenia)){
+                existe= true;
+                usu= usuarios.get(i);      
+            }
+            i++;
+        }
+        return usu;
     }
 }

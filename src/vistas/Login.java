@@ -4,35 +4,55 @@
  * and open the template in the editor.
  */
 package vistas;
+
 import controladores.ControladorLogin;
 import controladores.IVistaLogIn;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import modelo.Usuario;
 
 /**
  *
- * @author dmoreno
+ * @author majuetcheverry
  */
-public class Login extends javax.swing.JFrame implements IVistaLogIn{
+public class Login extends javax.swing.JDialog implements IVistaLogIn {
 
-  
-    public ControladorLogin controlador;
-    
-
-    public Login() {
-        initComponents();        
+    /**
+     * Creates new form Login1
+     */
+    public Login(java.awt.Frame parent, boolean modal, TipoVentana tipoProxVentana) {
+        super(parent, modal);
+        initComponents();
+        this.tipoProxVentana= tipoProxVentana;
+        this.parent= parent;
         controlador = new ControladorLogin(this);
     }
     
-    @Override
-    public void mostrarUsuario(Usuario u) {
-       
-    }
     
-    /**
-     *
-     * @param vista
-     */
-  
+    @Override
+    public void ingresar(Usuario u) {
+       if(u == null){
+           JOptionPane.showMessageDialog(this, "Login invalido");
+       } else {
+           JDialog proxDialogo;
+           switch (tipoProxVentana){
+               case Compania: 
+                   proxDialogo = new AplicacionCompania(parent, false, u);
+                   break;
+               case Aeropuerto: 
+                   proxDialogo = new AplicacionAeropuerto(parent, false, u);
+                   break;
+               case Monitoreo:
+                   proxDialogo = new AplicacionMonitoreo(parent, false,u);
+                   break;
+               default:
+                   proxDialogo=null;  
+           }
+           dispose();
+           proxDialogo.setVisible(true);
+       } 
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,112 +62,87 @@ public class Login extends javax.swing.JFrame implements IVistaLogIn{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblUsuario = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         lblPass = new javax.swing.JLabel();
+        bntLogin = new javax.swing.JToggleButton();
         txtUsuario = new javax.swing.JTextField();
         txtPass = new javax.swing.JPasswordField();
-        btnLogin = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblUsuario.setText("Usuario");
+        lblNombre.setText("Nombre");
 
-        lblPass.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblPass.setText("Contraseña");
+        lblPass.setText("Password");
 
-        txtUsuario.setText("Ingrese usuario");
-
-        txtPass.setText("jPasswordField1");
-
-        btnLogin.setText("Login");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        bntLogin.setText("Ingresar");
+        bntLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                bntLoginActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel1.setText("INICIAR SESION");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnLogin))
-                .addContainerGap(141, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(bntLogin)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblNombre)
+                                .addComponent(lblPass))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                                .addComponent(txtUsuario)))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario)
+                    .addComponent(lblNombre)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPass)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
-                .addComponent(btnLogin)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bntLogin)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+    private void bntLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLoginActionPerformed
         String pass = String.valueOf(txtPass.getPassword());
         controlador.autenticar(txtUsuario.getText(), pass);
-    }//GEN-LAST:event_btnLoginActionPerformed
+    }//GEN-LAST:event_bntLoginActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+   
+   public ControladorLogin controlador;
+   private TipoVentana tipoProxVentana;
+   private java.awt.Frame parent;
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JToggleButton bntLogin;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPass;
-    private javax.swing.JLabel lblUsuario;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-
-
 }

@@ -20,12 +20,13 @@ public class ObligatorioAeropuerto {
      */
     public static void main(String[] args) {
         LogicaAeropuerto.getInstancia().iniciateAirportsList();
-        System.out.println(LogicaAeropuerto.getInstancia().getAeropuertos().get(3).nombre);
+//        System.out.println(LogicaAeropuerto.getInstancia().getAeropuertos().get(3).nombre);
         
         LogicaUsuario.getInstancia().iniciateUsersList();
-        System.out.println(LogicaUsuario.getInstancia().getUsuarios().get(3).nombre);
+        //System.out.println(LogicaUsuario.getInstancia().getUsuarios().get(3).nombre);
         
         LogicaCompania.getInstancia().iniciateCompanyList();
-        System.out.println(LogicaCompania.getInstancia().getCompanias().get(3).nombre);
+        //System.out.println(LogicaCompania.getInstancia().getCompanias().get(3).nombre);
+    new MenuPrincipal().setVisible(true);
     }
 }

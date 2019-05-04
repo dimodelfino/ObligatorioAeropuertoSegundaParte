@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilities;
-import modelo.LogicaUsuario;
-
+package vistas;
 
 /**
  *
- * @author dmoreno
+ * @author majuetcheverry
  */
-public class Login {
-    
-//    public bool validateUser(LogicaUsuario u){
-//               
-//    }
-    
+public enum TipoVentana {
+    Compania, Aeropuerto, Monitoreo;
 }

@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package controladores;
+import modelo.Usuario;
 import modelo.LogicaUsuario;
-import vistas.Login;
+
 
 /**
  *
@@ -15,14 +16,14 @@ public class ControladorLogin {
     
     private IVistaLogIn vista;
     
-    public ControladorLogin (Login l){
+    public ControladorLogin (IVistaLogIn l){
         this.vista=l;
     }
     
     public void autenticar(String nombre, String contrasenia){
-        LogicaUsuario usu = new LogicaUsuario( );
-        
-        
+        Usuario usu = LogicaUsuario.getInstancia().buscarUsuario(nombre, contrasenia);
+        vista.ingresar(usu);
+
     }
     
 }

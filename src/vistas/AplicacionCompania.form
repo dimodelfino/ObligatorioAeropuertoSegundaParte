@@ -28,10 +28,10 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbAeropOrigen" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
-                          <Component id="lbAeropDestino" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="lbAeropOrigen" min="-2" pref="133" max="-2" attributes="0"/>
+                          <Component id="lbAeropDestino" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="cmbAeropDestino" min="-2" max="-2" attributes="0"/>
                           <Component id="cmbAeropOrigen" min="-2" max="-2" attributes="0"/>
@@ -42,10 +42,18 @@
                           <Component id="lblHoraPartida" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
                           <Component id="lblHoraPartida1" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtDuracion" min="-2" pref="117" max="-2" attributes="0"/>
-                          <Component id="txtHoraPartida" min="-2" pref="117" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                              <Component id="lblFrecuencias" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtDuracion" min="-2" pref="117" max="-2" attributes="0"/>
+                                  <Component id="txtHoraPartida" min="-2" pref="117" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -54,8 +62,8 @@
                       <Component id="lblCompania" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblDiaSemana" min="-2" pref="99" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="lblDiaSemana" min="-2" pref="123" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="rbtLunes" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="rbtViernes" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -76,9 +84,11 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblFrecuencias" min="-2" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+                      <Component id="lblIngresarFrecuencia" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
@@ -92,9 +102,9 @@
                   <Component id="lblNombreCompleto" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblCompania" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="lblIngresarFrecuencia" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbAeropOrigen" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="cmbAeropOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -128,9 +138,9 @@
                   <Component id="lblHoraPartida1" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="txtDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace pref="49" max="32767" attributes="0"/>
               <Component id="lblFrecuencias" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
@@ -202,17 +212,11 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Jueves"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblJuevesActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbtViernes">
       <Properties>
         <Property name="text" type="java.lang.String" value="Viernes"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtViernesActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbtSabado">
       <Properties>
@@ -237,9 +241,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDuracion">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDuracionActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -262,22 +263,32 @@
     </Container>
     <Component class="javax.swing.JLabel" name="lblFrecuencias">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Frecuencias"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lucida Grande" size="13" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="FRECUENCIAS"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNombreCompleto">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lucida Grande" size="13" style="1"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCompania">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Compania"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lucida Grande" size="13" style="1"/>
+        </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="lblIngresarFrecuencia">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ingresar Frecuencia"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lucida Grande" size="13" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="INGRESAR FRECUENCIA"/>
       </Properties>
     </Component>
   </SubComponents>

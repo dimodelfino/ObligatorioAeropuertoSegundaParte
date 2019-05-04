@@ -13,8 +13,6 @@ import modelo.Usuario;
  * @author alumnoFI
  */
 public interface IVistaLogIn {
-//     public LogicaUsuario autenticar();
-//     public void ingreso ()
      
-     public void mostrarUsuario(Usuario u);
+     public void ingresar(Usuario usu);
 }
