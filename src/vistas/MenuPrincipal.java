@@ -93,17 +93,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApCompaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApCompaniaActionPerformed
-        Login apc = new Login(this, false, TipoVentana.Compania);
+        Login apc = new Login(this, false, TipoVentanaEnum.Compania);
         apc.setVisible(true);
     }//GEN-LAST:event_btnApCompaniaActionPerformed
 
     private void btnApAeropuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApAeropuertoActionPerformed
-        Login apa = new Login(this, false, TipoVentana.Aeropuerto);
+        Login apa = new Login(this, false, TipoVentanaEnum.Aeropuerto);
         apa.setVisible(true);
     }//GEN-LAST:event_btnApAeropuertoActionPerformed
 
     private void btnApMonitoreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApMonitoreoActionPerformed
-        Login apm = new Login(this, false, TipoVentana.Monitoreo);
+        Login apm = new Login(this, false, TipoVentanaEnum.Monitoreo);
         apm.setVisible(true);
     }//GEN-LAST:event_btnApMonitoreoActionPerformed
 

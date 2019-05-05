@@ -20,7 +20,7 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
     /**
      * Creates new form Login1
      */
-    public Login(java.awt.Frame parent, boolean modal, TipoVentana tipoProxVentana) {
+    public Login(java.awt.Frame parent, boolean modal, TipoVentanaEnum tipoProxVentana) {
         super(parent, modal);
         initComponents();
         this.tipoProxVentana= tipoProxVentana;
@@ -133,7 +133,7 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
 
    
    public ControladorLogin controlador;
-   private TipoVentana tipoProxVentana;
+   private TipoVentanaEnum tipoProxVentana;
    private java.awt.Frame parent;
 
     

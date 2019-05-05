@@ -9,6 +9,6 @@ package vistas;
  *
  * @author majuetcheverry
  */
-public enum TipoVentana {
+public enum TipoVentanaEnum {
     Compania, Aeropuerto, Monitoreo;
 }
