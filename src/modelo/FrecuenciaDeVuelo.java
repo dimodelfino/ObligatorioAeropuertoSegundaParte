@@ -5,11 +5,13 @@
  */
 package modelo;
 
+import vistas.DiaSemanaEnum;
+
 /**
  *
  * @author dmoreno
  */
-class FrecuenciaDeVuelo {
+public class FrecuenciaDeVuelo {
 
     public int numero;
     public String horaPartida;

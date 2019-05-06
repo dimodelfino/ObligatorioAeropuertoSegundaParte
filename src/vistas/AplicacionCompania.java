@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import javax.swing.ButtonGroup;
 import modelo.UsuCompania;
 import modelo.Usuario;
 
@@ -20,16 +21,40 @@ public class AplicacionCompania extends javax.swing.JDialog {
     public AplicacionCompania(java.awt.Frame parent, boolean modal, Usuario u) {
         super(parent, modal);
         initComponents();
+        groupButton();
         lblNombreCompleto.setText(u.nombreCompleto);
-        UsuCompania uc = (UsuCompania)u;
+        uc = (UsuCompania) u;
         lblCompania.setText(uc.compania.nombre);
     }
 
+    private void groupButton() {
+        rbtLunes.setActionCommand(DiaSemanaEnum.L.toString());
+        rbtMartes.setActionCommand("Martes");
+        rbtMiercoles.setActionCommand("Miercoles");
+        rbtJueves.setActionCommand("Jueves");
+        rbtViernes.setActionCommand("Viernes");
+        rbtSabado.setActionCommand("Sabado");
+        rbtDomingo.setActionCommand("Domingo");
+        bgDiaSemana.add(rbtLunes);
+        bgDiaSemana.add(rbtMartes);
+        bgDiaSemana.add(rbtMiercoles);
+        bgDiaSemana.add(rbtJueves);
+        bgDiaSemana.add(rbtViernes);
+        bgDiaSemana.add(rbtSabado);
+        bgDiaSemana.add(rbtDomingo);
+
+        rbtnAM.setActionCommand("Am");
+        rbtnPm.setActionCommand("Pm");
+        bgAmPm.add(rbtnAM);
+        bgAmPm.add(rbtnPm);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rbtnGroupDiaSemana = new javax.swing.ButtonGroup();
+        rbtnGroupAmPm = new javax.swing.ButtonGroup();
         lbAeropOrigen = new javax.swing.JLabel();
         lbAeropDestino = new javax.swing.JLabel();
         cmbAeropOrigen = new javax.swing.JComboBox<>();
@@ -38,7 +63,7 @@ public class AplicacionCompania extends javax.swing.JDialog {
         rbtLunes = new javax.swing.JRadioButton();
         rbtDomingo = new javax.swing.JRadioButton();
         rbtMiercoles = new javax.swing.JRadioButton();
-        lblJueves = new javax.swing.JRadioButton();
+        rbtJueves = new javax.swing.JRadioButton();
         rbtViernes = new javax.swing.JRadioButton();
         rbtSabado = new javax.swing.JRadioButton();
         rbtMartes = new javax.swing.JRadioButton();
@@ -51,7 +76,7 @@ public class AplicacionCompania extends javax.swing.JDialog {
         lblCompania = new javax.swing.JLabel();
         lblIngresarFrecuencia = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
-        cmbHorasPartida = new javax.swing.JComboBox<>();
+        cmbHoraPartida = new javax.swing.JComboBox<>();
         rbtnAM = new javax.swing.JRadioButton();
         rbtnPm = new javax.swing.JRadioButton();
         cmbMinutoPartida = new javax.swing.JComboBox<>();
@@ -85,7 +110,7 @@ public class AplicacionCompania extends javax.swing.JDialog {
 
         rbtMiercoles.setText("Miercoles");
 
-        lblJueves.setText("Jueves");
+        rbtJueves.setText("Jueves");
 
         rbtViernes.setText("Viernes");
 
@@ -117,10 +142,10 @@ public class AplicacionCompania extends javax.swing.JDialog {
             }
         });
 
-        cmbHorasPartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-        cmbHorasPartida.addActionListener(new java.awt.event.ActionListener() {
+        cmbHoraPartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        cmbHoraPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbHorasPartidaActionPerformed(evt);
+                cmbHoraPartidaActionPerformed(evt);
             }
         });
 
@@ -154,73 +179,84 @@ public class AplicacionCompania extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                    .addComponent(lblIngresarFrecuencia)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbAeropOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbAeropDestino))
-                            .addGap(51, 51, 51)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cmbAeropDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cmbAeropOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblHoraPartida1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblHs)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cmbHorasPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
-                                    .addComponent(rbtnAM)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(rbtnPm))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(lblHsDuracion)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(cmbHoraDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(86, 86, 86)
-                                            .addComponent(lblMinDuracion)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(cmbMinutosDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(0, 0, Short.MAX_VALUE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblNombreCompleto)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCompania))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(7, 7, 7)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(rbtLunes)
-                                .addComponent(rbtViernes))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(rbtMartes)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(rbtMiercoles)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lblJueves))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(rbtSabado)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(lblMin)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(cmbMinutoPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(rbtDomingo))))
-                        .addComponent(btnIngresar, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(lblFrecuencias))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(rbtViernes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(rbtSabado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbtDomingo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(rbtLunes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbtMartes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbtMiercoles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbtJueves, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblHsDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblHs, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cmbHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(cmbHoraDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(104, 104, 104))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblHoraPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblHoraPartida1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(101, 101, 101)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblMinDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cmbMinutosDuracion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(118, 118, 118))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cmbMinutoPartida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(rbtnAM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(rbtnPm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .addComponent(btnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblNombreCompleto)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblCompania)))
+                                .addGap(124, 124, 124)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbAeropOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbAeropDestino))
+                                .addGap(51, 51, 51)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbAeropDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbAeropOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblFrecuencias)
+                            .addComponent(lblIngresarFrecuencia))
+                        .addGap(276, 294, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,39 +278,39 @@ public class AplicacionCompania extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbtLunes)
-                    .addComponent(rbtMartes)
-                    .addComponent(rbtMiercoles)
-                    .addComponent(lblJueves))
+                    .addComponent(rbtLunes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbtMartes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbtMiercoles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbtJueves, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtViernes)
-                    .addComponent(rbtSabado)
-                    .addComponent(rbtDomingo))
-                .addGap(18, 18, 18)
+                    .addComponent(rbtViernes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbtSabado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbtDomingo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbHorasPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rbtnAM)
                     .addComponent(rbtnPm)
                     .addComponent(cmbMinutoPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHs)
-                    .addComponent(lblMin))
+                    .addComponent(lblMin)
+                    .addComponent(cmbHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHoraPartida1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbHoraDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cmbMinutosDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblHsDuracion)
-                        .addComponent(lblMinDuracion)))
-                .addGap(18, 18, 18)
+                        .addComponent(lblMinDuracion))
+                    .addComponent(lblHoraPartida1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addComponent(btnIngresar)
-                .addGap(22, 22, 22)
+                .addGap(17, 17, 17)
                 .addComponent(lblFrecuencias)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -285,28 +321,32 @@ public class AplicacionCompania extends javax.swing.JDialog {
     }//GEN-LAST:event_cmbAeropOrigenActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
+        String diaSemana = bgDiaSemana.getSelection().getActionCommand();        
+        String partidaHora = cmbHoraPartida.getSelectedItem().toString();
+        String partidaMinutos = cmbMinutoPartida.getSelectedItem().toString();
+        String amPm = bgAmPm.getSelection().getActionCommand();
+        String duracionHora = cmbHoraDuracion.getSelectedItem().toString();
+        String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString();        
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void cmbHorasPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHorasPartidaActionPerformed
+    private void cmbHoraPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHoraPartidaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbHorasPartidaActionPerformed
+    }//GEN-LAST:event_cmbHoraPartidaActionPerformed
 
     private void cmbHoraDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHoraDuracionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbHoraDuracionActionPerformed
 
-    
-    /**
-     * @param args the command line arguments
-     */
+    ButtonGroup bgDiaSemana = new ButtonGroup();
+    ButtonGroup bgAmPm = new ButtonGroup();
+    UsuCompania uc = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JComboBox<String> cmbAeropDestino;
     private javax.swing.JComboBox<String> cmbAeropOrigen;
     private javax.swing.JComboBox<String> cmbHoraDuracion;
-    private javax.swing.JComboBox<String> cmbHorasPartida;
+    private javax.swing.JComboBox<String> cmbHoraPartida;
     private javax.swing.JComboBox<String> cmbMinutoPartida;
     private javax.swing.JComboBox<String> cmbMinutosDuracion;
     private javax.swing.JScrollPane jScrollPane1;
@@ -320,18 +360,20 @@ public class AplicacionCompania extends javax.swing.JDialog {
     private javax.swing.JLabel lblHs;
     private javax.swing.JLabel lblHsDuracion;
     private javax.swing.JLabel lblIngresarFrecuencia;
-    private javax.swing.JRadioButton lblJueves;
     private javax.swing.JLabel lblMin;
     private javax.swing.JLabel lblMinDuracion;
     private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JList<String> lstVisualizarFrecuencias;
     private javax.swing.JRadioButton rbtDomingo;
+    private javax.swing.JRadioButton rbtJueves;
     private javax.swing.JRadioButton rbtLunes;
     private javax.swing.JRadioButton rbtMartes;
     private javax.swing.JRadioButton rbtMiercoles;
     private javax.swing.JRadioButton rbtSabado;
     private javax.swing.JRadioButton rbtViernes;
     private javax.swing.JRadioButton rbtnAM;
+    private javax.swing.ButtonGroup rbtnGroupAmPm;
+    private javax.swing.ButtonGroup rbtnGroupDiaSemana;
     private javax.swing.JRadioButton rbtnPm;
     // End of variables declaration//GEN-END:variables
 }
