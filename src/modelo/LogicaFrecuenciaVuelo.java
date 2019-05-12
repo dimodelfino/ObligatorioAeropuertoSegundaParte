@@ -25,7 +25,6 @@ public class LogicaFrecuenciaVuelo {
      }
 
     public void GuardarFrecuencia(FrecuenciaDeVuelo fv){
-        this.frecuencias.add(fv);       
-    }
- 
+        this.frecuencias.add(fv);
+    } 
 }
