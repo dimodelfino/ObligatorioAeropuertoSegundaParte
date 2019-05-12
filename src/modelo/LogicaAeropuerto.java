@@ -27,11 +27,27 @@ public class LogicaAeropuerto {
 
     public void iniciateAirportsList() {
         this.aeropuertos = new ArrayList<Aeropuerto>();
-        for (int x = 0; x < 4; x++) {
-            Aeropuerto a = new Aeropuerto();
-            a.nombre = "aerop " + x;
-            this.aeropuertos.add(a);
-        }
+
+        Aeropuerto a = new Aeropuerto();
+        a.nombre = "Carrasco";
+        Aeropuerto b = new Aeropuerto();
+        b.nombre = "Ezeiza";
+        Aeropuerto c = new Aeropuerto();
+        c.nombre = "Barajas";
+        Aeropuerto d = new Aeropuerto();
+        d.nombre = "Guarulos";
+        Aeropuerto e = new Aeropuerto();
+        e.nombre = "JFK";
+        Aeropuerto f = new Aeropuerto();
+        f.nombre = "La Guardia";
+
+        this.aeropuertos.add(a);
+        this.aeropuertos.add(b);
+        this.aeropuertos.add(c);
+        this.aeropuertos.add(d);
+        this.aeropuertos.add(e);
+        this.aeropuertos.add(f);
+
     }
 
     public Aeropuerto buscarAeropuertoNombre(String aeropuertoNom) {

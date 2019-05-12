@@ -17,7 +17,7 @@ public class FachadaModelo {
         return instancia;
     }  
     
-    public void agregarFrecuencia(FrecuenciaDeVuelo fv){
-        LogicaFrecuenciaVuelo.getInstancia().GuardarFrecuencia(fv);   
+    public boolean agregarFrecuencia(FrecuenciaDeVuelo fv){
+        return LogicaFrecuenciaVuelo.getInstancia().GuardarFrecuencia(fv);
     }
 }

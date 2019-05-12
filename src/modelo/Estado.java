@@ -17,4 +17,6 @@ public class Estado {
         aeropuerto = a;
         estado = EstadoEnum.Pendiente;
     }
+    
+    
 }

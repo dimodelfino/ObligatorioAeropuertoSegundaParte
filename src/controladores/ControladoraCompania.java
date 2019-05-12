@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import java.util.ArrayList;
 import modelo.Aeropuerto;
 import modelo.Compania;
 import modelo.Estado;
@@ -26,7 +27,16 @@ public class ControladoraCompania {
         return instancia;
     }
 
-    public void IngresoFrecuenciaVuelo(String aeroOrigen, String aeroDestino, DiaSemanaEnum diaSemana, String horaPartida,
+    public void iniciateFrecuenciaVueloList() {
+        Compania c = new Compania();
+        this.IngresoFrecuenciaVuelo("Carrasco", "Ezeiza", DiaSemanaEnum.M, "1", "2", "5", "8", "Am", c);
+        this.IngresoFrecuenciaVuelo("Barajas", "JFK", DiaSemanaEnum.X, "2", "3", "6", "9", "Pm", c);
+        this.IngresoFrecuenciaVuelo("La Guardia", "Barajas", DiaSemanaEnum.J, "3", "4", "7", "0", "Am", c);
+        this.IngresoFrecuenciaVuelo("Guarulos", "Carrasco", DiaSemanaEnum.L, "4", "5", "8", "1", "Pm", c);
+
+    }
+
+    public boolean IngresoFrecuenciaVuelo(String aeroOrigen, String aeroDestino, DiaSemanaEnum diaSemana, String horaPartida,
             String minutosPartida, String horaDuracion, String minutosDuracion,
             String amPm, Compania c) {
         String numeroFrecuencia = this.generarNumeroFrecuencia(c);
@@ -35,13 +45,14 @@ public class ControladoraCompania {
         String partida = horaPartida + ":" + minutosPartida + " " + amPm;
         String duracion = horaDuracion + ":" + minutosDuracion;
         Estado eOrigen = new Estado(origen);
-        Estado eDestino = new Estado(destino);       
+        Estado eDestino = new Estado(destino);
         FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo(numeroFrecuencia, eOrigen, eDestino, partida, duracion, c, diaSemana);
-        FachadaModelo.getInstancia().agregarFrecuencia(fv);
+        return FachadaModelo.getInstancia().agregarFrecuencia(fv);
     }
 
     public String generarNumeroFrecuencia(Compania c) {
         String alias = c.alias + contador++;
         return alias;
     }
+
 }

@@ -21,6 +21,7 @@ public class FrecuenciaDeVuelo {
     public Compania compania;
     public DiaSemanaEnum diasSemana;
     
+    public FrecuenciaDeVuelo(){};
     
     public FrecuenciaDeVuelo (String num, Estado origen, Estado destino, String hrPartida, String duracionEst, Compania c, DiaSemanaEnum diasSem){
         numero = num;

@@ -16,23 +16,40 @@ public class LogicaCompania {
 
     private static List<Compania> companias;
     private static LogicaCompania instancia = new LogicaCompania();
-    
-    public static LogicaCompania getInstancia(){
+
+    public static LogicaCompania getInstancia() {
         return instancia;
     }
-    
-    public List<Compania> getCompanias(){
-         return companias;
-     }
 
-    public void iniciateCompanyList() {
-        Compania c = new Compania();
-        this.companias = new ArrayList<Compania>();
-        for (int x = 0; x < 4; x++) {
-            c.nombre = "comp " + x;   
-            c.alias = "C.O.M " + x;
-            this.companias.add(c);
-        }
+    public List<Compania> getCompanias() {
+        return companias;
     }
 
+    public void iniciateCompanyList() {
+        this.companias = new ArrayList<Compania>();
+        Compania a = new Compania();
+        a.nombre = "LAN ";
+        a.alias = "LAN ";
+        this.companias.add(a);
+        Compania b = new Compania();
+        b.nombre = "Aerolineas Argentinas ";
+        b.alias = "AAR ";
+        this.companias.add(b);
+        Compania c = new Compania();
+        c.nombre = "PLUNA ";
+        c.alias = "PLU ";
+        this.companias.add(c);
+        Compania d = new Compania();
+        d.nombre = "Air France ";
+        d.alias = "AFR ";
+        this.companias.add(d);
+        Compania e = new Compania();
+        e.nombre = "Jet Blue ";
+        e.alias = "JBL ";
+        this.companias.add(e);
+    }
+    
+    
 }
+
+

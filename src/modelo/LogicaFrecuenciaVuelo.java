@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package modelo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,19 +13,27 @@ import java.util.List;
  * @author dmoreno
  */
 public class LogicaFrecuenciaVuelo {
-    
-    private List<FrecuenciaDeVuelo> frecuencias = new ArrayList <FrecuenciaDeVuelo>();
+
+    private ArrayList<FrecuenciaDeVuelo> frecuencias = new ArrayList<FrecuenciaDeVuelo>();
     private static LogicaFrecuenciaVuelo instancia = new LogicaFrecuenciaVuelo();
 
-    public static LogicaFrecuenciaVuelo getInstancia(){
+    public static LogicaFrecuenciaVuelo getInstancia() {
         return instancia;
-    }     
-    
-    public List<FrecuenciaDeVuelo> getFrecuencias(){
-         return frecuencias;
-     }
+    }
 
-    public void GuardarFrecuencia(FrecuenciaDeVuelo fv){
+    public ArrayList<FrecuenciaDeVuelo> getFrecuencias() {
+        return frecuencias;
+    }
+
+    
+
+    public boolean GuardarFrecuencia(FrecuenciaDeVuelo fv) {
+        boolean agregado = false;
+        int cantidadFrecuencias = frecuencias.size();
         this.frecuencias.add(fv);
-    } 
+        if ((cantidadFrecuencias + 1) == frecuencias.size()) {
+            agregado = true;
+        }
+        return agregado;
+    }
 }
