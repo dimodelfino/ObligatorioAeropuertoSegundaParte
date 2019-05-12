@@ -15,7 +15,8 @@ public class FrecuenciaDeVuelo {
 
     public int numero;
     public String horaPartida;
-    public float duracionEstimada;
+    public String amPm;
+    public String duracionEstimada;
     public LogicaEstado aeropuertoOrigen;
     public LogicaEstado aeropuertoDestino;
     public LogicaCompania compania;

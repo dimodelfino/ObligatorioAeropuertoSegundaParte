@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import controladores.ControladoraCompania;
 import javax.swing.ButtonGroup;
 import modelo.UsuCompania;
 import modelo.Usuario;
@@ -319,14 +320,17 @@ public class AplicacionCompania extends javax.swing.JDialog {
     private void cmbAeropOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAeropOrigenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbAeropOrigenActionPerformed
-
+    //FALTAN AGREGAR ATRIBUTOS A LA FRECUENCIA    
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String diaSemana = bgDiaSemana.getSelection().getActionCommand();        
+        String diaSemana = bgDiaSemana.getSelection().getActionCommand();
         String partidaHora = cmbHoraPartida.getSelectedItem().toString();
         String partidaMinutos = cmbMinutoPartida.getSelectedItem().toString();
         String amPm = bgAmPm.getSelection().getActionCommand();
         String duracionHora = cmbHoraDuracion.getSelectedItem().toString();
-        String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString();        
+        String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString();
+        ControladoraCompania.getInstancia().IngresoFrecuenciaVuelo(getDiaSemana(diaSemana), partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm);
+        
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void cmbHoraPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHoraPartidaActionPerformed
@@ -337,6 +341,30 @@ public class AplicacionCompania extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbHoraDuracionActionPerformed
 
+    private DiaSemanaEnum getDiaSemana(String diaSemana) {
+        DiaSemanaEnum result = DiaSemanaEnum.L;
+        switch (diaSemana) {
+            case "Martes":
+                result = DiaSemanaEnum.M;
+                break;
+            case "Miercoles":
+                result = DiaSemanaEnum.X;
+                break;
+            case "Jueves":
+                result = DiaSemanaEnum.J;
+                break;
+            case "Viernes":
+                result = DiaSemanaEnum.V;
+                break;
+            case "Sabado":
+                result = DiaSemanaEnum.S;
+                break;
+            case "Domingo":
+                result = DiaSemanaEnum.D;
+                break;
+        }
+        return result;
+    }
     ButtonGroup bgDiaSemana = new ButtonGroup();
     ButtonGroup bgAmPm = new ButtonGroup();
     UsuCompania uc = null;
