@@ -18,6 +18,6 @@ public class FachadaModelo {
     }  
     
     public void agregarFrecuencia(FrecuenciaDeVuelo fv){
-        Desde aca se llama a la logicaFrecuenciaVuelo y se ingresa la frecuencia.
+        LogicaFrecuenciaVuelo.getInstancia().GuardarFrecuencia(fv);   
     }
 }

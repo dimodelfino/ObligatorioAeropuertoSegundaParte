@@ -4,14 +4,23 @@
  * and open the template in the editor.
  */
 package modelo;
+import java.util.List;
 
 /**
  *
  * @author dmoreno
  */
 public class LogicaEstado {
+    private List<Estado> estados;
+    private static LogicaEstado instancia = new LogicaEstado();
+
+    public static LogicaEstado getInstancia(){
+        return instancia;
+    }     
     
-    public LogicaAeropuerto aeropuerto;
-    public EstadoEnum estado;    
+    public List<Estado> getEstados(){
+         return estados;
+     }
+  
     
 }

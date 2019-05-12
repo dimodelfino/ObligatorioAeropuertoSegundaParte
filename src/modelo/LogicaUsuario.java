@@ -34,7 +34,9 @@ public class LogicaUsuario {
                 u.nombre = "nombreUsuComp " + x;
                 u.nombreCompleto = "NombreComplUsuComp " + x;
                 u.contrasenia = "pass" + x;
-                ((UsuCompania)u).compania = new Compania();
+                Compania c = new Compania();
+                c.alias = "abc";
+                ((UsuCompania)u).compania = c;
                 this.usuarios.add(u);
             }else{
                 u = new UsuAeropuerto();

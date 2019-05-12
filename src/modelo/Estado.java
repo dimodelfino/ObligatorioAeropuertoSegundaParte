@@ -7,8 +7,14 @@ package modelo;
 
 /**
  *
- * @author alumnoFI
+ * @author majuetcheverry
  */
-public class Fachada {
+public class Estado {
+    public Aeropuerto aeropuerto;
+    public EstadoEnum estado;  
     
+    public Estado (Aeropuerto a){
+        aeropuerto = a;
+        estado = EstadoEnum.Pendiente;
+    }
 }

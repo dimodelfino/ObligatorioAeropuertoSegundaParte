@@ -13,13 +13,22 @@ import vistas.DiaSemanaEnum;
  */
 public class FrecuenciaDeVuelo {
 
-    public int numero;
+    public String numero;
+    public Estado aeropuertoOrigen;
+    public Estado aeropuertoDestino;
     public String horaPartida;
-    public String amPm;
     public String duracionEstimada;
-    public LogicaEstado aeropuertoOrigen;
-    public LogicaEstado aeropuertoDestino;
-    public LogicaCompania compania;
+    public Compania compania;
     public DiaSemanaEnum diasSemana;
-
+    
+    
+    public FrecuenciaDeVuelo (String num, Estado origen, Estado destino, String hrPartida, String duracionEst, Compania c, DiaSemanaEnum diasSem){
+        numero = num;
+        aeropuertoOrigen = origen;
+        aeropuertoDestino = destino;
+        horaPartida = hrPartida;
+        duracionEstimada = duracionEst;
+        compania = c;
+        diasSemana = diasSem;   
+    }
 }

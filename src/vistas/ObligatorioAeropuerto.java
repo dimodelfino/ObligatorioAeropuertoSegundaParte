@@ -7,6 +7,7 @@ package vistas;
 
 import modelo.LogicaAeropuerto;
 import modelo.LogicaCompania;
+import modelo.LogicaFrecuenciaVuelo;
 import modelo.LogicaUsuario;
 
 /**
@@ -19,6 +20,8 @@ public class ObligatorioAeropuerto {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+
         LogicaAeropuerto.getInstancia().iniciateAirportsList();
 //        System.out.println(LogicaAeropuerto.getInstancia().getAeropuertos().get(3).nombre);
         
@@ -28,5 +31,7 @@ public class ObligatorioAeropuerto {
         LogicaCompania.getInstancia().iniciateCompanyList();
         //System.out.println(LogicaCompania.getInstancia().getCompanias().get(3).nombre);
     new MenuPrincipal().setVisible(true);
+    
+//        System.out.println(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
     }
 }

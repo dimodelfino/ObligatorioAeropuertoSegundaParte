@@ -6,7 +6,10 @@
 package vistas;
 
 import controladores.ControladoraCompania;
+import java.util.List;
 import javax.swing.ButtonGroup;
+import modelo.Aeropuerto;
+import modelo.LogicaAeropuerto;
 import modelo.UsuCompania;
 import modelo.Usuario;
 
@@ -26,6 +29,7 @@ public class AplicacionCompania extends javax.swing.JDialog {
         lblNombreCompleto.setText(u.nombreCompleto);
         uc = (UsuCompania) u;
         lblCompania.setText(uc.compania.nombre);
+        getNombreAeropuertos();
     }
 
     private void groupButton() {
@@ -43,7 +47,6 @@ public class AplicacionCompania extends javax.swing.JDialog {
         bgDiaSemana.add(rbtViernes);
         bgDiaSemana.add(rbtSabado);
         bgDiaSemana.add(rbtDomingo);
-
         rbtnAM.setActionCommand("Am");
         rbtnPm.setActionCommand("Pm");
         bgAmPm.add(rbtnAM);
@@ -94,14 +97,11 @@ public class AplicacionCompania extends javax.swing.JDialog {
 
         lbAeropDestino.setText("Aeropuerto Destino");
 
-        cmbAeropOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbAeropOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbAeropOrigenActionPerformed(evt);
             }
         });
-
-        cmbAeropDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblDiaSemana.setText("Dia De la Semana");
 
@@ -207,10 +207,9 @@ public class AplicacionCompania extends javax.swing.JDialog {
                                     .addComponent(lblHs, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cmbHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(cmbHoraDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cmbHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbHoraDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(104, 104, 104))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,9 +254,11 @@ public class AplicacionCompania extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cmbAeropDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbAeropOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(lblFrecuencias)
-                            .addComponent(lblIngresarFrecuencia))
-                        .addGap(276, 294, Short.MAX_VALUE))))
+                            .addComponent(lblFrecuencias))
+                        .addGap(276, 338, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblIngresarFrecuencia)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,17 +321,17 @@ public class AplicacionCompania extends javax.swing.JDialog {
     private void cmbAeropOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAeropOrigenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbAeropOrigenActionPerformed
-    //FALTAN AGREGAR ATRIBUTOS A LA FRECUENCIA    
+   
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        String aeroOrigen = cmbAeropOrigen.getSelectedItem().toString();
+        String aeroDestino = cmbAeropDestino.getSelectedItem().toString();    
         String diaSemana = bgDiaSemana.getSelection().getActionCommand();
         String partidaHora = cmbHoraPartida.getSelectedItem().toString();
         String partidaMinutos = cmbMinutoPartida.getSelectedItem().toString();
         String amPm = bgAmPm.getSelection().getActionCommand();
         String duracionHora = cmbHoraDuracion.getSelectedItem().toString();
         String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString();
-        ControladoraCompania.getInstancia().IngresoFrecuenciaVuelo(getDiaSemana(diaSemana), partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm);
-        
-
+        ControladoraCompania.getInstancia().IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, getDiaSemana(diaSemana), partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania);
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void cmbHoraPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHoraPartidaActionPerformed
@@ -340,6 +341,17 @@ public class AplicacionCompania extends javax.swing.JDialog {
     private void cmbHoraDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHoraDuracionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbHoraDuracionActionPerformed
+
+    private void getNombreAeropuertos() {
+        List<Aeropuerto> aeropuertos = LogicaAeropuerto.getInstancia().getAeropuertos();
+
+        for (Aeropuerto a : aeropuertos) {
+            cmbAeropDestino.addItem(a.nombre);
+
+            cmbAeropOrigen.addItem(a.nombre);
+        }
+
+    }
 
     private DiaSemanaEnum getDiaSemana(String diaSemana) {
         DiaSemanaEnum result = DiaSemanaEnum.L;

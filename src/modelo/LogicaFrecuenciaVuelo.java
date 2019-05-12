@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package modelo;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,23 +13,19 @@ import java.util.List;
  */
 public class LogicaFrecuenciaVuelo {
     
-    private List<LogicaFrecuenciaVuelo> frecuencias;
+    private List<FrecuenciaDeVuelo> frecuencias = new ArrayList <FrecuenciaDeVuelo>();
     private static LogicaFrecuenciaVuelo instancia = new LogicaFrecuenciaVuelo();
 
     public static LogicaFrecuenciaVuelo getInstancia(){
         return instancia;
     }     
     
-    public List<LogicaFrecuenciaVuelo> getFrecuencias(){
+    public List<FrecuenciaDeVuelo> getFrecuencias(){
          return frecuencias;
      }
 
-    public void GuardarFrecuencia(LogicaFrecuenciaVuelo fv){
-        
+    public void GuardarFrecuencia(FrecuenciaDeVuelo fv){
+        this.frecuencias.add(fv);       
     }
-//    public bool ingresarFrecuencia(String partida, float duracion, String aeropuertoOrigen, String aeropuertoDestino, String diasSemana){
-//        
-//         
-//    }
-//    
+ 
 }
