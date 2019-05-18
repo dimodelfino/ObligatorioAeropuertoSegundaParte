@@ -5,7 +5,6 @@
  */
 package controladores;
 
-import java.util.ArrayList;
 import modelo.Aeropuerto;
 import modelo.Compania;
 import modelo.Estado;

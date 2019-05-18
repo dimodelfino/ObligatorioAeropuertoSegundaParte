@@ -32,7 +32,7 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
     @Override
     public void ingresar(Usuario u) {
        if(u == null){
-           JOptionPane.showMessageDialog(this, "Login invalido");
+           JOptionPane.showMessageDialog(parent, this);
        } else {
            JDialog proxDialogo;
            switch (tipoProxVentana){
@@ -68,6 +68,7 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
         txtUsuario = new javax.swing.JTextField();
         txtPass = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
+        lblError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,19 +91,24 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(bntLogin)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNombre)
-                                .addComponent(lblPass))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                                .addComponent(txtUsuario)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(bntLogin)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblNombre)
+                                        .addComponent(lblPass))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                                        .addComponent(txtUsuario))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(lblError)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -120,7 +126,9 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bntLogin)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblError)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,6 +148,7 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bntLogin;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPass;
     private javax.swing.JPasswordField txtPass;

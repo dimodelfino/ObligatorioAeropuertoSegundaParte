@@ -6,6 +6,7 @@
 package controladores;
 import modelo.Usuario;
 import modelo.LogicaUsuario;
+import utilities.UsuarioInvalidoException;
 
 
 /**
@@ -20,10 +21,9 @@ public class ControladorLogin {
         this.vista=l;
     }
     
-    public void autenticar(String nombre, String contrasenia){
+    public void autenticar(String nombre, String contrasenia) throws utilities.UsuarioInvalidoException{
         Usuario usu = LogicaUsuario.getInstancia().buscarUsuario(nombre, contrasenia);
         vista.ingresar(usu);
-
     }
     
 }
