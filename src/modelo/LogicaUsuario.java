@@ -7,7 +7,6 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-import utilities.UsuarioInvalidoException;
 
 /**
  *
@@ -58,25 +57,19 @@ public class LogicaUsuario {
         this.usuarios.add(d);
     }
 
-    public Usuario buscarUsuario(String nombre, String contrasenia) throws utilities.UsuarioInvalidoException {
+    public Usuario buscarUsuario(String nombre, String contrasenia) {
         boolean existe = false;
         int i = 0;
         Usuario usu = null;
 
-        try {
-            while (!existe) {
-                if (this.usuarios.get(i).nombre.equals(nombre)
-                        && this.usuarios.get(i).contrasenia.equals(contrasenia)) {
-                    existe = true;
-                    usu = usuarios.get(i);
-                }
-                i++;
-
+        while (!existe) {
+            if (this.usuarios.get(i).nombre.equals(nombre)
+                    && this.usuarios.get(i).contrasenia.equals(contrasenia)) {
+                existe = true;
+                usu = usuarios.get(i);
             }
-            return usu;
+            i++;
         }
-        catch(Exception ex){
-            throw utilities.UsuarioInvalidoException;
-        }
+        return usu;
     }
 }
