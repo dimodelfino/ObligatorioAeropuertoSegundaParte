@@ -5,6 +5,9 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+import vistas.DiaSemanaEnum;
+
 /**
  *
  * @author dmoreno
@@ -17,7 +20,17 @@ public class FachadaModelo {
         return instancia;
     }  
     
-    public boolean agregarFrecuencia(FrecuenciaDeVuelo fv){
+    public boolean agregarFrecuencia(String num, String origen, String destino, String hrPartida, String duracionEst, Compania c, ArrayList <DiaSemanaEnum> diasSem){
+        
+        Aeropuerto Aorigen = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(origen);
+        Aeropuerto Adestino = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(destino);
+        Estado eOrigen = new Estado(Aorigen);
+        Estado eDestino = new Estado(Adestino); 
+        FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo(num, eOrigen, eDestino, hrPartida, duracionEst, c, diasSem);
         return LogicaFrecuenciaVuelo.getInstancia().GuardarFrecuencia(fv);
+    }
+    
+    public Aeropuerto BuscarAeropuertoPorNomber(String aerop){
+        return LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(aerop);
     }
 }

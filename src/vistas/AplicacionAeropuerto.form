@@ -30,12 +30,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblAeropuertoOrigen" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
-                              <Component id="btnAprobar1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnRechazar1" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="btnAprobar" min="-2" max="-2" attributes="0"/>
@@ -43,12 +37,17 @@
                                   <Component id="btnRechazar" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblAeropuertoDestino" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblAprobarRechazarFrecuencia" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="btnAprobar1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="btnRechazar1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <Component id="jScrollPane2" alignment="0" pref="426" max="32767" attributes="0"/>
                                       <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="lblAeropuertoDestino" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblAprobarRechazarFrecuencia" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -60,12 +59,9 @@
                                   <Component id="jScrollPane3" alignment="0" min="-2" pref="379" max="-2" attributes="0"/>
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblArribos" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
-                                  <Component id="btnIngresarPartida" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="lblArribos" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblAeropuerto" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnIngresarPartida" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="btnIngresarArribo" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane5" min="-2" pref="379" max="-2" attributes="0"/>
@@ -107,13 +103,13 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAprobar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnRechazar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnIngresarPartida" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="lblAeropuertoDestino" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnIngresarPartida" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       <Component id="lblArribos" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>

@@ -33,28 +33,14 @@ public class AplicacionCompania extends javax.swing.JDialog {
         uc = (UsuCompania) u;
         lblCompania.setText(uc.compania.nombre);
         getNombreAeropuertos();
+        checkboxManager();
     }
 
-public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias){
+    public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias) {
         lstVisualizarFrecuencias.setListData(frecuencias.toArray());
-}            
-            
-            
+    }
+
     private void groupButton() {
-        rbtLunes.setActionCommand(DiaSemanaEnum.L.toString());
-        rbtMartes.setActionCommand("Martes");
-        rbtMiercoles.setActionCommand("Miercoles");
-        rbtJueves.setActionCommand("Jueves");
-        rbtViernes.setActionCommand("Viernes");
-        rbtSabado.setActionCommand("Sabado");
-        rbtDomingo.setActionCommand("Domingo");
-        bgDiaSemana.add(rbtLunes);
-        bgDiaSemana.add(rbtMartes);
-        bgDiaSemana.add(rbtMiercoles);
-        bgDiaSemana.add(rbtJueves);
-        bgDiaSemana.add(rbtViernes);
-        bgDiaSemana.add(rbtSabado);
-        bgDiaSemana.add(rbtDomingo);
         rbtnAM.setActionCommand("Am");
         rbtnPm.setActionCommand("Pm");
         bgAmPm.add(rbtnAM);
@@ -72,13 +58,6 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
         cmbAeropOrigen = new javax.swing.JComboBox<>();
         cmbAeropDestino = new javax.swing.JComboBox<>();
         lblDiaSemana = new javax.swing.JLabel();
-        rbtLunes = new javax.swing.JRadioButton();
-        rbtDomingo = new javax.swing.JRadioButton();
-        rbtMiercoles = new javax.swing.JRadioButton();
-        rbtJueves = new javax.swing.JRadioButton();
-        rbtViernes = new javax.swing.JRadioButton();
-        rbtSabado = new javax.swing.JRadioButton();
-        rbtMartes = new javax.swing.JRadioButton();
         lblHoraPartida = new javax.swing.JLabel();
         lblHoraPartida1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -99,6 +78,13 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
         lblMinDuracion = new javax.swing.JLabel();
         cmbMinutosDuracion = new javax.swing.JComboBox<>();
         lblIngresarMessage = new javax.swing.JLabel();
+        chkBxLunes = new javax.swing.JCheckBox();
+        chkBxMartes = new javax.swing.JCheckBox();
+        chkBxMiercoles = new javax.swing.JCheckBox();
+        chkBxJueves = new javax.swing.JCheckBox();
+        chkBxViernes = new javax.swing.JCheckBox();
+        chkBxSabado = new javax.swing.JCheckBox();
+        chkBxDomingo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -113,20 +99,6 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
         });
 
         lblDiaSemana.setText("Dia De la Semana");
-
-        rbtLunes.setText("Lunes");
-
-        rbtDomingo.setText("Domingo");
-
-        rbtMiercoles.setText("Miercoles");
-
-        rbtJueves.setText("Jueves");
-
-        rbtViernes.setText("Viernes");
-
-        rbtSabado.setText("Sabado");
-
-        rbtMartes.setText("Martes");
 
         lblHoraPartida.setText("Hora Partida");
 
@@ -152,7 +124,7 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
             }
         });
 
-        cmbHoraPartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        cmbHoraPartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         cmbHoraPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbHoraPartidaActionPerformed(evt);
@@ -163,7 +135,7 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
 
         rbtnPm.setText("PM");
 
-        cmbMinutoPartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
+        cmbMinutoPartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
 
         lblHs.setText("Hs: ");
 
@@ -171,7 +143,7 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
 
         lblHsDuracion.setText("Hs: ");
 
-        cmbHoraDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        cmbHoraDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         cmbHoraDuracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbHoraDuracionActionPerformed(evt);
@@ -180,7 +152,21 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
 
         lblMinDuracion.setText("Min: ");
 
-        cmbMinutosDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
+        cmbMinutosDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60" }));
+
+        chkBxLunes.setText("Lunes");
+
+        chkBxMartes.setText("Martes");
+
+        chkBxMiercoles.setText("Miercoles");
+
+        chkBxJueves.setText("Jueves");
+
+        chkBxViernes.setText("Viernes");
+
+        chkBxSabado.setText("Sabado");
+
+        chkBxDomingo.setText("Domingo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,16 +179,16 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblHoraPartida, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                    .addComponent(lblHoraPartida, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                                     .addComponent(lblHoraPartida1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(101, 101, 101)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMinDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                                    .addComponent(lblMinDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                                     .addComponent(lblMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cmbMinutosDuracion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cmbMinutosDuracion, 0, 57, Short.MAX_VALUE)
                                         .addGap(118, 118, 118))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(cmbMinutoPartida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -236,34 +222,36 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblIngresarMessage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(rbtViernes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(0, 0, 0)
-                                        .addComponent(rbtSabado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rbtDomingo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(rbtLunes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rbtMartes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rbtMiercoles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rbtJueves, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblHsDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblHs, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbHoraDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(70, 70, 70)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblHsDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblHs, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cmbHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cmbHoraDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(lblDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(chkBxLunes)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(chkBxSabado)
+                                                .addGap(33, 33, 33)
+                                                .addComponent(chkBxDomingo))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(chkBxMartes)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(chkBxMiercoles)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(chkBxJueves)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(chkBxViernes)))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(104, 104, 104))))
+                        .addGap(70, 70, 70))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,16 +273,16 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbtLunes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rbtMartes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rbtMiercoles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rbtJueves, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(chkBxLunes)
+                    .addComponent(chkBxMartes)
+                    .addComponent(chkBxMiercoles)
+                    .addComponent(chkBxJueves)
+                    .addComponent(chkBxViernes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtViernes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rbtSabado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rbtDomingo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
+                    .addComponent(chkBxSabado)
+                    .addComponent(chkBxDomingo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rbtnAM)
@@ -328,22 +316,30 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
     private void cmbAeropOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAeropOrigenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbAeropOrigenActionPerformed
-   
+
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String aeroOrigen = cmbAeropOrigen.getSelectedItem().toString();
-        String aeroDestino = cmbAeropDestino.getSelectedItem().toString();    
-        String diaSemana = bgDiaSemana.getSelection().getActionCommand();
-        String partidaHora = cmbHoraPartida.getSelectedItem().toString();
-        String partidaMinutos = cmbMinutoPartida.getSelectedItem().toString();
-        String amPm = bgAmPm.getSelection().getActionCommand();
-        String duracionHora = cmbHoraDuracion.getSelectedItem().toString();
-        String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString();
-        if(ControladoraCompania.getInstancia().IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, getDiaSemana(diaSemana), partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania)){
-        lblIngresarMessage.setText("Se ingreso la frecuencia correctamente.");
-        }else {
-        lblIngresarMessage.setText("Ingrese datos correctos.");
+        String aeroDestino = cmbAeropDestino.getSelectedItem().toString();
+        ArrayList<DiaSemanaEnum> diasSeleccionados = getSelectedDiasSemana();
+        if (!aeroOrigen.equals(aeroDestino)) {
+            String partidaHora = cmbHoraPartida.getSelectedItem().toString();
+            String partidaMinutos = cmbMinutoPartida.getSelectedItem().toString();
+            String duracionHora = cmbHoraDuracion.getSelectedItem().toString();
+            String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString();
+            if (diasSeleccionados == null || bgAmPm.getSelection() == null || (partidaHora.equals("00") && partidaMinutos.equals("00")) || (duracionHora.equals("00") && duracionMinutos.equals("00"))) {
+                lblIngresarMessage.setText("Debe ingresar todos los datos.");
+            } else {                
+                String amPm = bgAmPm.getSelection().getActionCommand();
+                if (ControladoraCompania.getInstancia().IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diasSeleccionados, partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania)) {
+                    lblIngresarMessage.setText("Se ingreso la frecuencia correctamente.");
+                } else {
+                    lblIngresarMessage.setText("Ingrese datos correctos.");
+                }
+                ActualizarListaFrecuencias(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
+            }
+        } else {
+            lblIngresarMessage.setText("El Aeropuerto de origen y el de destino no pueden ser iguales.");
         }
-       ActualizarListaFrecuencias(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void cmbHoraPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHoraPartidaActionPerformed
@@ -359,32 +355,62 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
 
         for (Aeropuerto a : aeropuertos) {
             cmbAeropDestino.addItem(a.nombre);
-
             cmbAeropOrigen.addItem(a.nombre);
         }
 
     }
 
-    private DiaSemanaEnum getDiaSemana(String diaSemana) {
-        DiaSemanaEnum result = DiaSemanaEnum.L;
+    private void checkboxManager() {
+        chkBxLunes.setActionCommand("Lunes");
+        dias.add(chkBxLunes);
+        chkBxMartes.setActionCommand("Martes");
+        dias.add(chkBxMartes);
+        chkBxMiercoles.setActionCommand("Miercoles");
+        dias.add(chkBxMiercoles);
+        chkBxJueves.setActionCommand("Jueves");
+        dias.add(chkBxJueves);
+        chkBxViernes.setActionCommand("Viernes");
+        dias.add(chkBxViernes);
+        chkBxSabado.setActionCommand("Sabado");
+        dias.add(chkBxSabado);
+        chkBxDomingo.setActionCommand("Domingo");
+        dias.add(chkBxDomingo);
+    }
+
+    private ArrayList<DiaSemanaEnum> getSelectedDiasSemana() {
+        ArrayList<DiaSemanaEnum> result = new ArrayList<>();
+
+        for (javax.swing.JCheckBox box : dias) {
+            if (box.isSelected()) {
+                result.addAll(getDiaSemanaEnum(box.getActionCommand()));                
+            }
+        }
+        return result;
+    }
+
+    private ArrayList<DiaSemanaEnum> getDiaSemanaEnum(String diaSemana) {
+        ArrayList<DiaSemanaEnum> result = new ArrayList<>();
         switch (diaSemana) {
+            case "Lunes":
+                result.add(DiaSemanaEnum.L);
+                break;
             case "Martes":
-                result = DiaSemanaEnum.M;
+                result.add(DiaSemanaEnum.M);
                 break;
             case "Miercoles":
-                result = DiaSemanaEnum.X;
+                result.add(DiaSemanaEnum.X);
                 break;
             case "Jueves":
-                result = DiaSemanaEnum.J;
+                result.add(DiaSemanaEnum.J);
                 break;
             case "Viernes":
-                result = DiaSemanaEnum.V;
+                result.add(DiaSemanaEnum.V);
                 break;
             case "Sabado":
-                result = DiaSemanaEnum.S;
+                result.add(DiaSemanaEnum.S);
                 break;
             case "Domingo":
-                result = DiaSemanaEnum.D;
+                result.add(DiaSemanaEnum.D);
                 break;
         }
         return result;
@@ -392,9 +418,17 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
     ButtonGroup bgDiaSemana = new ButtonGroup();
     ButtonGroup bgAmPm = new ButtonGroup();
     UsuCompania uc = null;
+    ArrayList<javax.swing.JCheckBox> dias = new ArrayList<>();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
+    private javax.swing.JCheckBox chkBxDomingo;
+    private javax.swing.JCheckBox chkBxJueves;
+    private javax.swing.JCheckBox chkBxLunes;
+    private javax.swing.JCheckBox chkBxMartes;
+    private javax.swing.JCheckBox chkBxMiercoles;
+    private javax.swing.JCheckBox chkBxSabado;
+    private javax.swing.JCheckBox chkBxViernes;
     private javax.swing.JComboBox<String> cmbAeropDestino;
     private javax.swing.JComboBox<String> cmbAeropOrigen;
     private javax.swing.JComboBox<String> cmbHoraDuracion;
@@ -417,13 +451,6 @@ public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias)
     private javax.swing.JLabel lblMinDuracion;
     private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JList lstVisualizarFrecuencias;
-    private javax.swing.JRadioButton rbtDomingo;
-    private javax.swing.JRadioButton rbtJueves;
-    private javax.swing.JRadioButton rbtLunes;
-    private javax.swing.JRadioButton rbtMartes;
-    private javax.swing.JRadioButton rbtMiercoles;
-    private javax.swing.JRadioButton rbtSabado;
-    private javax.swing.JRadioButton rbtViernes;
     private javax.swing.JRadioButton rbtnAM;
     private javax.swing.ButtonGroup rbtnGroupAmPm;
     private javax.swing.ButtonGroup rbtnGroupDiaSemana;
