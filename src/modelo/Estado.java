@@ -18,5 +18,7 @@ public class Estado {
         estado = EstadoEnum.Pendiente;
     }
     
+    public Estado(){}
+    
     
 }

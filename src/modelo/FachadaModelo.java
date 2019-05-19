@@ -33,4 +33,15 @@ public class FachadaModelo {
     public Aeropuerto BuscarAeropuertoPorNomber(String aerop){
         return LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(aerop);
     }
+    
+    public ArrayList <FrecuenciaDeVuelo> getFrecuencias(){
+        return LogicaFrecuenciaVuelo.getInstancia().getFrecuencias();
+    }
+    
+    public void actualizarFrecuencias (ArrayList<FrecuenciaDeVuelo> frecuencias){
+    LogicaFrecuenciaVuelo.getInstancia().setFrecuencias(frecuencias);
+    
+    
+    }
+    
 }

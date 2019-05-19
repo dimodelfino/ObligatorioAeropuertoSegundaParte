@@ -5,7 +5,6 @@
  */
 package controladores;
 import java.util.ArrayList;
-import modelo.Aeropuerto;
 import modelo.Compania;
 import modelo.FachadaModelo;
 import vistas.DiaSemanaEnum;
@@ -17,7 +16,7 @@ import vistas.DiaSemanaEnum;
 public class ControladoraCompania {
 
     private static ControladoraCompania instancia = new ControladoraCompania();
-    private static int contador = 0;
+    private static int contador = 5;
 
     public static ControladoraCompania getInstancia() {
         return instancia;

@@ -37,22 +37,8 @@ public class FrecuenciaDeVuelo {
 
     @Override
     public String toString() {
-//        String dias = "";
-//        for (DiaSemanaEnum d : diasSemana) {
-//            dias += d;
-//        }
 
         return numero + " || " + aeropuertoOrigen.aeropuerto.nombre + " || " + aeropuertoOrigen.estado + " || " + aeropuertoDestino.aeropuerto.nombre
                 + " || " + aeropuertoDestino.estado + " || " + diasSemana + " || " + horaPartida + " || " + duracionEstimada;
     }
-
-//    private EstadoEnum estadoDeFrecuencia(Estado eOrigen, Estado eDestino) {
-//        EstadoEnum estadoFinal = EstadoEnum.Aprobado;
-//        if (eOrigen.estado.equals(EstadoEnum.Pendiente) && eDestino.estado.equals(EstadoEnum.Pendiente)) {
-//            estadoFinal = EstadoEnum.Pendiente;
-//        } else if (eOrigen.estado.equals(EstadoEnum.Rechazado) || eDestino.estado.equals(EstadoEnum.Rechazado)) {
-//            estadoFinal = EstadoEnum.Rechazado;
-//        }
-//        return estadoFinal;
-//    }
 }

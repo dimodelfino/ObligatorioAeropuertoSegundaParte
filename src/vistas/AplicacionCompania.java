@@ -34,6 +34,8 @@ public class AplicacionCompania extends javax.swing.JDialog {
         lblCompania.setText(uc.compania.nombre);
         getNombreAeropuertos();
         checkboxManager();
+        ActualizarListaFrecuencias(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
+
     }
 
     public void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias) {
@@ -326,7 +328,7 @@ public class AplicacionCompania extends javax.swing.JDialog {
             String partidaMinutos = cmbMinutoPartida.getSelectedItem().toString();
             String duracionHora = cmbHoraDuracion.getSelectedItem().toString();
             String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString();
-            if (diasSeleccionados == null || bgAmPm.getSelection() == null || (partidaHora.equals("00") && partidaMinutos.equals("00")) || (duracionHora.equals("00") && duracionMinutos.equals("00"))) {
+            if (diasSeleccionados.size()==0|| bgAmPm.getSelection() == null || (partidaHora.equals("00") && partidaMinutos.equals("00")) || (duracionHora.equals("00") && duracionMinutos.equals("00"))) {
                 lblIngresarMessage.setText("Debe ingresar todos los datos.");
             } else {                
                 String amPm = bgAmPm.getSelection().getActionCommand();
@@ -357,7 +359,6 @@ public class AplicacionCompania extends javax.swing.JDialog {
             cmbAeropDestino.addItem(a.nombre);
             cmbAeropOrigen.addItem(a.nombre);
         }
-
     }
 
     private void checkboxManager() {
