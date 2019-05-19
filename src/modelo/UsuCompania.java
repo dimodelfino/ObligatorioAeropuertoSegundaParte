@@ -11,4 +11,5 @@ package modelo;
  */
 public class UsuCompania extends Usuario {
      public Compania compania;
+     public String test;
 }

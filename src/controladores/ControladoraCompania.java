@@ -4,12 +4,8 @@
  * and open the template in the editor.
  */
 package controladores;
-
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
 import modelo.Aeropuerto;
->>>>>>> 5a548fb15c108bf1eecca0ddc02eff0b15e9b359
 import modelo.Compania;
 import modelo.FachadaModelo;
 import vistas.DiaSemanaEnum;
