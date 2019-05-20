@@ -32,18 +32,18 @@
                           <Component id="lblAeropuertoOrigen" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="btnAprobar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAprobarOrigen" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btnRechazar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnRechazarOrigen" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblAeropuertoDestino" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblAprobarRechazarFrecuencia" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="btnAprobar1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnAprobarDestinoFrecuencia" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnRechazar1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnRechazarDestinoFrecuencia" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jScrollPane2" alignment="0" pref="426" max="32767" attributes="0"/>
                                       <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
@@ -100,8 +100,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnAprobar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnRechazar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAprobarOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRechazarOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnIngresarPartida" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -118,8 +118,8 @@
                       <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnAprobar1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnRechazar1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAprobarDestinoFrecuencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRechazarDestinoFrecuencia" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnIngresarArribo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -169,12 +169,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnAprobar">
+    <Component class="javax.swing.JButton" name="btnAprobarOrigen">
       <Properties>
         <Property name="text" type="java.lang.String" value="Aprobar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAprobarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAprobarOrigenActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAprobarRechazarFrecuencia">
@@ -185,12 +185,12 @@
         <Property name="text" type="java.lang.String" value="APROBAR / RECHAZAR FRECUENCIAS"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnRechazar">
+    <Component class="javax.swing.JButton" name="btnRechazarOrigen">
       <Properties>
         <Property name="text" type="java.lang.String" value="Rechazar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRechazarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRechazarOrigenActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -215,20 +215,20 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnAprobar1">
+    <Component class="javax.swing.JButton" name="btnAprobarDestinoFrecuencia">
       <Properties>
         <Property name="text" type="java.lang.String" value="Aprobar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAprobar1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAprobarDestinoFrecuenciaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnRechazar1">
+    <Component class="javax.swing.JButton" name="btnRechazarDestinoFrecuencia">
       <Properties>
         <Property name="text" type="java.lang.String" value="Rechazar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRechazar1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRechazarDestinoFrecuenciaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAeropuertoDestino">

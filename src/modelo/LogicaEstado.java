@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class LogicaEstado {
     private List<Estado> estados;
-    private static LogicaEstado instancia = new LogicaEstado();
+    private static  LogicaEstado instancia = new LogicaEstado();
 
     public static LogicaEstado getInstancia(){
         return instancia;

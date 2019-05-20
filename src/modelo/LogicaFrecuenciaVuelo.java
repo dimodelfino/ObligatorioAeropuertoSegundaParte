@@ -6,7 +6,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.List;
 import vistas.DiaSemanaEnum;
 
 /**
@@ -47,7 +46,7 @@ public class LogicaFrecuenciaVuelo {
         FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo("LAN 1", eOrigen, eDestino, "01:20 Am", "05:08", c, d);
         getInstancia().frecuencias.add(fv);
 
-        Compania c1 = LogicaCompania.getInstancia().getCompanias().get(1);
+        Compania c1 = LogicaCompania.getInstancia().getCompanias().get(0);
         Aeropuerto origen1 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("JFK");
         Aeropuerto destino1 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("Carrasco");
         Estado eOrigen1 = new Estado(origen1);
@@ -59,7 +58,7 @@ public class LogicaFrecuenciaVuelo {
         FrecuenciaDeVuelo fv1 = new FrecuenciaDeVuelo("AAR 2", eOrigen1, eDestino1, "02:03 Pm", "06:09", c1, d1);
         getInstancia().frecuencias.add(fv1);
 
-        Compania c2 = LogicaCompania.getInstancia().getCompanias().get(2);
+        Compania c2 = LogicaCompania.getInstancia().getCompanias().get(0);
         Aeropuerto origen2 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("La Guardia");
         Aeropuerto destino2 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("Carrasco");
         Estado eOrigen2 = new Estado(origen2);
@@ -73,7 +72,7 @@ public class LogicaFrecuenciaVuelo {
         FrecuenciaDeVuelo fv2 = new FrecuenciaDeVuelo("PLU 3", eOrigen2, eDestino2, "03:40 Pm", "07:00", c2, d2);
         getInstancia().frecuencias.add(fv2);
 
-        Compania c3 = LogicaCompania.getInstancia().getCompanias().get(3);
+        Compania c3 = LogicaCompania.getInstancia().getCompanias().get(0);
         Aeropuerto origen3 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("Carrasco");
         Aeropuerto destino3 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("Guarulos");
         Estado eOrigen3 = new Estado(origen3);

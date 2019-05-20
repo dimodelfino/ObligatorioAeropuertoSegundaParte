@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controladores;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import modelo.Estado;
 import modelo.EstadoEnum;
 import modelo.FachadaModelo;
 import modelo.FrecuenciaDeVuelo;
@@ -25,33 +19,27 @@ public class ControladoraAeropuerto {
         return instancia;
     }
 
-    public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuertoOrigen(String nomAero) {
+    public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuerto(String nomAero, String origDest) {
         ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();
         ArrayList<FrecuenciaDeVuelo> frecuenciasFiltradas = new ArrayList<>();
 
         for (FrecuenciaDeVuelo frec : f) {
-            if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)
-                    && frec.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero)) {
-                frecuenciasFiltradas.add(frec);
+            if (origDest.equals("Origen")) {
+                if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)
+                        && frec.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero)) {
+                    frecuenciasFiltradas.add(frec);
+                }
+            } else {
+                if (frec.aeropuertoDestino.estado.equals(EstadoEnum.Pendiente) && frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)
+                        && frec.aeropuertoDestino.aeropuerto.nombre.equals(nomAero)) {
+                    frecuenciasFiltradas.add(frec);
+                }
             }
         }
         return frecuenciasFiltradas;
     }
 
-    public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuertoDestino(String nomAero) {
-        ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();
-        ArrayList<FrecuenciaDeVuelo> frecuenciasFiltradasDestino = new ArrayList<>();
-
-        for (FrecuenciaDeVuelo frec : f) {
-            if (frec.aeropuertoDestino.estado.equals(EstadoEnum.Pendiente) && frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)
-                    && frec.aeropuertoDestino.aeropuerto.nombre.equals(nomAero)) {
-                frecuenciasFiltradasDestino.add(frec);
-            }
-        }
-        return frecuenciasFiltradasDestino;
-    }
-
-    public ArrayList<FrecuenciaDeVuelo> frecuenciasAprobadasOrigen(String nomAero) {
+    public ArrayList<FrecuenciaDeVuelo> frecuenciasAprobadas(String nomAero, String origDest) {
         ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();
         ArrayList<FrecuenciaDeVuelo> frecuenciasFiltradasAprobadas = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -59,9 +47,16 @@ public class ControladoraAeropuerto {
         DiaSemanaEnum hoy = getDiaSemana(dia);
 
         for (FrecuenciaDeVuelo frec : f) {
-            if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && frec.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
-                    && frec.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && frec.diasSemana.contains(hoy)) {
-                frecuenciasFiltradasAprobadas.add(frec);
+            if (origDest.equals("Origen")) {
+                if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && frec.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
+                        && frec.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && frec.diasSemana.contains(hoy)) {
+                    frecuenciasFiltradasAprobadas.add(frec);
+                }
+            } else {
+                if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && frec.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
+                        && frec.aeropuertoDestino.aeropuerto.nombre.equals(nomAero) && frec.diasSemana.contains(hoy)) {
+                    frecuenciasFiltradasAprobadas.add(frec);
+                }
             }
         }
         return frecuenciasFiltradasAprobadas;
@@ -93,66 +88,85 @@ public class ControladoraAeropuerto {
         return diaSemana;
     }
 
-    public ArrayList<FrecuenciaDeVuelo> frecuenciasAprobadasDestino(String aeropuerto) {
-        ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();
-        ArrayList<FrecuenciaDeVuelo> frecuenciasFiltradasAprobadas = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        int dia = calendar.get(Calendar.DAY_OF_WEEK);
-        DiaSemanaEnum hoy = getDiaSemana(dia);
-
-        for (FrecuenciaDeVuelo frec : f) {
-            if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && frec.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
-                    && frec.aeropuertoDestino.aeropuerto.nombre.equals(aeropuerto) && frec.diasSemana.contains(hoy)) {
-                frecuenciasFiltradasAprobadas.add(frec);
-            }
-        }
-        return frecuenciasFiltradasAprobadas;
-
-    }
-
-    public void aprobarEstadoFrecuenciaDestino(FrecuenciaDeVuelo f) {
+    public void aprobarEstadoFrecuencia(FrecuenciaDeVuelo f, String origDest) {
         ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
 
         for (FrecuenciaDeVuelo frecuen : frecuencias) {
-            if (frecuen.equals(f) && frecuen.aeropuertoDestino.estado.equals(EstadoEnum.Pendiente)) {
-                frecuen.aeropuertoDestino.estado = EstadoEnum.Aprobado;
+            if (origDest.equals("Destino")) {
+                if (frecuen.equals(f) && frecuen.aeropuertoDestino.estado.equals(EstadoEnum.Pendiente)) {
+                    frecuen.aeropuertoDestino.estado = EstadoEnum.Aprobado;
+                }
+            } else {
+                if (frecuen.equals(frecuen) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
+                    frecuen.aeropuertoOrigen.estado = EstadoEnum.Aprobado;
+                }
             }
         }
         FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
     }
 
-    public void aprobarEstadoFrecuenciaOrigen(FrecuenciaDeVuelo frec) {
+    public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) {
         ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
 
         for (FrecuenciaDeVuelo frecuen : frecuencias) {
-            if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
-                frecuen.aeropuertoOrigen.estado = EstadoEnum.Aprobado;
+            if (origDest.equals("Origen")) {
+                if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
+                    frecuen.aeropuertoOrigen.estado = EstadoEnum.Rechazado;
+                }
+            } else {
+                if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)) {
+                    frecuen.aeropuertoDestino.estado = EstadoEnum.Rechazado;
+                }
             }
         }
         FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
     }
-    
-    public void rechazarEstadoFrecuenciaOrigen (FrecuenciaDeVuelo frec){
-    ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
 
-        for (FrecuenciaDeVuelo frecuen : frecuencias) {
-            if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
-                frecuen.aeropuertoOrigen.estado = EstadoEnum.Rechazado;
-            }
-        }
-        FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
-    
-    }
-    
-    public void rechazarEstadoFrecuenciaDestino (FrecuenciaDeVuelo frec){
-     ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
-
-        for (FrecuenciaDeVuelo frecuen : frecuencias) {
-            if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)) {
-                frecuen.aeropuertoDestino.estado = EstadoEnum.Rechazado;
-            }
-        }
-        FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
-    }
-    
+//    public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuertoDestino(String nomAero) {
+//        ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();
+//        ArrayList<FrecuenciaDeVuelo> frecuenciasFiltradasDestino = new ArrayList<>();
+//
+//        for (FrecuenciaDeVuelo frec : f) {
+//            if (frec.aeropuertoDestino.estado.equals(EstadoEnum.Pendiente) && frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)
+//                    && frec.aeropuertoDestino.aeropuerto.nombre.equals(nomAero)) {
+//                frecuenciasFiltradasDestino.add(frec);
+//            }
+//        }
+//        return frecuenciasFiltradasDestino;
+//    }
+//    public ArrayList<FrecuenciaDeVuelo> frecuenciasAprobadasDestino(String aeropuerto) {
+//        ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();
+//        ArrayList<FrecuenciaDeVuelo> frecuenciasFiltradasAprobadas = new ArrayList<>();
+//        Calendar calendar = Calendar.getInstance();
+//        int dia = calendar.get(Calendar.DAY_OF_WEEK);
+//        DiaSemanaEnum hoy = getDiaSemana(dia);
+//
+//        for (FrecuenciaDeVuelo frec : f) {
+//            if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && frec.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
+//                    && frec.aeropuertoDestino.aeropuerto.nombre.equals(aeropuerto) && frec.diasSemana.contains(hoy)) {
+//                frecuenciasFiltradasAprobadas.add(frec);
+//            }
+//        }
+//        return frecuenciasFiltradasAprobadas;
+//    }
+//    public void aprobarEstadoFrecuenciaOrigen(FrecuenciaDeVuelo frec) {
+//        ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
+//
+//        for (FrecuenciaDeVuelo frecuen : frecuencias) {
+//            if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
+//                frecuen.aeropuertoOrigen.estado = EstadoEnum.Aprobado;
+//            }
+//        }
+//        FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
+//    }
+//    public void rechazarEstadoFrecuenciaDestino(FrecuenciaDeVuelo frec) {
+//        ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
+//
+//        for (FrecuenciaDeVuelo frecuen : frecuencias) {
+//            if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)) {
+//                frecuen.aeropuertoDestino.estado = EstadoEnum.Rechazado;
+//            }
+//        }
+//        FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
+//    }
 }

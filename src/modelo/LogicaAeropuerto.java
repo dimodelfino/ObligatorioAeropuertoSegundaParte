@@ -47,7 +47,6 @@ public class LogicaAeropuerto {
         this.aeropuertos.add(d);
         this.aeropuertos.add(e);
         this.aeropuertos.add(f);
-
     }
 
     public Aeropuerto buscarAeropuertoNombre(String aeropuertoNom) {

@@ -9,7 +9,6 @@ import controladores.ControladoraAeropuerto;
 import java.util.ArrayList;
 import modelo.FrecuenciaDeVuelo;
 import modelo.UsuAeropuerto;
-import modelo.UsuCompania;
 import modelo.Usuario;
 
 /**
@@ -27,10 +26,10 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
         lblNombre.setText(u.nombreCompleto);
         ua = (UsuAeropuerto) u;
         lblAeropuerto.setText(ua.aeropuerto.nombre);
-        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoDestino(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasDestino(ua.aeropuerto.nombre));
+        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+        actualizarListaFVOrigenPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre, "Destino"));
     }
 
     /**
@@ -46,13 +45,13 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
         lblAeropuerto = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstFrecuenciasPendientesOrigen = new javax.swing.JList();
-        btnAprobar = new javax.swing.JButton();
+        btnAprobarOrigen = new javax.swing.JButton();
         lblAprobarRechazarFrecuencia = new javax.swing.JLabel();
-        btnRechazar = new javax.swing.JButton();
+        btnRechazarOrigen = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstFrecuenciasPendientesDestino = new javax.swing.JList();
-        btnAprobar1 = new javax.swing.JButton();
-        btnRechazar1 = new javax.swing.JButton();
+        btnAprobarDestinoFrecuencia = new javax.swing.JButton();
+        btnRechazarDestinoFrecuencia = new javax.swing.JButton();
         lblAeropuertoDestino = new javax.swing.JLabel();
         lblAeropuertoOrigen = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -80,20 +79,20 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(lstFrecuenciasPendientesOrigen);
 
-        btnAprobar.setText("Aprobar");
-        btnAprobar.addActionListener(new java.awt.event.ActionListener() {
+        btnAprobarOrigen.setText("Aprobar");
+        btnAprobarOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAprobarActionPerformed(evt);
+                btnAprobarOrigenActionPerformed(evt);
             }
         });
 
         lblAprobarRechazarFrecuencia.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         lblAprobarRechazarFrecuencia.setText("APROBAR / RECHAZAR FRECUENCIAS");
 
-        btnRechazar.setText("Rechazar");
-        btnRechazar.addActionListener(new java.awt.event.ActionListener() {
+        btnRechazarOrigen.setText("Rechazar");
+        btnRechazarOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRechazarActionPerformed(evt);
+                btnRechazarOrigenActionPerformed(evt);
             }
         });
 
@@ -104,17 +103,17 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(lstFrecuenciasPendientesDestino);
 
-        btnAprobar1.setText("Aprobar");
-        btnAprobar1.addActionListener(new java.awt.event.ActionListener() {
+        btnAprobarDestinoFrecuencia.setText("Aprobar");
+        btnAprobarDestinoFrecuencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAprobar1ActionPerformed(evt);
+                btnAprobarDestinoFrecuenciaActionPerformed(evt);
             }
         });
 
-        btnRechazar1.setText("Rechazar");
-        btnRechazar1.addActionListener(new java.awt.event.ActionListener() {
+        btnRechazarDestinoFrecuencia.setText("Rechazar");
+        btnRechazarDestinoFrecuencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRechazar1ActionPerformed(evt);
+                btnRechazarDestinoFrecuenciaActionPerformed(evt);
             }
         });
 
@@ -150,17 +149,17 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
                             .addComponent(lblAeropuertoOrigen)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnAprobar)
+                                    .addComponent(btnAprobarOrigen)
                                     .addGap(18, 18, 18)
-                                    .addComponent(btnRechazar))
+                                    .addComponent(btnRechazarOrigen))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblAeropuertoDestino)
                                     .addComponent(lblAprobarRechazarFrecuencia)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(btnAprobar1)
+                                            .addComponent(btnAprobarDestinoFrecuencia)
                                             .addGap(18, 18, 18)
-                                            .addComponent(btnRechazar1))
+                                            .addComponent(btnRechazarDestinoFrecuencia))
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)))))
                         .addGap(74, 74, 74)
@@ -201,8 +200,8 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAprobar)
-                            .addComponent(btnRechazar)
+                            .addComponent(btnAprobarOrigen)
+                            .addComponent(btnRechazarOrigen)
                             .addComponent(btnIngresarPartida))
                         .addGap(20, 20, 20)
                         .addComponent(lblAeropuertoDestino))
@@ -215,8 +214,8 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAprobar1)
-                            .addComponent(btnRechazar1)
+                            .addComponent(btnAprobarDestinoFrecuencia)
+                            .addComponent(btnRechazarDestinoFrecuencia)
                             .addComponent(btnIngresarArribo)))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(62, 62, 62))
@@ -225,21 +224,21 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarActionPerformed
-        ControladoraAeropuerto.getInstancia().aprobarEstadoFrecuenciaOrigen(frecPendOrigen);
-        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoDestino(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasDestino(ua.aeropuerto.nombre));
-    }//GEN-LAST:event_btnAprobarActionPerformed
+    private void btnAprobarOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarOrigenActionPerformed
+        ControladoraAeropuerto.getInstancia().aprobarEstadoFrecuencia(frecPendOrigen, "Origen");
+        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+        actualizarListaFVOrigenPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre, "Destino"));
+    }//GEN-LAST:event_btnAprobarOrigenActionPerformed
 
-    private void btnAprobar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobar1ActionPerformed
-        ControladoraAeropuerto.getInstancia().aprobarEstadoFrecuenciaDestino(frecPendDestino);
-        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoDestino(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasDestino(ua.aeropuerto.nombre));
-    }//GEN-LAST:event_btnAprobar1ActionPerformed
+    private void btnAprobarDestinoFrecuenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarDestinoFrecuenciaActionPerformed
+        ControladoraAeropuerto.getInstancia().aprobarEstadoFrecuencia(frecPendDestino, "Destino");
+        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre,"Destino"));
+        actualizarListaFVOrigenPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre, "Destino"));
+    }//GEN-LAST:event_btnAprobarDestinoFrecuenciaActionPerformed
 
     private void lstFrecuenciasPendientesDestinoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstFrecuenciasPendientesDestinoValueChanged
         Object obj = lstFrecuenciasPendientesDestino.getSelectedValue();
@@ -255,21 +254,21 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_lstFrecuenciasPendientesOrigenValueChanged
 
-    private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarActionPerformed
-        ControladoraAeropuerto.getInstancia().rechazarEstadoFrecuenciaOrigen(frecPendOrigen);
-        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoDestino(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasDestino(ua.aeropuerto.nombre));
-    }//GEN-LAST:event_btnRechazarActionPerformed
+    private void btnRechazarOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarOrigenActionPerformed
+        ControladoraAeropuerto.getInstancia().rechazarEstadoFrecuencia(frecPendOrigen,"Origen");
+        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre,"Destino"));
+        actualizarListaFVOrigenPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre, "Destino"));
+    }//GEN-LAST:event_btnRechazarOrigenActionPerformed
 
-    private void btnRechazar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazar1ActionPerformed
-        ControladoraAeropuerto.getInstancia().rechazarEstadoFrecuenciaDestino(frecPendDestino);
-        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuertoDestino(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasOrigen(ua.aeropuerto.nombre));
-        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadasDestino(ua.aeropuerto.nombre));
-    }//GEN-LAST:event_btnRechazar1ActionPerformed
+    private void btnRechazarDestinoFrecuenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarDestinoFrecuenciaActionPerformed
+        ControladoraAeropuerto.getInstancia().rechazarEstadoFrecuencia(frecPendDestino,"Destino");
+        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre,"Destino"));
+        actualizarListaFVOrigenPartio(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestinoLlego(ControladoraAeropuerto.getInstancia().frecuenciasAprobadas(ua.aeropuerto.nombre, "Destino"));
+    }//GEN-LAST:event_btnRechazarDestinoFrecuenciaActionPerformed
 
     public final void actualizarListaFVOrigen(ArrayList<FrecuenciaDeVuelo> frecuencias) {
         lstFrecuenciasPendientesOrigen.setListData(frecuencias.toArray());
@@ -279,7 +278,7 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
         lstFrecuenciasPendientesDestino.setListData(frecuencias.toArray());
     }
 
-    public final void actualizarListaFVDestinoPartio(ArrayList<FrecuenciaDeVuelo> frecuencias) {
+    public final void actualizarListaFVOrigenPartio(ArrayList<FrecuenciaDeVuelo> frecuencias) {
         lstVuelosDiariosPartidas.setListData(frecuencias.toArray());
     }
 
@@ -298,12 +297,12 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAprobar;
-    private javax.swing.JButton btnAprobar1;
+    private javax.swing.JButton btnAprobarDestinoFrecuencia;
+    private javax.swing.JButton btnAprobarOrigen;
     private javax.swing.JButton btnIngresarArribo;
     private javax.swing.JButton btnIngresarPartida;
-    private javax.swing.JButton btnRechazar;
-    private javax.swing.JButton btnRechazar1;
+    private javax.swing.JButton btnRechazarDestinoFrecuencia;
+    private javax.swing.JButton btnRechazarOrigen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

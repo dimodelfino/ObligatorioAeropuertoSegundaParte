@@ -433,7 +433,7 @@
     <Component class="javax.swing.JComboBox" name="cmbHoraDuracion">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="13">
+          <StringArray count="18">
             <StringItem index="0" value="00"/>
             <StringItem index="1" value="01"/>
             <StringItem index="2" value="02"/>
@@ -447,6 +447,11 @@
             <StringItem index="10" value="10"/>
             <StringItem index="11" value="11"/>
             <StringItem index="12" value="12"/>
+            <StringItem index="13" value="13"/>
+            <StringItem index="14" value="14"/>
+            <StringItem index="15" value="15"/>
+            <StringItem index="16" value="16"/>
+            <StringItem index="17" value="17"/>
           </StringArray>
         </Property>
       </Properties>
