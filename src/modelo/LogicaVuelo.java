@@ -52,19 +52,52 @@ public class LogicaVuelo {
             }
             i++;
         }        
-    }            
+    }       
+    
+    public void agregarLlegadaVuelo (Vuelo arribo){
+        boolean encontro = false;
+        int i = 0;
+        Date hoy = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(hoy);
+        DateFormat formato = new SimpleDateFormat("hh:mm:ss a");  
+        String horaActual = formato.format(hoy);
+        
+        while (!encontro && !vuelos.isEmpty() && i < vuelos.size()){
+            if(vuelos.get(i).equals(arribo)){
+                vuelos.get(i).horaRealLlegada = horaActual;        
+                encontro = true;                
+            }
+            i++;
+        }  
+    }
     
     public String calcularEstado(String horaSalidaFrecuencia, String horaRealSalida){
         LocalTime horaSupuestaSalida = LocalTime.parse(horaSalidaFrecuencia);
         LocalTime hRealSalida = LocalTime.parse(horaRealSalida);
-        String result= "Adelantado";
-        if(horaSupuestaSalida == hRealSalida){
-            result = "En hora";
-        }else if(horaSupuestaSalida.isBefore(hRealSalida)){
+        
+        int soloHoraSupuestaSalida = horaSupuestaSalida.getHour();
+        int minutoSupuestaHoraSalida = horaSupuestaSalida.getMinute();
+        int soloHoraRealSalida = hRealSalida.getHour();
+        int minutoRealSalida = horaSupuestaSalida.getMinute();
+                
+        String result= "En Hora";
+        if(soloHoraSupuestaSalida == soloHoraRealSalida && (minutoSupuestaHoraSalida + 5) >= minutoRealSalida){
             result = "Retrasado";
+        }else if(soloHoraSupuestaSalida == soloHoraRealSalida && (minutoSupuestaHoraSalida - 5) >= minutoRealSalida){
+            result = "Adelantado";
         }
         return result;
+
+//        String result= "Adelantado";
+//        if(horaSupuestaSalida == hRealSalida){
+//            result = "En hora";
+//        }else if(horaSupuestaSalida.isBefore(hRealSalida)){
+//            result = "Retrasado";
+//        }
+//        return result;
     }
+    
 
     public void iniciatListaVuelos() {
         this.vuelos = new ArrayList<>();                
@@ -72,7 +105,7 @@ public class LogicaVuelo {
         Date salidaVuelo;
         Calendar cal = Calendar.getInstance();
         cal.setTime(hoy);                                
-        DateFormat formato = new SimpleDateFormat("hh:mm:ss a");        
+        DateFormat formato = new SimpleDateFormat("hh:mm:ss a");         
         
         Vuelo a = new Vuelo();
         cal.add(Calendar.DATE, -4);
@@ -83,11 +116,16 @@ public class LogicaVuelo {
         //a.horaRealPartida = horaActual;
         //a.horaRealLlegada = "";
         //a.estado = "En hora";
-        
-        
+       
         Vuelo b = new Vuelo();
+        cal.add(Calendar.DATE, -3);
+        salidaVuelo = cal.getTime();
+       // String horaActual = formato.format(hoy);
+        a.fVuelo = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(2);
         //b.nombre = "Ezeiza";
         Vuelo c = new Vuelo();
+        
+        
         //c.nombre = "Barajas";
         Vuelo d = new Vuelo();
         //d.nombre = "Guarulos";
@@ -97,6 +135,12 @@ public class LogicaVuelo {
         //f.nombre = "La Guardia";
 
         this.vuelos.add(a);
+        
+        
+        
+        
+        
+        
 //        this.vuelos.add(b);
 //        this.vuelos.add(c);
 //        this.vuelos.add(d);

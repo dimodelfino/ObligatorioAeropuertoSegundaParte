@@ -74,7 +74,7 @@ public class LogicaFrecuenciaVuelo {
         Estado eOrigen2 = new Estado(origen2);
         eOrigen2.estado = EstadoEnum.Aprobado;
         Estado eDestino2 = new Estado(destino2);
-        //eDestino2.estado = EstadoEnum.Aprobado;
+        eDestino2.estado = EstadoEnum.Aprobado;
         ArrayList<DiaSemanaEnum> d2 = new ArrayList<>();
         d2.add(DiaSemanaEnum.S);
         d2.add(DiaSemanaEnum.D);

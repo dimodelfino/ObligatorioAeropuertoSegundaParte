@@ -154,6 +154,11 @@ public class ControladoraAeropuerto {
     public void partioVuelo(Vuelo partida) {
         FachadaModelo.getInstancia().agregarPartidaVuelo(partida);
     }
+    
+    public void arriboVuelo(Vuelo arribo){
+    FachadaModelo.getInstancia().agregarLlegadaVuelo(arribo);
+    }
+    
 
 //    public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuertoDestino(String nomAero) {
 //        ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();

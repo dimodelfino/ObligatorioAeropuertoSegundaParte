@@ -301,7 +301,12 @@ public class AplicacionAeropuerto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnIngresarPartidaActionPerformed
 
     private void btnIngresarArriboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarArriboActionPerformed
-        // TODO add your handling code here:
+
+        ControladoraAeropuerto.getInstancia().arriboVuelo(arribo);
+        actualizarListaFVOrigen(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre,"Origen"));
+        actualizarListaFVDestino(ControladoraAeropuerto.getInstancia().frecuenciasPorAeropuerto(ua.aeropuerto.nombre,"Destino"));
+        actualizarListaVOrigenPartio(ControladoraAeropuerto.getInstancia().getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+        actualizarListaVDestinoLlego(ControladoraAeropuerto.getInstancia().getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
     }//GEN-LAST:event_btnIngresarArriboActionPerformed
 
     private void lstVuelosDiariosPartidasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstVuelosDiariosPartidasValueChanged

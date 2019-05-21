@@ -58,4 +58,8 @@ public class FachadaModelo {
         LogicaVuelo.getInstancia().agregarPartidaVuelo(partida);
     }
     
+    public void agregarLlegadaVuelo (Vuelo arribo){
+        LogicaVuelo.getInstancia().agregarLlegadaVuelo(arribo);
+    }
+    
 }
