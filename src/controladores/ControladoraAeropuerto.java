@@ -5,6 +5,7 @@ import java.util.Calendar;
 import modelo.EstadoEnum;
 import modelo.FachadaModelo;
 import modelo.FrecuenciaDeVuelo;
+import modelo.Vuelo;
 import vistas.DiaSemanaEnum;
 
 /**
@@ -121,6 +122,40 @@ public class ControladoraAeropuerto {
         }
         FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
     }
+    
+    public void agregregarVuelo(FrecuenciaDeVuelo fv){        
+        FachadaModelo.getInstancia().agregarVuelo(fv);
+    }
+    
+    public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest){
+        ArrayList<Vuelo> v = FachadaModelo.getInstancia().getVuelos();
+        ArrayList<Vuelo> vuelosFiltrados = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        int dia = calendar.get(Calendar.DAY_OF_WEEK);
+        DiaSemanaEnum hoy = getDiaSemana(dia);
+
+        for (Vuelo vuel : v) {
+            if (origDest.equals("Origen")) {
+                if (vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
+                        && vuel.horaRealPartida == null) {
+                    vuelosFiltrados.add(vuel);
+                }
+            } else {
+                if (vuel.fVuelo.aeropuertoDestino.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy) 
+                        && vuel.horaRealPartida != null) {
+                    vuelosFiltrados.add(vuel);
+                }
+            }
+        }
+        return vuelosFiltrados;        
+    }
+    
+    
+    public void partioVuelo(Vuelo partida){
+        FachadaModelo.getInstancia().agregarPartidaVuelo(partida);
+    }
+    
+    
 
 //    public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuertoDestino(String nomAero) {
 //        ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();

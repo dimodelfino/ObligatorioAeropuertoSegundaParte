@@ -43,7 +43,7 @@ public class LogicaFrecuenciaVuelo {
         ArrayList<DiaSemanaEnum> d = new ArrayList<>();
         d.add(DiaSemanaEnum.S);
         d.add(DiaSemanaEnum.D);
-        FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo("LAN 1", eOrigen, eDestino, "01:20 Am", "05:08", c, d);
+        FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo("LAN 1", eOrigen, eDestino, "01:20:00 AM", "05:08:00", c, d);
         getInstancia().frecuencias.add(fv);
 
         Compania c1 = LogicaCompania.getInstancia().getCompanias().get(0);
@@ -55,7 +55,7 @@ public class LogicaFrecuenciaVuelo {
         ArrayList<DiaSemanaEnum> d1 = new ArrayList<>();
         d1.add(DiaSemanaEnum.D);
         d1.add(DiaSemanaEnum.M);
-        FrecuenciaDeVuelo fv1 = new FrecuenciaDeVuelo("AAR 2", eOrigen1, eDestino1, "02:03 Pm", "06:09", c1, d1);
+        FrecuenciaDeVuelo fv1 = new FrecuenciaDeVuelo("AAR 2", eOrigen1, eDestino1, "02:03:00 PM", "06:09:00", c1, d1);
         getInstancia().frecuencias.add(fv1);
 
         Compania c2 = LogicaCompania.getInstancia().getCompanias().get(0);
@@ -65,11 +65,10 @@ public class LogicaFrecuenciaVuelo {
         eOrigen2.estado = EstadoEnum.Aprobado;
         Estado eDestino2 = new Estado(destino2);
         eDestino2.estado = EstadoEnum.Aprobado;
-
         ArrayList<DiaSemanaEnum> d2 = new ArrayList<>();
         d2.add(DiaSemanaEnum.J);
-        d2.add(DiaSemanaEnum.D);
-        FrecuenciaDeVuelo fv2 = new FrecuenciaDeVuelo("PLU 3", eOrigen2, eDestino2, "03:40 Pm", "07:00", c2, d2);
+        d2.add(DiaSemanaEnum.L);
+        FrecuenciaDeVuelo fv2 = new FrecuenciaDeVuelo("PLU 3", eOrigen2, eDestino2, "03:40:00 PM", "07:00:00", c2, d2);
         getInstancia().frecuencias.add(fv2);
 
         Compania c3 = LogicaCompania.getInstancia().getCompanias().get(0);
@@ -80,8 +79,8 @@ public class LogicaFrecuenciaVuelo {
         Estado eDestino3 = new Estado(destino3);
         eDestino3.estado = EstadoEnum.Aprobado;
         ArrayList<DiaSemanaEnum> d3 = new ArrayList<>();
-        d3.add(DiaSemanaEnum.D);
-        FrecuenciaDeVuelo fv3 = new FrecuenciaDeVuelo("AFR 4", eOrigen3, eDestino3, "04:05 Pm", "08:00", c3, d3);
+        d3.add(DiaSemanaEnum.L);
+        FrecuenciaDeVuelo fv3 = new FrecuenciaDeVuelo("AFR 4", eOrigen3, eDestino3, "04:05:00 PM", "08:00:00", c3, d3);
         getInstancia().frecuencias.add(fv3);
     }
 

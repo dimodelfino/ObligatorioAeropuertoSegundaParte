@@ -5,7 +5,11 @@
  */
 package modelo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import vistas.DiaSemanaEnum;
 
 /**
@@ -38,10 +42,20 @@ public class FachadaModelo {
         return LogicaFrecuenciaVuelo.getInstancia().getFrecuencias();
     }
     
+    public ArrayList<Vuelo> getVuelos(){
+        return LogicaVuelo.getInstancia().getVuelos();
+    }
+    
     public void actualizarFrecuencias (ArrayList<FrecuenciaDeVuelo> frecuencias){
-    LogicaFrecuenciaVuelo.getInstancia().setFrecuencias(frecuencias);
+    LogicaFrecuenciaVuelo.getInstancia().setFrecuencias(frecuencias);        
+    }
     
+    public void agregarVuelo(FrecuenciaDeVuelo fv){
+        LogicaVuelo.getInstancia().crearVuelo(fv);        
+    }
     
+    public void agregarPartidaVuelo(Vuelo partida){
+        LogicaVuelo.getInstancia().agregarPartidaVuelo(partida);
     }
     
 }

@@ -7,10 +7,10 @@ package modelo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -19,14 +19,50 @@ import java.util.List;
 public class LogicaVuelo {
 
     private static LogicaVuelo instancia = new LogicaVuelo();
-    private static List<Vuelo> vuelos;
+    private static ArrayList<Vuelo> vuelos;
 
     public static LogicaVuelo getInstancia() {
         return instancia;
     }
 
-    public List<Vuelo> getVuelos() {
+    public ArrayList<Vuelo> getVuelos() {
         return vuelos;
+    }
+    
+    public void crearVuelo (FrecuenciaDeVuelo fv){
+        Vuelo v = new Vuelo();                 
+        v.fVuelo = fv;
+        this.vuelos.add(v);
+    }
+    
+    public void agregarPartidaVuelo(Vuelo partida){
+        boolean encontro = false;
+        int i = 0;
+        Date hoy = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(hoy);
+        DateFormat formato = new SimpleDateFormat("hh:mm:ss a");  
+        String horaActual = formato.format(hoy);
+        while (!encontro && !vuelos.isEmpty() && i < vuelos.size()){
+            if(vuelos.get(i).equals(partida)){
+                vuelos.get(i).horaRealPartida = horaActual;
+                vuelos.get(i).fechaPartida = (Date)cal.getTime();                
+                encontro = true;                
+            }
+            i++;
+        }        
+    }            
+    
+    public String calcularEstado(String horaSalidaFrecuencia, String horaRealSalida){
+        LocalTime horaSupuestaSalida = LocalTime.parse(horaSalidaFrecuencia);
+        LocalTime hRealSalida = LocalTime.parse(horaRealSalida);
+        String result= "Adelantado";
+        if(horaSupuestaSalida == hRealSalida){
+            result = "En hora";
+        }else if(horaSupuestaSalida.isBefore(hRealSalida)){
+            result = "Retrasado";
+        }
+        return result;
     }
 
     public void iniciatListaVuelos() {
@@ -34,17 +70,19 @@ public class LogicaVuelo {
         Date hoy = new Date();
         Date salidaVuelo;
         Calendar cal = Calendar.getInstance();
-        cal.setTime(hoy);                        
-        String formatoFechaString = "hh:mm:ss a";
-        DateFormat formato = new SimpleDateFormat(formatoFechaString);        
+        cal.setTime(hoy);                                
+        DateFormat formato = new SimpleDateFormat("hh:mm:ss a");        
         
         Vuelo a = new Vuelo();
-        cal.add(Calendar.DATE, -4);  
+        cal.add(Calendar.DATE, -4);
         salidaVuelo = cal.getTime();
-        String formattedDate= formato.format(hoy);
-        a.fechaPartida = (Date)salidaVuelo;        
-        a.horaRealPartida = "";
-        a.horaRealLlegada = formattedDate;
+        String horaActual = formato.format(hoy);
+        a.fVuelo = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(3);
+        //a.fechaPartida = (Date)salidaVuelo;        
+        //a.horaRealPartida = horaActual;
+        //a.horaRealLlegada = "";
+        //a.estado = "En hora";
+        
         
         Vuelo b = new Vuelo();
         //b.nombre = "Ezeiza";
@@ -58,10 +96,10 @@ public class LogicaVuelo {
         //f.nombre = "La Guardia";
 
         this.vuelos.add(a);
-        this.vuelos.add(b);
-        this.vuelos.add(c);
-        this.vuelos.add(d);
-        this.vuelos.add(e);
-        this.vuelos.add(f);
+//        this.vuelos.add(b);
+//        this.vuelos.add(c);
+//        this.vuelos.add(d);
+//        this.vuelos.add(e);
+//        this.vuelos.add(f);
     }
 }

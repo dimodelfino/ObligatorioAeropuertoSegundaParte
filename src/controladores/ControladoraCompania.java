@@ -27,8 +27,8 @@ public class ControladoraCompania {
             String minutosPartida, String horaDuracion, String minutosDuracion,
             String amPm, Compania c) {
         String numeroFrecuencia = this.generarNumeroFrecuencia(c);        
-        String partida = horaPartida + ":" + minutosPartida + " " + amPm;
-        String duracion = horaDuracion + ":" + minutosDuracion;                
+        String partida = horaPartida + ":" + minutosPartida + ":00" + " " + amPm;
+        String duracion = horaDuracion + ":" + minutosDuracion+ ":00";                
         return FachadaModelo.getInstancia().agregarFrecuencia(numeroFrecuencia, aeroOrigen, aeroDestino, partida, duracion, c, diaSemana);
     }
 
