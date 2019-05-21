@@ -26,7 +26,7 @@ public class LogicaCompania {
     }
 
     public void iniciateCompanyList() {
-        this.companias = new ArrayList<Compania>();
+        this.companias = new ArrayList<>();
         Compania a = new Compania();
         a.nombre = "LAN ";
         a.alias = "LAN ";

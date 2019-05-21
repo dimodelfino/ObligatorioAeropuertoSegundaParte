@@ -13,6 +13,5 @@ import java.util.List;
  */
 public class Compania {
     public String nombre;
-    public String alias;
-    public List<FrecuenciaDeVuelo> frecuencia;
+    public String alias;    
 }

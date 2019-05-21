@@ -31,7 +31,7 @@ public class ObligatorioAeropuerto {
         LogicaAeropuerto.getInstancia().iniciateAirportsList();        
         LogicaUsuario.getInstancia().iniciateUsersList();        
         LogicaFrecuenciaVuelo.getInstancia().iniciateFrecuenciaVueloList();
-        LogicaVuelo.getInstancia().iniciatListaVuelos();
+        //LogicaVuelo.getInstancia().iniciatListaVuelos();
         new MenuPrincipal().setVisible(true);
 
 

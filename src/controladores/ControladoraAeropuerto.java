@@ -98,7 +98,7 @@ public class ControladoraAeropuerto {
                     frecuen.aeropuertoDestino.estado = EstadoEnum.Aprobado;
                 }
             } else {
-                if (frecuen.equals(frecuen) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
+                if (frecuen.equals(f) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
                     frecuen.aeropuertoOrigen.estado = EstadoEnum.Aprobado;
                 }
             }
@@ -122,40 +122,38 @@ public class ControladoraAeropuerto {
         }
         FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
     }
-    
-    public void agregregarVuelo(FrecuenciaDeVuelo fv){        
+
+    public void agregregarVuelo(FrecuenciaDeVuelo fv) {
         FachadaModelo.getInstancia().agregarVuelo(fv);
     }
-    
-    public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest){
+
+    public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
         ArrayList<Vuelo> v = FachadaModelo.getInstancia().getVuelos();
         ArrayList<Vuelo> vuelosFiltrados = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         int dia = calendar.get(Calendar.DAY_OF_WEEK);
         DiaSemanaEnum hoy = getDiaSemana(dia);
-
-        for (Vuelo vuel : v) {
-            if (origDest.equals("Origen")) {
-                if (vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
-                        && vuel.horaRealPartida == null) {
-                    vuelosFiltrados.add(vuel);
-                }
-            } else {
-                if (vuel.fVuelo.aeropuertoDestino.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy) 
-                        && vuel.horaRealPartida != null) {
-                    vuelosFiltrados.add(vuel);
+        if (v != null) {
+            for (Vuelo vuel : v) {
+                if (origDest.equals("Origen")) {
+                    if (vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
+                            && vuel.horaRealPartida == null) {
+                        vuelosFiltrados.add(vuel);
+                    }
+                } else {
+                    if (vuel.fVuelo.aeropuertoDestino.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
+                            && vuel.horaRealPartida != null) {
+                        vuelosFiltrados.add(vuel);
+                    }
                 }
             }
         }
-        return vuelosFiltrados;        
+        return vuelosFiltrados;
     }
-    
-    
-    public void partioVuelo(Vuelo partida){
+
+    public void partioVuelo(Vuelo partida) {
         FachadaModelo.getInstancia().agregarPartidaVuelo(partida);
     }
-    
-    
 
 //    public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuertoDestino(String nomAero) {
 //        ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();

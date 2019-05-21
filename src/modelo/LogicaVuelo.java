@@ -19,7 +19,8 @@ import java.util.Date;
 public class LogicaVuelo {
 
     private static LogicaVuelo instancia = new LogicaVuelo();
-    private static ArrayList<Vuelo> vuelos;
+    //Borrar la pRTE = new ArrayList<>()
+    private static ArrayList<Vuelo> vuelos = new ArrayList<>();
 
     public static LogicaVuelo getInstancia() {
         return instancia;
