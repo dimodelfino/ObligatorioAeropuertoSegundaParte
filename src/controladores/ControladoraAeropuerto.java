@@ -18,16 +18,12 @@ import vistas.DiaSemanaEnum;
  */
 public class ControladoraAeropuerto implements Observer{
 
-//    private static ControladoraAeropuerto instancia = new ControladoraAeropuerto();
 
-//    public static ControladoraAeropuerto getInstancia() {
-//        return instancia;
-//    }
-    public AplicacionAeropuerto apAero;
+    public AplicacionAeropuerto vista;
     
-    public ControladoraAeropuerto (AplicacionAeropuerto apA){
-     LogicaFrecuenciaVuelo.getInstancia().addObserver(this);
-        this.apAero = apA;
+    public ControladoraAeropuerto (AplicacionAeropuerto vistApAero){     
+        this.vista = vistApAero;
+        LogicaFrecuenciaVuelo.getInstancia().addObserver(this);
     }
 
     public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuerto(String nomAero, String origDest) {
@@ -114,6 +110,7 @@ public class ControladoraAeropuerto implements Observer{
             }
         }
         FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
+        actualizarListas();
     }
 
     public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) {
@@ -131,10 +128,12 @@ public class ControladoraAeropuerto implements Observer{
             }
         }
         FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
+        actualizarListas();
     }
 
     public void agregregarVuelo(FrecuenciaDeVuelo fv) {
         FachadaModelo.getInstancia().agregarVuelo(fv);
+        actualizarListas();
     }
 
     public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
@@ -163,14 +162,26 @@ public class ControladoraAeropuerto implements Observer{
 
     public void partioVuelo(Vuelo partida) {
         FachadaModelo.getInstancia().agregarPartidaVuelo(partida);
+        actualizarListas();
     }
     
     public void arriboVuelo(Vuelo arribo){
     FachadaModelo.getInstancia().agregarLlegadaVuelo(arribo);
+    actualizarListas();
+    }
+    
+    public void actualizarListas(){
+        vista.actualizarListas();
+    }
+    
+    public void cerrar(){
+        LogicaFrecuenciaVuelo.getInstancia().deleteObserver(this);
     }
 
     @Override
-    public void update(Observable arg0, Object arg1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Observable o, Object arg1) {
+        if(o == LogicaFrecuenciaVuelo.getInstancia()){
+            actualizarListas();
+        }
     }
 }

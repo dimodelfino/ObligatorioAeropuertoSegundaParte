@@ -104,6 +104,7 @@ public class LogicaFrecuenciaVuelo extends Observable {
         d3.add(DiaSemanaEnum.V);
         FrecuenciaDeVuelo fv3 = new FrecuenciaDeVuelo("AFR 4", eOrigen3, eDestino3, "04:05:00 PM", "08:00:00", c3, d3);
         getInstancia().frecuencias.add(fv3);
+        notificarObservadores();
     }
 
     public boolean GuardarFrecuencia(FrecuenciaDeVuelo fv) {
@@ -113,7 +114,13 @@ public class LogicaFrecuenciaVuelo extends Observable {
         if ((cantidadFrecuencias + 1) == getInstancia().frecuencias.size()) {
             agregado = true;
         }
+        notificarObservadores();
         return agregado;
     }
 
+    
+    private void notificarObservadores(){
+        setChanged();
+        notifyObservers();
+    }
 }
