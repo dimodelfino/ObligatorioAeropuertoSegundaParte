@@ -110,7 +110,7 @@ public class ControladoraAeropuerto implements Observer{
             }
         }
         FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
-        actualizarListas();
+        LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
     }
 
     public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) {
@@ -128,12 +128,12 @@ public class ControladoraAeropuerto implements Observer{
             }
         }
         FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
-        actualizarListas();
+        LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
     }
 
     public void agregregarVuelo(FrecuenciaDeVuelo fv) {
         FachadaModelo.getInstancia().agregarVuelo(fv);
-        actualizarListas();
+        LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
     }
 
     public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
@@ -162,16 +162,12 @@ public class ControladoraAeropuerto implements Observer{
 
     public void partioVuelo(Vuelo partida) {
         FachadaModelo.getInstancia().agregarPartidaVuelo(partida);
-        actualizarListas();
+        LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
     }
     
     public void arriboVuelo(Vuelo arribo){
     FachadaModelo.getInstancia().agregarLlegadaVuelo(arribo);
-    actualizarListas();
-    }
-    
-    public void actualizarListas(){
-        vista.actualizarListas();
+    LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
     }
     
     public void cerrar(){
@@ -181,7 +177,7 @@ public class ControladoraAeropuerto implements Observer{
     @Override
     public void update(Observable o, Object arg1) {
         if(o == LogicaFrecuenciaVuelo.getInstancia()){
-            actualizarListas();
+            vista.actualizarListas();
         }
     }
 }

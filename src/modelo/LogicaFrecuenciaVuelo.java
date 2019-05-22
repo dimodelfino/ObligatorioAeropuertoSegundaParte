@@ -119,7 +119,8 @@ public class LogicaFrecuenciaVuelo extends Observable {
     }
 
     
-    private void notificarObservadores(){
+    
+    public void notificarObservadores(){
         setChanged();
         notifyObservers();
     }
