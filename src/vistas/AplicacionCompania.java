@@ -332,7 +332,7 @@ public class AplicacionCompania extends javax.swing.JDialog {
                 lblIngresarMessage.setText("Debe ingresar todos los datos.");
             } else {                
                 String amPm = bgAmPm.getSelection().getActionCommand();
-                if (ControladoraCompania.getInstancia().IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diasSeleccionados, partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania)) {
+                if (controlador.IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diasSeleccionados, partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania)) {
                     lblIngresarMessage.setText("Se ingreso la frecuencia correctamente.");
                 } else {
                     lblIngresarMessage.setText("Ingrese datos correctos.");

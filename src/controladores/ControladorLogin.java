@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package controladores;
+import java.util.Observable;
+import java.util.Observer;
 import modelo.Usuario;
 import modelo.LogicaUsuario;
 
@@ -24,6 +26,5 @@ public class ControladorLogin {
         Usuario usu = LogicaUsuario.getInstancia().buscarUsuario(nombre, contrasenia);
         vista.ingresar(usu);
 
-    }
-    
+    }  
 }

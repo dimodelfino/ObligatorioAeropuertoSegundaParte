@@ -2,22 +2,32 @@ package controladores;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Observable;
+import java.util.Observer;
 import modelo.EstadoEnum;
 import modelo.FachadaModelo;
 import modelo.FrecuenciaDeVuelo;
+import modelo.LogicaFrecuenciaVuelo;
 import modelo.Vuelo;
+import vistas.AplicacionAeropuerto;
 import vistas.DiaSemanaEnum;
 
 /**
  *
  * @author majuetcheverry
  */
-public class ControladoraAeropuerto {
+public class ControladoraAeropuerto implements Observer{
 
-    private static ControladoraAeropuerto instancia = new ControladoraAeropuerto();
+//    private static ControladoraAeropuerto instancia = new ControladoraAeropuerto();
 
-    public static ControladoraAeropuerto getInstancia() {
-        return instancia;
+//    public static ControladoraAeropuerto getInstancia() {
+//        return instancia;
+//    }
+    public AplicacionAeropuerto apAero;
+    
+    public ControladoraAeropuerto (AplicacionAeropuerto apA){
+     LogicaFrecuenciaVuelo.getInstancia().addObserver(this);
+        this.apAero = apA;
     }
 
     public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuerto(String nomAero, String origDest) {
@@ -157,5 +167,10 @@ public class ControladoraAeropuerto {
     
     public void arriboVuelo(Vuelo arribo){
     FachadaModelo.getInstancia().agregarLlegadaVuelo(arribo);
+    }
+
+    @Override
+    public void update(Observable arg0, Object arg1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

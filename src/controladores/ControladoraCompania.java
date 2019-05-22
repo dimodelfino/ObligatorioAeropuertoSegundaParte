@@ -20,13 +20,8 @@ import vistas.DiaSemanaEnum;
  */
 public class ControladoraCompania implements Observer {
 
-    private static ControladoraCompania instancia = new ControladoraCompania();
     private static int contador = 5;
     private AplicacionCompania apComp;
-
-    public static ControladoraCompania getInstancia() {
-        return instancia;
-    }
 
     public ControladoraCompania(AplicacionCompania apC) {
         LogicaFrecuenciaVuelo.getInstancia().addObserver(this);
@@ -49,7 +44,6 @@ public class ControladoraCompania implements Observer {
 
     @Override
     public void update(Observable arg0, Object arg1) {
-        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
