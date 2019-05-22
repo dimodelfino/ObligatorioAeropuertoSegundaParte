@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class Vuelo {
     public FrecuenciaDeVuelo fVuelo;
-    public Date fechaPartida;
+    public String fechaPartida;
     public String horaRealPartida;
     public String horaRealLlegada;
     public String estado;
@@ -31,10 +31,4 @@ public class Vuelo {
         }       
         return result;
     }
-    
-    
-    
-    
-  
-    
 }

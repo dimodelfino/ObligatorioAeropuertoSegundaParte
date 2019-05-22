@@ -35,7 +35,7 @@ public class AplicacionCompania extends javax.swing.JDialog {
         getNombreAeropuertos();
         checkboxManager();
         ActualizarListaFrecuencias(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
-
+        this.controlador = new ControladoraCompania(this);
     }
 
     public final void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias) {
@@ -420,6 +420,7 @@ public class AplicacionCompania extends javax.swing.JDialog {
     ButtonGroup bgAmPm = new ButtonGroup();
     UsuCompania uc = null;
     ArrayList<javax.swing.JCheckBox> dias = new ArrayList<>();
+    ControladoraCompania controlador;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;

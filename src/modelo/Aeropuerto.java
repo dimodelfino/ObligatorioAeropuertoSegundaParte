@@ -13,5 +13,5 @@ import java.util.List;
  */
 public class Aeropuerto {
     public String nombre;
-   // public List<FrecuenciaDeVuelo> frecuencias;
+ 
 }

@@ -6,13 +6,14 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import vistas.DiaSemanaEnum;
 
 /**
  *
  * @author dmoreno
  */
-public class LogicaFrecuenciaVuelo {
+public class LogicaFrecuenciaVuelo extends Observable {
 
     private ArrayList<FrecuenciaDeVuelo> frecuencias = new ArrayList<>();
     private static LogicaFrecuenciaVuelo instancia = null;
@@ -74,7 +75,7 @@ public class LogicaFrecuenciaVuelo {
         Estado eOrigen2 = new Estado(origen2);
         eOrigen2.estado = EstadoEnum.Aprobado;
         Estado eDestino2 = new Estado(destino2);
-        eDestino2.estado = EstadoEnum.Aprobado;
+      //  eDestino2.estado = EstadoEnum.Aprobado;
         ArrayList<DiaSemanaEnum> d2 = new ArrayList<>();
         d2.add(DiaSemanaEnum.S);
         d2.add(DiaSemanaEnum.D);
