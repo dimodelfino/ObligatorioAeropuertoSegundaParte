@@ -32,6 +32,17 @@ public class LogicaVuelo {
     public void crearVuelo(FrecuenciaDeVuelo fv) {
         Vuelo v = new Vuelo();
         v.fVuelo = fv;
+        //agregarPartidaVuelo(v);
+        Date hoy = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(hoy);
+        DateFormat formato = new SimpleDateFormat("hh:mm:ss a");
+        DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        String horaActual = formato.format(hoy);
+        v.horaRealPartida = horaActual;
+        v.fechaPartida = (String) fecha.format(hoy);
+        String e = this.calcularEstado(v.fVuelo.horaPartida, horaActual);
+        v.estado = e;
         this.vuelos.add(v);
     }
 
@@ -44,7 +55,7 @@ public class LogicaVuelo {
         DateFormat formato = new SimpleDateFormat("hh:mm:ss a");
         DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         String horaActual = formato.format(hoy);
-        while (!encontro && !vuelos.isEmpty() && i < vuelos.size()) {
+        while (!encontro && vuelos.size() != 0 && i < vuelos.size()) {
             if (vuelos.get(i).equals(partida)) {
                 Vuelo variable = vuelos.get(i);
                 variable.horaRealPartida = horaActual;
@@ -52,7 +63,6 @@ public class LogicaVuelo {
                 String e = this.calcularEstado(variable.fVuelo.horaPartida, horaActual);
                 variable.estado = e;
                 vuelos.set(i, variable);
-                //vuelos.add(i, variable);
                 encontro = true;
             }
             i++;
@@ -74,7 +84,7 @@ public class LogicaVuelo {
                 vue.horaRealLlegada = horaActual;
                 encontro = true;
                 vuelos.set(i, vue);
-              //  vuelos.add(i, vue);
+                //  vuelos.add(i, vue);
             }
             i++;
         }
@@ -94,10 +104,10 @@ public class LogicaVuelo {
         int minutoRealSalida = Integer.parseInt(horaReal[1]);
 
         String result = "Adelantado";
-        if (soloHoraSupuestaSalida < soloHoraRealSalida ) {
-            result = "Retrasado";}
-        else if(soloHoraSupuestaSalida == soloHoraRealSalida && ((minutoSupuestaHoraSalida - 5)<= minutoRealSalida) && ((minutoSupuestaHoraSalida + 5)>= minutoRealSalida)){
-            result = "En hora"; 
+        if (soloHoraSupuestaSalida < soloHoraRealSalida) {
+            result = "Retrasado";
+        } else if (soloHoraSupuestaSalida == soloHoraRealSalida && ((minutoSupuestaHoraSalida - 5) <= minutoRealSalida) && ((minutoSupuestaHoraSalida + 5) >= minutoRealSalida)) {
+            result = "En hora";
         }
         return result;
     }
@@ -111,11 +121,11 @@ public class LogicaVuelo {
         DateFormat formato = new SimpleDateFormat("hh:mm:ss a");
 
         Vuelo a = new Vuelo();
-      //  cal.add(Calendar.DATE, -4);
+        //  cal.add(Calendar.DATE, -4);
         salidaVuelo = cal.getTime();
         String horaActual = formato.format(hoy);
         a.fVuelo = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(3);
-        a.fechaPartida = "21/05/2019";        
+        a.fechaPartida = "21/05/2019";
         a.horaRealPartida = horaActual;
         //a.horaRealLlegada = "";
         a.estado = "En hora";

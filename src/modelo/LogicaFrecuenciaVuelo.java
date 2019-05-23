@@ -70,12 +70,12 @@ public class LogicaFrecuenciaVuelo extends Observable {
         getInstancia().frecuencias.add(fv1);
 
         Compania c2 = LogicaCompania.getInstancia().getCompanias().get(0);
-        Aeropuerto origen2 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("La Guardia");
-        Aeropuerto destino2 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("Carrasco");
+        Aeropuerto origen2 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("Carrasco");
+        Aeropuerto destino2 = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("La Guardia");
         Estado eOrigen2 = new Estado(origen2);
         eOrigen2.estado = EstadoEnum.Aprobado;
         Estado eDestino2 = new Estado(destino2);
-      //  eDestino2.estado = EstadoEnum.Aprobado;
+        eDestino2.estado = EstadoEnum.Aprobado;
         ArrayList<DiaSemanaEnum> d2 = new ArrayList<>();
         d2.add(DiaSemanaEnum.S);
         d2.add(DiaSemanaEnum.D);

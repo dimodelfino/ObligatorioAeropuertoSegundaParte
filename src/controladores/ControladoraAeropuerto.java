@@ -139,6 +139,9 @@ public class ControladoraAeropuerto implements Observer{
     public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
         return FachadaModelo.getInstancia().getVuelosPorAeropuerto(nomAero, origDest);
     }
+    public ArrayList<Vuelo> getVuelosDiarios(String nomAero, String origDest) {
+        return FachadaModelo.getInstancia().getVuelosDiarios(nomAero, origDest);
+    }    
 
     public void partioVuelo(Vuelo partida) {
         FachadaModelo.getInstancia().agregarPartidaVuelo(partida);

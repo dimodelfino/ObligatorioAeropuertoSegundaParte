@@ -6,8 +6,11 @@
 package modelo;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import vistas.DiaSemanaEnum;
 
 /**
@@ -66,7 +69,7 @@ public class FachadaModelo {
         Calendar calendar = Calendar.getInstance();
         int dia = calendar.get(Calendar.DAY_OF_WEEK);
         DiaSemanaEnum hoy = getDiaSemana(dia);
-        if (v != null) {
+        if (v != null&& v.size() != 0 ) {
             for (Vuelo vuel : v) {
                 if (origDest.equals("Origen")) {
                     if (vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
@@ -82,6 +85,44 @@ public class FachadaModelo {
             }
         }
         return vuelosFiltrados;
+    }
+    
+    public ArrayList<Vuelo> getVuelosDiarios(String nomAero, String origDest){
+        ArrayList<Vuelo> vuelosAux = new ArrayList<Vuelo>();
+        Calendar calendar = Calendar.getInstance();
+        int dia = calendar.get(Calendar.DAY_OF_WEEK);
+        DiaSemanaEnum hoy = getDiaSemana(dia);        
+        
+        for(FrecuenciaDeVuelo frec : FachadaModelo.getInstancia().getFrecuencias()){
+          if(frec.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && frec.diasSemana.contains(hoy)
+                  && frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)&& frec.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
+                  && !vueloYaPartio(frec)){
+              Vuelo v = new Vuelo();
+              v.fVuelo = frec;
+              vuelosAux.add(v);
+          }  
+        }        
+        return vuelosAux;
+    }    
+    
+    public boolean vueloYaPartio(FrecuenciaDeVuelo f){
+        boolean partio = false;
+        int i = 0;
+        Calendar cal = Calendar.getInstance();
+        Date hoy = new Date();
+        cal.setTime(hoy);        
+        DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy"); 
+        String fch = fecha.format(hoy);                
+        ArrayList<Vuelo> vuelos = FachadaModelo.getInstancia().getVuelos();
+        while (!partio && vuelos.size() != 0 && i<vuelos.size()){
+            FrecuenciaDeVuelo frec = vuelos.get(i).fVuelo;
+            String fecha_String = vuelos.get(i).fechaPartida;
+            if(frec.equals(f) && fecha_String.equals(fch)){
+                partio = true;
+            }
+            i++;
+        }
+        return partio;
     }
     
     public ArrayList<Vuelo> getVuelosPorAeropuertoMonitoreo(String nomAero, String origDest) {

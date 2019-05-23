@@ -28,6 +28,8 @@ public class Vuelo {
         String result = dateFormat.format(date) + " -- " + fVuelo.numero + " -- " + fVuelo.aeropuertoDestino.aeropuerto.nombre + " -- " + fVuelo.horaPartida;
         if(horaRealPartida != null){
             result = fVuelo.numero + " -- " + fVuelo.aeropuertoOrigen.aeropuerto.nombre + " -- " + fVuelo.horaPartida + " -- " + estado;
+        }else if (horaRealPartida != null && horaRealLlegada != null){
+            
         }       
         return result;
     }

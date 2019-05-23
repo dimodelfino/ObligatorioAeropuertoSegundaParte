@@ -260,7 +260,9 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
 
     private void btnAprobarDestinoFrecuenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarDestinoFrecuenciaActionPerformed
         controlador.aprobarEstadoFrecuencia(frecPendDestino, "Destino");
-        controlador.agregregarVuelo(frecPendDestino);
+
+//        controlador.agregregarVuelo(frecPendDestino);
+
         actualizarListas();
 //        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
 //        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
@@ -301,7 +303,8 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
     }//GEN-LAST:event_btnRechazarDestinoFrecuenciaActionPerformed
 
     private void btnIngresarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarPartidaActionPerformed
-        controlador.partioVuelo(partida);
+        controlador.agregregarVuelo(partida.fVuelo);
+        //controlador.partioVuelo(partida);        
         actualizarListas();
 //        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
 //        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
@@ -353,7 +356,7 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
     public void actualizarListas(){
         actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
         actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
-        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+        actualizarListaVOrigenPartio(controlador.getVuelosDiarios(ua.aeropuerto.nombre, "Origen"));
         actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
     }            
 

@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
 import modelo.Aeropuerto;
-import modelo.FrecuenciaDeVuelo;
 import modelo.LogicaAeropuerto;
 import modelo.LogicaFrecuenciaVuelo;
 import modelo.UsuCompania;
 import modelo.Usuario;
+import utilities.ExceptionCompania;
 
 /**
  *
@@ -36,12 +36,7 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         getNombreAeropuertos();
         checkboxManager();
         actualizarListas();
-        //this.controlador = new ControladoraCompania();
         this.controlador = new ControladoraCompania(this);
-    }
-
-    public final void ActualizarListaFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias) {
-        lstVisualizarFrecuencias.setListData(frecuencias.toArray());
     }
 
     private void groupButton() {
@@ -96,12 +91,6 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
 
         lbAeropDestino.setText("Aeropuerto Destino");
 
-        cmbAeropOrigen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbAeropOrigenActionPerformed(evt);
-            }
-        });
-
         lblDiaSemana.setText("Dia De la Semana");
 
         lblHoraPartida.setText("Hora Partida");
@@ -129,11 +118,6 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         });
 
         cmbHoraPartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-        cmbHoraPartida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbHoraPartidaActionPerformed(evt);
-            }
-        });
 
         rbtnAM.setText("AM");
 
@@ -148,11 +132,6 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         lblHsDuracion.setText("Hs: ");
 
         cmbHoraDuracion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17" }));
-        cmbHoraDuracion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbHoraDuracionActionPerformed(evt);
-            }
-        });
 
         lblMinDuracion.setText("Min: ");
 
@@ -317,52 +296,52 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbAeropOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAeropOrigenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbAeropOrigenActionPerformed
-
+    //valida crea e ingresa la frecuencia||||FALTA VALIDAR QUE NO HAYAN 2 FRECUENCIAS CON MISMOS ORIGEN-DESTINO Y MISMO DIA
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String aeroOrigen = cmbAeropOrigen.getSelectedItem().toString();
         String aeroDestino = cmbAeropDestino.getSelectedItem().toString();
         ArrayList<DiaSemanaEnum> diasSeleccionados = getSelectedDiasSemana();
-        if (!aeroOrigen.equals(aeroDestino)) {
-            String partidaHora = cmbHoraPartida.getSelectedItem().toString();
-            String partidaMinutos = cmbMinutoPartida.getSelectedItem().toString();
-            String duracionHora = cmbHoraDuracion.getSelectedItem().toString();
-            String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString();
-            if (diasSeleccionados.size()==0|| bgAmPm.getSelection() == null || (partidaHora.equals("00") && partidaMinutos.equals("00")) || (duracionHora.equals("00") && duracionMinutos.equals("00"))) {
-                lblIngresarMessage.setText("Debe ingresar todos los datos.");
-            } else {                
-                String amPm = bgAmPm.getSelection().getActionCommand();
-                if (controlador.IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diasSeleccionados, partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania)) {
-                    lblIngresarMessage.setText("Se ingreso la frecuencia correctamente.");
-                } else {
-                    lblIngresarMessage.setText("Ingrese datos correctos.");
-                }
-                actualizarListas();
-            }
-        } else {
-            lblIngresarMessage.setText("El Aeropuerto de origen y el de destino no pueden ser iguales.");
+        String partidaHora = cmbHoraPartida.getSelectedItem().toString();
+        String partidaMinutos = cmbMinutoPartida.getSelectedItem().toString();
+        String duracionHora = cmbHoraDuracion.getSelectedItem().toString();
+        String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString(); 
+        String amPm = null;
+        if(bgAmPm.getSelection() != null){amPm = bgAmPm.getSelection().getActionCommand();}
+        try{            
+            controlador.ValidaIngresaFrecuencia(aeroOrigen, aeroDestino, diasSeleccionados, partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania);
+            lblIngresarMessage.setText("Se ingreso la frecuencia con exito.");
+        }catch(utilities.ExceptionCompania x){
+            lblIngresarMessage.setText("Ha ocurrido un error: " + x.getMessage());
         }
+        
+        
+//        if (!aeroOrigen.equals(aeroDestino)) {
+//            if (diasSeleccionados.size() == 0 || bgAmPm.getSelection() == null || (partidaHora.equals("00") && partidaMinutos.equals("00")) || (duracionHora.equals("00") && duracionMinutos.equals("00"))) {
+//                //lblIngresarMessage.setText("Debe ingresar todos los datos.");
+//                throw new utilities.ExceptionCompania("Debe ingresar todos los datos.");
+//            } else {
+//                String amPm = bgAmPm.getSelection().getActionCommand();
+//                if (controlador.IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diasSeleccionados, partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania)) {
+//                    lblIngresarMessage.setText("Se ingreso la frecuencia correctamente.");
+//                } else {
+//                    lblIngresarMessage.setText("Ingrese datos correctos.");
+//                }
+//                actualizarListas();
+//            }
+//        } else {
+//            lblIngresarMessage.setText("El Aeropuerto de origen y el de destino no pueden ser iguales.");
+//        }
     }//GEN-LAST:event_btnIngresarActionPerformed
-
-    private void cmbHoraPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHoraPartidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbHoraPartidaActionPerformed
-
-    private void cmbHoraDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHoraDuracionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbHoraDuracionActionPerformed
-
+    //Carga nombres de aeropuertos a comboBox
     private void getNombreAeropuertos() {
         List<Aeropuerto> aeropuertos = LogicaAeropuerto.getInstancia().getAeropuertos();
-
         for (Aeropuerto a : aeropuertos) {
             cmbAeropDestino.addItem(a.nombre);
             cmbAeropOrigen.addItem(a.nombre);
         }
     }
 
+    //agrega valor a los checkboxes(dias de la semana)
     private void checkboxManager() {
         chkBxLunes.setActionCommand("Lunes");
         dias.add(chkBxLunes);
@@ -380,17 +359,18 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         dias.add(chkBxDomingo);
     }
 
+    //recorre las checboxes y checkea cuales estan seleccionadas.
     private ArrayList<DiaSemanaEnum> getSelectedDiasSemana() {
         ArrayList<DiaSemanaEnum> result = new ArrayList<>();
-
         for (javax.swing.JCheckBox box : dias) {
             if (box.isSelected()) {
-                result.addAll(getDiaSemanaEnum(box.getActionCommand()));                
+                result.addAll(getDiaSemanaEnum(box.getActionCommand()));
             }
         }
         return result;
     }
 
+    //recibe String con los dias de la semana y devuelve ArrayList de tipo DiaSemanaEnum
     private ArrayList<DiaSemanaEnum> getDiaSemanaEnum(String diaSemana) {
         ArrayList<DiaSemanaEnum> result = new ArrayList<>();
         switch (diaSemana) {
@@ -418,12 +398,12 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         }
         return result;
     }
-    
+
     @Override
     public void actualizarListas() {
-        ActualizarListaFrecuencias(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
+        lstVisualizarFrecuencias.setListData(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().toArray());
     }
-    
+
     ButtonGroup bgDiaSemana = new ButtonGroup();
     ButtonGroup bgAmPm = new ButtonGroup();
     UsuCompania uc = null;
@@ -466,5 +446,5 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
     private javax.swing.ButtonGroup rbtnGroupDiaSemana;
     private javax.swing.JRadioButton rbtnPm;
     // End of variables declaration//GEN-END:variables
-    
+
 }
