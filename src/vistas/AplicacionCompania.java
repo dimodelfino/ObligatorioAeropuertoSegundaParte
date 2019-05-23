@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vistas;
 
 import controladores.ControladoraCompania;
@@ -15,17 +11,10 @@ import modelo.LogicaAeropuerto;
 import modelo.LogicaFrecuenciaVuelo;
 import modelo.UsuCompania;
 import modelo.Usuario;
-import utilities.ExceptionCompania;
 
-/**
- *
- * @author dmoreno
- */
 public class AplicacionCompania extends javax.swing.JDialog implements IVistaAeropuerto {
 
-    /**
-     * Creates new form IngresarFrecuencia
-     */
+  
     public AplicacionCompania(java.awt.Frame parent, boolean modal, Usuario u) {
         super(parent, modal);
         initComponents();
@@ -296,7 +285,7 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //valida crea e ingresa la frecuencia||||FALTA VALIDAR QUE NO HAYAN 2 FRECUENCIAS CON MISMOS ORIGEN-DESTINO Y MISMO DIA
+    //Valida crea e ingresa la frecuencia||||FALTA VALIDAR QUE NO HAYAN 2 FRECUENCIAS CON MISMOS ORIGEN-DESTINO Y MISMO DIA
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String aeroOrigen = cmbAeropOrigen.getSelectedItem().toString();
         String aeroDestino = cmbAeropDestino.getSelectedItem().toString();
@@ -313,24 +302,6 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         }catch(utilities.ExceptionCompania x){
             lblIngresarMessage.setText("Ha ocurrido un error: " + x.getMessage());
         }
-        
-        
-//        if (!aeroOrigen.equals(aeroDestino)) {
-//            if (diasSeleccionados.size() == 0 || bgAmPm.getSelection() == null || (partidaHora.equals("00") && partidaMinutos.equals("00")) || (duracionHora.equals("00") && duracionMinutos.equals("00"))) {
-//                //lblIngresarMessage.setText("Debe ingresar todos los datos.");
-//                throw new utilities.ExceptionCompania("Debe ingresar todos los datos.");
-//            } else {
-//                String amPm = bgAmPm.getSelection().getActionCommand();
-//                if (controlador.IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diasSeleccionados, partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania)) {
-//                    lblIngresarMessage.setText("Se ingreso la frecuencia correctamente.");
-//                } else {
-//                    lblIngresarMessage.setText("Ingrese datos correctos.");
-//                }
-//                actualizarListas();
-//            }
-//        } else {
-//            lblIngresarMessage.setText("El Aeropuerto de origen y el de destino no pueden ser iguales.");
-//        }
     }//GEN-LAST:event_btnIngresarActionPerformed
     //Carga nombres de aeropuertos a comboBox
     private void getNombreAeropuertos() {
@@ -341,7 +312,7 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         }
     }
 
-    //agrega valor a los checkboxes(dias de la semana)
+    //Agrega valor a los checkboxes(dias de la semana)
     private void checkboxManager() {
         chkBxLunes.setActionCommand("Lunes");
         dias.add(chkBxLunes);
@@ -359,7 +330,7 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         dias.add(chkBxDomingo);
     }
 
-    //recorre las checboxes y checkea cuales estan seleccionadas.
+    //Recorre las checboxes y checkea cuales estan seleccionadas.
     private ArrayList<DiaSemanaEnum> getSelectedDiasSemana() {
         ArrayList<DiaSemanaEnum> result = new ArrayList<>();
         for (javax.swing.JCheckBox box : dias) {
@@ -370,7 +341,7 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         return result;
     }
 
-    //recibe String con los dias de la semana y devuelve ArrayList de tipo DiaSemanaEnum
+    //Recibe String con los dias de la semana y devuelve ArrayList de tipo DiaSemanaEnum
     private ArrayList<DiaSemanaEnum> getDiaSemanaEnum(String diaSemana) {
         ArrayList<DiaSemanaEnum> result = new ArrayList<>();
         switch (diaSemana) {

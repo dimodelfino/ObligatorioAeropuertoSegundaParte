@@ -11,6 +11,7 @@ import java.util.Observer;
 import modelo.Compania;
 import modelo.FachadaModelo;
 import modelo.LogicaFrecuenciaVuelo;
+import utilities.ExceptionCompania;
 import vistas.AplicacionCompania;
 import vistas.DiaSemanaEnum;
 
@@ -36,7 +37,8 @@ public class ControladoraCompania implements Observer{
         if (!aeroOrigen.equals(aeroDestino)) {
             if (diaSemana.size() == 0 || amPm == null || (horaPartida.equals("00") && minutosPartida.equals("00")) || (horaDuracion.equals("00") && minutosDuracion.equals("00"))) {                
                 throw new utilities.ExceptionCompania("Debe ingresar todos los datos.");
-            } else {                
+            } else {    
+                
                 if (this.IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diaSemana, horaPartida, minutosPartida, horaDuracion, minutosDuracion, amPm, c)) {
                     ingreso = true;
                 } else {                    
@@ -52,7 +54,8 @@ public class ControladoraCompania implements Observer{
 
     public boolean IngresoFrecuenciaVuelo(String aeroOrigen, String aeroDestino, ArrayList<DiaSemanaEnum> diaSemana, String horaPartida,
             String minutosPartida, String horaDuracion, String minutosDuracion,
-            String amPm, Compania c) {
+            String amPm, Compania c) throws ExceptionCompania{
+        
         String numeroFrecuencia = this.generarNumeroFrecuencia(c);
         String partida = horaPartida + ":" + minutosPartida + ":00" + " " + amPm;
         String duracion = horaDuracion + ":" + minutosDuracion + ":00";

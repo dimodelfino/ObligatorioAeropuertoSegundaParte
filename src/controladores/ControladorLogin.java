@@ -22,9 +22,12 @@ public class ControladorLogin {
         this.vista=l;
     }
     
-    public void autenticar(String nombre, String contrasenia){
+    public void autenticar(String nombre, String contrasenia) throws utilities.ExceptionLogin{
         Usuario usu = LogicaUsuario.getInstancia().buscarUsuario(nombre, contrasenia);
-        vista.ingresar(usu);
-
+        if(usu != null){
+            vista.ingresar(usu);
+        }else{
+         throw new utilities.ExceptionLogin();
+        }
     }  
 }

@@ -10,6 +10,7 @@ import controladores.IVistaLogIn;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
+import utilities.ExceptionLogin;
 
 /**
  *
@@ -136,7 +137,12 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
 
     private void bntLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLoginActionPerformed
         String pass = String.valueOf(txtPass.getPassword());
-        controlador.autenticar(txtUsuario.getText(), pass);
+        try{
+            controlador.autenticar(txtUsuario.getText(), pass);
+        }catch(ExceptionLogin x){
+            lblError.setText(x.getMessage());
+        }
+        
     }//GEN-LAST:event_bntLoginActionPerformed
 
    

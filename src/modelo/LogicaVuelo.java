@@ -127,8 +127,8 @@ public class LogicaVuelo {
         a.fVuelo = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(3);
         a.fechaPartida = "21/05/2019";
         a.horaRealPartida = horaActual;
-        //a.horaRealLlegada = "";
-        a.estado = "En hora";
+        a.horaRealLlegada = "22:10:00 AM";
+        a.estado = "VUELO TEST";
 
         Vuelo b = new Vuelo();
         cal.add(Calendar.DATE, -3);

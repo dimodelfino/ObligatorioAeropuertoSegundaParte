@@ -111,7 +111,7 @@ public class LogicaUsuario {
         int i = 0;
         Usuario usu = null;
 
-        while (!existe) {
+        while (!existe && i<this.usuarios.size()) {
             if (this.usuarios.get(i).nombre.equals(nombre)
                     && this.usuarios.get(i).contrasenia.equals(contrasenia)) {
                 existe = true;
