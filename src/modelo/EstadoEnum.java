@@ -9,8 +9,6 @@ package modelo;
  *
  * @author dmoreno
  */
-public enum EstadoEnum {
-    
-        Pendiente,Rechazado,Aprobado;   
-        
+public enum EstadoEnum {    
+        Pendiente,Rechazado,Aprobado;           
 }

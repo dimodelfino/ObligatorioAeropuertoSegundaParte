@@ -9,7 +9,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import utilities.ExceptionCompania;
 import vistas.DiaSemanaEnum;
@@ -18,7 +17,7 @@ import vistas.DiaSemanaEnum;
  *
  * @author dmoreno
  */
-public class FachadaModelo {
+public class FachadaModelo{
 
     private static FachadaModelo instancia = new FachadaModelo();
 
@@ -26,17 +25,21 @@ public class FachadaModelo {
         return instancia;
     }
 
+    //Instancia una FrecuenciaDeVuelo, valida si existe y la envia a LogicaFrecuenciaVuelo a agregarse a su lista
     public boolean agregarFrecuencia(String num, String origen, String destino, String hrPartida, String duracionEst, Compania c, ArrayList<DiaSemanaEnum> diasSem) throws ExceptionCompania{
-
+        boolean result = false;
         Aeropuerto Aorigen = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(origen);
         Aeropuerto Adestino = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(destino);
         Estado eOrigen = new Estado(Aorigen);
         Estado eDestino = new Estado(Adestino);
         FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo(num, eOrigen, eDestino, hrPartida, duracionEst, c, diasSem);
-        existeFrecuencia(fv);
-        return LogicaFrecuenciaVuelo.getInstancia().GuardarFrecuencia(fv);
+        if(!existeFrecuencia(fv)){
+            result = LogicaFrecuenciaVuelo.getInstancia().GuardarFrecuencia(fv);
+        }
+        return result;
     }
 
+    //Valida si ya existe la frecuencia que recibe por parametros.
     public boolean existeFrecuencia(FrecuenciaDeVuelo fv) throws utilities.ExceptionCompania{
         boolean ret = false;
         int i = 0;
@@ -55,50 +58,53 @@ public class FachadaModelo {
                 fv.diasSemana.removeAll(auxFrec);  
                 if(fv.diasSemana.size() == 0){
                     throw new utilities.ExceptionCompania("Ya existe una frecuencia con los datos ingresados. Intente nuevamente.");
-                }
-                frecIteracion.diasSemana.addAll(fv.diasSemana);
-                ret = true;
+                }else{
+                    frecIteracion.diasSemana.addAll(fv.diasSemana);
+                    ret = true;
+                }                
             }
             i++;                  
         }
         return ret;
     }
     
-    public Collection<DiaSemanaEnum> compareArrayListDias(ArrayList<DiaSemanaEnum> arrFrec, ArrayList<DiaSemanaEnum> arrItera){
-       Collection<DiaSemanaEnum> resultado = new ArrayList<>();
-        arrItera.removeAll(arrFrec);
-        return resultado;
-  
-    }
-
+    //Recibe un nombre de aeropuerto y devuelve si existe
     public Aeropuerto BuscarAeropuertoPorNomber(String aerop) {
         return LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(aerop);
     }
 
+    //Devuelve la lista de FrecuenciaDeVuelo de LogicaFrecuencia
     public ArrayList<FrecuenciaDeVuelo> getFrecuencias() {
         return LogicaFrecuenciaVuelo.getInstancia().getFrecuencias();
     }
-
+    
+    //Devuelve la lista de Vuelos de LogicaVuelo
     public ArrayList<Vuelo> getVuelos() {
         return LogicaVuelo.getInstancia().getVuelos();
     }
 
+    //Recibe una lista de FrecuenciaDeVuelo actualizada y la agrega a la lista de LogicaFrecuenciaVuelo
     public void actualizarFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias) {
         LogicaFrecuenciaVuelo.getInstancia().setFrecuencias(frecuencias);
     }
 
+    //Recibe una FrecuenciaDeVuelo y la agrega a LogicaVuelo
     public void agregarVuelo(FrecuenciaDeVuelo fv) {
         LogicaVuelo.getInstancia().crearVuelo(fv);
     }
 
+    //Recibe un Vuelo y lo agrega a LogicaVuelo
     public void agregarPartidaVuelo(Vuelo partida) {
         LogicaVuelo.getInstancia().agregarPartidaVuelo(partida);
     }
-
+    
+    //Recibe un Vuelo y le agrega los datos necesarios de su aterrizaje
     public void agregarLlegadaVuelo(Vuelo arribo) {
         LogicaVuelo.getInstancia().agregarLlegadaVuelo(arribo);
     }
 
+    //Recibe un nombre de aeropuerto y si es de origen o destino. Devuelve una lista de vuelos que tenga ese aeropuerto
+    //como origen o destino dependiendo del atributo origDest
     public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
         ArrayList<Vuelo> v = FachadaModelo.getInstancia().getVuelos();
         ArrayList<Vuelo> vuelosFiltrados = new ArrayList<>();
@@ -123,6 +129,8 @@ public class FachadaModelo {
         return vuelosFiltrados;
     }
 
+    //Recibe un nombre de aeropuerto y si es de origen o destino. Devuelve una lista de vuelos que tenga ese aeropuerto
+    //como origen o destino dependiendo del atributo origDest Y que tengan en su frecuencia de vuelo el dia de hoy.
     public ArrayList<Vuelo> getVuelosDiarios(String nomAero, String origDest) {
         ArrayList<Vuelo> vuelosAux = new ArrayList<Vuelo>();
         Calendar calendar = Calendar.getInstance();
@@ -141,6 +149,7 @@ public class FachadaModelo {
         return vuelosAux;
     }
 
+    //Verifica si ya hay un vuelo con la frecuencia de vuelo pasada por parametro que haya despegado/aterrizado el dia de hoy
     public boolean vueloYaPartio(FrecuenciaDeVuelo f) {
         boolean partio = false;
         int i = 0;
@@ -161,6 +170,7 @@ public class FachadaModelo {
         return partio;
     }
 
+    //Devuelve lista de vuelos del dia de hoy que tengan el nombre de aeropuerto (nomAero) como origen/destino, dependiendo de origDest
     public ArrayList<Vuelo> getVuelosPorAeropuertoMonitoreo(String nomAero, String origDest) {
         ArrayList<Vuelo> v = FachadaModelo.getInstancia().getVuelos();
         ArrayList<Vuelo> vuelosFiltrados = new ArrayList<>();
@@ -193,6 +203,7 @@ public class FachadaModelo {
         return vuelosFiltrados;
     }
 
+    //Devuelve el DiaSemanaEnum equivalente al ind de dia de la semana que se le pase por parametro
     public DiaSemanaEnum getDiaSemana(int dia) {
         DiaSemanaEnum diaSemana = DiaSemanaEnum.D;
 

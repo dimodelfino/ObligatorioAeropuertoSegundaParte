@@ -25,6 +25,7 @@ public class LogicaUsuario {
         return usuarios;
     }
 
+    //Crea usuarios de prueba
     public void iniciateUsersList() {
 
         this.usuarios = new ArrayList<>();
@@ -106,6 +107,7 @@ public class LogicaUsuario {
         this.usuarios.add(k);
     }
 
+    //Busca Usuarios por nombre
     public Usuario buscarUsuario(String nombre, String contrasenia) {
         boolean existe = false;
         int i = 0;

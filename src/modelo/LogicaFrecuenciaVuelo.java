@@ -31,16 +31,16 @@ public class LogicaFrecuenciaVuelo extends Observable {
 
     public void setFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuenci) {
         this.frecuencias = frecuenci;
+        notificarObservadores();
     }
 
+    //Crea Frecuencias de prueba 
     public void iniciateFrecuenciaVueloList() {
         Compania c = LogicaCompania.getInstancia().getCompanias().get(0);
         Aeropuerto origen = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("Carrasco");
         Aeropuerto destino = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre("Ezeiza");
-        Estado eOrigen = new Estado(origen);
-       //eOrigen.estado= EstadoEnum.Aprobado;
-        Estado eDestino = new Estado(destino);
-       //eDestino.estado= EstadoEnum.Aprobado;
+        Estado eOrigen = new Estado(origen);       
+        Estado eDestino = new Estado(destino);       
         ArrayList<DiaSemanaEnum> d = new ArrayList<>();
         d.add(DiaSemanaEnum.S);
         d.add(DiaSemanaEnum.D);
@@ -107,6 +107,7 @@ public class LogicaFrecuenciaVuelo extends Observable {
         notificarObservadores();
     }
 
+    //Guarda una frecuencia en la lista de frecuencias.
     public boolean GuardarFrecuencia(FrecuenciaDeVuelo fv) {
         boolean agregado = false;
         int cantidadFrecuencias = getInstancia().frecuencias.size();
@@ -117,9 +118,7 @@ public class LogicaFrecuenciaVuelo extends Observable {
         notificarObservadores();
         return agregado;
     }
-
-    
-    
+        
     public void notificarObservadores(){
         setChanged();
         notifyObservers();

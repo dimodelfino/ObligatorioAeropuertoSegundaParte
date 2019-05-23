@@ -25,9 +25,9 @@ public class LogicaAeropuerto {
         return aeropuertos;
     }
 
+    //Crea aerpuertos de prueba
     public void iniciateAirportsList() {
         this.aeropuertos = new ArrayList<Aeropuerto>();
-
         Aeropuerto a = new Aeropuerto();
         a.nombre = "Carrasco";
         Aeropuerto b = new Aeropuerto();
@@ -40,7 +40,6 @@ public class LogicaAeropuerto {
         e.nombre = "JFK";
         Aeropuerto f = new Aeropuerto();
         f.nombre = "La Guardia";
-
         this.aeropuertos.add(a);
         this.aeropuertos.add(b);
         this.aeropuertos.add(c);
@@ -49,6 +48,7 @@ public class LogicaAeropuerto {
         this.aeropuertos.add(f);
     }
 
+    //Busca aeropuertos por nombre
     public Aeropuerto buscarAeropuertoNombre(String aeropuertoNom) {
         Aeropuerto a = null;
         boolean existe = false;

@@ -17,8 +17,7 @@ import java.util.Date;
  */
 public class LogicaVuelo {
 
-    private static LogicaVuelo instancia = new LogicaVuelo();
-    //Borrar la pRTE = new ArrayList<>()
+    private static LogicaVuelo instancia = new LogicaVuelo();    
     private static ArrayList<Vuelo> vuelos = new ArrayList<>();
 
     public static LogicaVuelo getInstancia() {
@@ -29,10 +28,10 @@ public class LogicaVuelo {
         return vuelos;
     }
 
+    //Crea y guarda un vuelo con la frecuencia de vuelo pasada por parametro
     public void crearVuelo(FrecuenciaDeVuelo fv) {
         Vuelo v = new Vuelo();
-        v.fVuelo = fv;
-        //agregarPartidaVuelo(v);
+        v.fVuelo = fv;        
         Date hoy = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(hoy);
@@ -43,9 +42,10 @@ public class LogicaVuelo {
         v.fechaPartida = (String) fecha.format(hoy);
         String e = this.calcularEstado(v.fVuelo.horaPartida, horaActual);
         v.estado = e;
-        this.vuelos.add(v);
+        this.vuelos.add(v);        
     }
 
+    //Agrega los datos necesarios al vuelo cuando despega.
     public void agregarPartidaVuelo(Vuelo partida) {
         boolean encontro = false;
         int i = 0;
@@ -69,6 +69,7 @@ public class LogicaVuelo {
         }
     }
 
+    //Agrega los datos necesarios al vuelo cuando aterriza.
     public void agregarLlegadaVuelo(Vuelo arribo) {
         boolean encontro = false;
         int i = 0;
@@ -82,14 +83,15 @@ public class LogicaVuelo {
             if (vuelos.get(i).equals(arribo)) {
                 Vuelo vue = vuelos.get(i);
                 vue.horaRealLlegada = horaActual;
+                vue.estado = "Aterrizo";
                 encontro = true;
-                vuelos.set(i, vue);
-                //  vuelos.add(i, vue);
+                vuelos.set(i, vue);                
             }
             i++;
         }
     }
 
+    //Calcula el estado (Adelantado, Retrasado, En hora) dependiendo de la hora real
     public String calcularEstado(String horaSalidaFrecuencia, String horaRealSalida) {
 
         String[] horaSalidaFrec;
@@ -120,38 +122,14 @@ public class LogicaVuelo {
         cal.setTime(hoy);
         DateFormat formato = new SimpleDateFormat("hh:mm:ss a");
 
-        Vuelo a = new Vuelo();
-        //  cal.add(Calendar.DATE, -4);
+        Vuelo a = new Vuelo();        
         salidaVuelo = cal.getTime();
         String horaActual = formato.format(hoy);
         a.fVuelo = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(3);
         a.fechaPartida = "21/05/2019";
         a.horaRealPartida = horaActual;
         a.horaRealLlegada = "22:10:00 AM";
-        a.estado = "VUELO TEST";
-
-        Vuelo b = new Vuelo();
-        cal.add(Calendar.DATE, -3);
-        salidaVuelo = cal.getTime();
-        // String horaActual = formato.format(hoy);
-        b.fVuelo = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(2);
-        //b.nombre = "Ezeiza";
-        Vuelo c = new Vuelo();
-
-        //c.nombre = "Barajas";
-        Vuelo d = new Vuelo();
-        //d.nombre = "Guarulos";
-        Vuelo e = new Vuelo();
-        //e.nombre = "JFK";
-        Vuelo f = new Vuelo();
-        //f.nombre = "La Guardia";
-
+        a.estado = "VUELO TEST";        
         this.vuelos.add(a);
-
-//        this.vuelos.add(b);
-//        this.vuelos.add(c);
-//        this.vuelos.add(d);
-//        this.vuelos.add(e);
-//        this.vuelos.add(f);
     }
 }

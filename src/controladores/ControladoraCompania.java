@@ -37,12 +37,9 @@ public class ControladoraCompania implements Observer{
         if (!aeroOrigen.equals(aeroDestino)) {
             if (diaSemana.size() == 0 || amPm == null || (horaPartida.equals("00") && minutosPartida.equals("00")) || (horaDuracion.equals("00") && minutosDuracion.equals("00"))) {                
                 throw new utilities.ExceptionCompania("Debe ingresar todos los datos.");
-            } else {    
-                
+            } else {                    
                 if (this.IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diaSemana, horaPartida, minutosPartida, horaDuracion, minutosDuracion, amPm, c)) {
-                    ingreso = true;
-                } else {                    
-                    throw new utilities.ExceptionCompania("Ingrese datos correctos.");
+                    ingreso = true;                
                 }                
             }
         } else {            

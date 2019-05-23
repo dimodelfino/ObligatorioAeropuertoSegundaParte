@@ -28,22 +28,12 @@ public class AplicacionMonitoreo extends javax.swing.JDialog implements IVistaAe
         this.controlador = new ControladoraMonitoreo(this);                        
         ua = (UsuAeropuerto) u; 
         actualizarListas();
-    }
-    
-    public final void actualizarListaVueloOrigen(ArrayList<Vuelo> vuelos){
-        lstPartidas.setListData(vuelos.toArray());
-    }
-    
-    public final void actualizarListaVueloDestino(ArrayList<Vuelo> vuelos){
-        lstArribos.setListData(vuelos.toArray());
-    }
-    
-    
+    }    
     
      @Override
     public void actualizarListas() {
-        actualizarListaVueloOrigen(controlador.getVuelosPorAeropuertoMonitoreo(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaVueloDestino(controlador.getVuelosPorAeropuertoMonitoreo(ua.aeropuerto.nombre, "Destino"));
+        lstPartidas.setListData(controlador.getVuelosPorAeropuertoMonitoreo(ua.aeropuerto.nombre, "Origen").toArray());
+        lstArribos.setListData(controlador.getVuelosPorAeropuertoMonitoreo(ua.aeropuerto.nombre, "Destino").toArray());
     }
 
     /**

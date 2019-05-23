@@ -20,7 +20,5 @@ public class LogicaEstado {
     
     public List<Estado> getEstados(){
          return estados;
-     }
-  
-    
+     }      
 }

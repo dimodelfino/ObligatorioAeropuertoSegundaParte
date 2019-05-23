@@ -25,6 +25,7 @@ public class LogicaCompania {
         return companias;
     }
 
+    //Crea Compañias de prueba
     public void iniciateCompanyList() {
         this.companias = new ArrayList<>();
         Compania a = new Compania();
@@ -47,9 +48,7 @@ public class LogicaCompania {
         e.nombre = "Jet Blue ";
         e.alias = "JBL ";
         this.companias.add(e);
-    }
-    
-    
+    }        
 }
 
 

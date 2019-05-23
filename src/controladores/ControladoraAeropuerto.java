@@ -46,29 +46,6 @@ public class ControladoraAeropuerto implements Observer{
         return frecuenciasFiltradas;
     }
 
-//    public ArrayList<FrecuenciaDeVuelo> frecuenciasAprobadas(String nomAero, String origDest) {
-//        ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();
-//        ArrayList<FrecuenciaDeVuelo> frecuenciasFiltradasAprobadas = new ArrayList<>();
-//        Calendar calendar = Calendar.getInstance();
-//        int dia = calendar.get(Calendar.DAY_OF_WEEK);
-//        DiaSemanaEnum hoy = getDiaSemana(dia);
-//
-//        for (FrecuenciaDeVuelo frec : f) {
-//            if (origDest.equals("Origen")) {
-//                if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && frec.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
-//                        && frec.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && frec.diasSemana.contains(hoy)) {
-//                    frecuenciasFiltradasAprobadas.add(frec);
-//                }
-//            } else {
-//                if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && frec.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
-//                        && frec.aeropuertoDestino.aeropuerto.nombre.equals(nomAero) && frec.diasSemana.contains(hoy)) {
-//                    frecuenciasFiltradasAprobadas.add(frec);
-//                }
-//            }
-//        }
-//        return frecuenciasFiltradasAprobadas;
-//    }
-
     public DiaSemanaEnum getDiaSemana(int dia) {
         DiaSemanaEnum diaSemana = DiaSemanaEnum.D;
 
@@ -109,8 +86,7 @@ public class ControladoraAeropuerto implements Observer{
                 }
             }
         }
-        FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
-        LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
+        FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);        
     }
 
     public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) {
@@ -127,8 +103,7 @@ public class ControladoraAeropuerto implements Observer{
                 }
             }
         }
-        FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);
-        LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
+        FachadaModelo.getInstancia().actualizarFrecuencias(frecuencias);        
     }
 
     public void agregregarVuelo(FrecuenciaDeVuelo fv) {
