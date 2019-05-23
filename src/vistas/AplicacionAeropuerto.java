@@ -30,10 +30,11 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
         ua = (UsuAeropuerto) u;
         lblAeropuerto.setText(ua.aeropuerto.nombre);
         this.controlador = new ControladoraAeropuerto(this);
-        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
-        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+        actualizarListas();
+//        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+//        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
     }
 
     /**
@@ -250,19 +251,21 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
 
     private void btnAprobarOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarOrigenActionPerformed
         controlador.aprobarEstadoFrecuencia(frecPendOrigen, "Origen");
-        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
-        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+        actualizarListas();
+//        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+//        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
     }//GEN-LAST:event_btnAprobarOrigenActionPerformed
 
     private void btnAprobarDestinoFrecuenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarDestinoFrecuenciaActionPerformed
         controlador.aprobarEstadoFrecuencia(frecPendDestino, "Destino");
         controlador.agregregarVuelo(frecPendDestino);
-        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
-        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+        actualizarListas();
+//        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+//        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
     }//GEN-LAST:event_btnAprobarDestinoFrecuenciaActionPerformed
 
     private void lstFrecuenciasPendientesDestinoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstFrecuenciasPendientesDestinoValueChanged
@@ -281,35 +284,39 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
 
     private void btnRechazarOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarOrigenActionPerformed
         controlador.rechazarEstadoFrecuencia(frecPendOrigen, "Origen");
-        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
-        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+        actualizarListas();
+//        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+//        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
     }//GEN-LAST:event_btnRechazarOrigenActionPerformed
 
     private void btnRechazarDestinoFrecuenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarDestinoFrecuenciaActionPerformed
         controlador.rechazarEstadoFrecuencia(frecPendDestino, "Destino");
-        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
-        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+        actualizarListas();
+//        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+//        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
     }//GEN-LAST:event_btnRechazarDestinoFrecuenciaActionPerformed
 
     private void btnIngresarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarPartidaActionPerformed
         controlador.partioVuelo(partida);
-        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
-        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+        actualizarListas();
+//        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+//        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
     }//GEN-LAST:event_btnIngresarPartidaActionPerformed
 
     private void btnIngresarArriboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarArriboActionPerformed
 
         controlador.arriboVuelo(arribo);
-        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
-        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
-        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+        actualizarListas();
+//        actualizarListaFVOrigen(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaFVDestino(controlador.frecuenciasPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
+//        actualizarListaVOrigenPartio(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Origen"));
+//        actualizarListaVDestinoLlego(controlador.getVuelosPorAeropuerto(ua.aeropuerto.nombre, "Destino"));
     }//GEN-LAST:event_btnIngresarArriboActionPerformed
 
     private void lstVuelosDiariosPartidasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstVuelosDiariosPartidasValueChanged

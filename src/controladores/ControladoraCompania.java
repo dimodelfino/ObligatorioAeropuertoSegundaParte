@@ -18,14 +18,14 @@ import vistas.DiaSemanaEnum;
  *
  * @author dmoreno
  */
-public class ControladoraCompania implements Observer {
+public class ControladoraCompania implements Observer{
 
     private static int contador = 5;
-    private AplicacionCompania apComp;
+    private AplicacionCompania vista;
 
     public ControladoraCompania(AplicacionCompania apC) {
         LogicaFrecuenciaVuelo.getInstancia().addObserver(this);
-        this.apComp = apC;
+        this.vista = apC;
     }
 
     public boolean IngresoFrecuenciaVuelo(String aeroOrigen, String aeroDestino, ArrayList<DiaSemanaEnum> diaSemana, String horaPartida,
@@ -43,8 +43,10 @@ public class ControladoraCompania implements Observer {
     }
 
     @Override
-    public void update(Observable arg0, Object arg1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Observable o, Object arg1) {
+        if(o == LogicaFrecuenciaVuelo.getInstancia()){
+            vista.actualizarListas();
+        }
     }
 
 }

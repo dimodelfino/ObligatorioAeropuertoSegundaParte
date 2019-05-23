@@ -5,13 +5,19 @@
  */
 package vistas;
 
+import controladores.ControladoraAeropuerto;
+import controladores.ControladoraMonitoreo;
+import controladores.IVistaAeropuerto;
+import java.util.ArrayList;
+import modelo.UsuAeropuerto;
 import modelo.Usuario;
+import modelo.Vuelo;
 
 /**
  *
  * @author majuetcheverry
  */
-public class AplicacionMonitoreo extends javax.swing.JDialog {
+public class AplicacionMonitoreo extends javax.swing.JDialog implements IVistaAeropuerto{
 
     /**
      * Creates new form AplicacionMonitoreo
@@ -19,6 +25,25 @@ public class AplicacionMonitoreo extends javax.swing.JDialog {
     public AplicacionMonitoreo(java.awt.Frame parent, boolean modal, Usuario u) {
         super(parent, modal);
         initComponents();
+        this.controlador = new ControladoraMonitoreo(this);                        
+        ua = (UsuAeropuerto) u; 
+        actualizarListas();
+    }
+    
+    public final void actualizarListaVueloOrigen(ArrayList<Vuelo> vuelos){
+        lstPartidas.setListData(vuelos.toArray());
+    }
+    
+    public final void actualizarListaVueloDestino(ArrayList<Vuelo> vuelos){
+        lstArribos.setListData(vuelos.toArray());
+    }
+    
+    
+    
+     @Override
+    public void actualizarListas() {
+        actualizarListaVueloOrigen(controlador.getVuelosPorAeropuertoMonitoreo(ua.aeropuerto.nombre, "Origen"));
+        actualizarListaVueloDestino(controlador.getVuelosPorAeropuertoMonitoreo(ua.aeropuerto.nombre, "Destino"));
     }
 
     /**
@@ -32,10 +57,10 @@ public class AplicacionMonitoreo extends javax.swing.JDialog {
 
         lblPartidas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstPartidas = new javax.swing.JList<>();
+        lstPartidas = new javax.swing.JList();
         lblArribos = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lstArribos = new javax.swing.JList<>();
+        lstArribos = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -86,13 +111,15 @@ public class AplicacionMonitoreo extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-
+    ControladoraMonitoreo controlador;    
+    UsuAeropuerto ua = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblArribos;
     private javax.swing.JLabel lblPartidas;
-    private javax.swing.JList<String> lstArribos;
-    private javax.swing.JList<String> lstPartidas;
+    private javax.swing.JList lstArribos;
+    private javax.swing.JList lstPartidas;
     // End of variables declaration//GEN-END:variables
+   
 }

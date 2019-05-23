@@ -124,7 +124,7 @@ public class LogicaVuelo {
         cal.add(Calendar.DATE, -3);
         salidaVuelo = cal.getTime();
         // String horaActual = formato.format(hoy);
-        a.fVuelo = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(2);
+        b.fVuelo = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(2);
         //b.nombre = "Ezeiza";
         Vuelo c = new Vuelo();
 

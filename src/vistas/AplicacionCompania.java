@@ -6,6 +6,7 @@
 package vistas;
 
 import controladores.ControladoraCompania;
+import controladores.IVistaAeropuerto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
@@ -20,7 +21,7 @@ import modelo.Usuario;
  *
  * @author dmoreno
  */
-public class AplicacionCompania extends javax.swing.JDialog {
+public class AplicacionCompania extends javax.swing.JDialog implements IVistaAeropuerto {
 
     /**
      * Creates new form IngresarFrecuencia
@@ -34,7 +35,8 @@ public class AplicacionCompania extends javax.swing.JDialog {
         lblCompania.setText(uc.compania.nombre);
         getNombreAeropuertos();
         checkboxManager();
-        ActualizarListaFrecuencias(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
+        actualizarListas();
+        //this.controlador = new ControladoraCompania();
         this.controlador = new ControladoraCompania(this);
     }
 
@@ -337,7 +339,7 @@ public class AplicacionCompania extends javax.swing.JDialog {
                 } else {
                     lblIngresarMessage.setText("Ingrese datos correctos.");
                 }
-                ActualizarListaFrecuencias(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
+                actualizarListas();
             }
         } else {
             lblIngresarMessage.setText("El Aeropuerto de origen y el de destino no pueden ser iguales.");
@@ -416,6 +418,12 @@ public class AplicacionCompania extends javax.swing.JDialog {
         }
         return result;
     }
+    
+    @Override
+    public void actualizarListas() {
+        ActualizarListaFrecuencias(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
+    }
+    
     ButtonGroup bgDiaSemana = new ButtonGroup();
     ButtonGroup bgAmPm = new ButtonGroup();
     UsuCompania uc = null;
@@ -458,4 +466,5 @@ public class AplicacionCompania extends javax.swing.JDialog {
     private javax.swing.ButtonGroup rbtnGroupDiaSemana;
     private javax.swing.JRadioButton rbtnPm;
     // End of variables declaration//GEN-END:variables
+    
 }
