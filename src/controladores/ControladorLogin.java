@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package controladores;
-import java.util.Observable;
-import java.util.Observer;
 import modelo.Usuario;
 import modelo.LogicaUsuario;
 

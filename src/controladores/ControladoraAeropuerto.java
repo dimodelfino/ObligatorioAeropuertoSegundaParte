@@ -114,6 +114,7 @@ public class ControladoraAeropuerto implements Observer{
     public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
         return FachadaModelo.getInstancia().getVuelosPorAeropuerto(nomAero, origDest);
     }
+    
     public ArrayList<Vuelo> getVuelosDiarios(String nomAero, String origDest) {
         return FachadaModelo.getInstancia().getVuelosDiarios(nomAero, origDest);
     }    
@@ -126,10 +127,6 @@ public class ControladoraAeropuerto implements Observer{
     public void arriboVuelo(Vuelo arribo){
     FachadaModelo.getInstancia().agregarLlegadaVuelo(arribo);
     LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
-    }
-    
-    public void cerrar(){
-        LogicaFrecuenciaVuelo.getInstancia().deleteObserver(this);
     }
 
     @Override
