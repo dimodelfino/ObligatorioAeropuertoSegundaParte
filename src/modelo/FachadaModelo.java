@@ -171,9 +171,9 @@ public class FachadaModelo{
     }
 
     //Devuelve lista de vuelos del dia de hoy que tengan el nombre de aeropuerto (nomAero) como origen/destino, dependiendo de origDest
-    public ArrayList<Vuelo> getVuelosPorAeropuertoMonitoreo(String nomAero, String origDest) {
+    public ArrayList<String> getVuelosPorAeropuertoMonitoreo(String nomAero, String origDest) {
         ArrayList<Vuelo> v = FachadaModelo.getInstancia().getVuelos();
-        ArrayList<Vuelo> vuelosFiltrados = new ArrayList<>();
+        ArrayList<String> vuelosFiltrados = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         int dia = calendar.get(Calendar.DAY_OF_WEEK);
         DiaSemanaEnum hoy = getDiaSemana(dia);
@@ -189,13 +189,15 @@ public class FachadaModelo{
                     if (vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
                             && vuel.horaRealPartida != null && vuel.horaRealLlegada == null && vuel.fVuelo.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
                             && vuel.fVuelo.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && vuel.fechaPartida.equals(fch)) {
-                        vuelosFiltrados.add(vuel);
+                        vuelosFiltrados.add("Num: "+vuel.fVuelo.numero + " - Comp: " + vuel.fVuelo.compania.nombre
+                        + " - Aerop: " + vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre + " - Est:" + vuel.estado);
                     }
                 } else {
                     if (vuel.fVuelo.aeropuertoDestino.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
                             && vuel.horaRealPartida != null && vuel.horaRealLlegada != null && vuel.fVuelo.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
                             && vuel.fVuelo.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && vuel.fechaPartida.equals(fch)) {
-                        vuelosFiltrados.add(vuel);
+                        vuelosFiltrados.add("Num: "+vuel.fVuelo.numero + " - Comp: " + vuel.fVuelo.compania.nombre
+                        + " - Aerop: " + vuel.fVuelo.aeropuertoDestino.aeropuerto.nombre + " - Est:" + vuel.estado);
                     }
                 }
             }

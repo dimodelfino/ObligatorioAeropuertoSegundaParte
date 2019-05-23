@@ -30,7 +30,7 @@ public class ControladoraMonitoreo implements Observer{
         return FachadaModelo.getInstancia().getVuelosPorAeropuerto(nomAero, origDest);
     } 
     
-    public ArrayList<Vuelo> getVuelosPorAeropuertoMonitoreo(String nomAero, String origDest) {
+    public ArrayList<String> getVuelosPorAeropuertoMonitoreo(String nomAero, String origDest) {
         return FachadaModelo.getInstancia().getVuelosPorAeropuertoMonitoreo(nomAero, origDest);
     } 
     

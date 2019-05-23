@@ -5,10 +5,6 @@
  */
 package vistas;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import modelo.LogicaAeropuerto;
 import modelo.LogicaCompania;
 import modelo.LogicaFrecuenciaVuelo;
@@ -31,14 +27,6 @@ public class ObligatorioAeropuerto {
         LogicaUsuario.getInstancia().iniciateUsersList();        
         LogicaFrecuenciaVuelo.getInstancia().iniciateFrecuenciaVueloList();
         LogicaVuelo.getInstancia().iniciatListaVuelos();
-        new MenuPrincipal().setVisible(true);
-
-        
-        //System.out.println(LogicaCompania.getInstancia().getCompanias().get(3).nombre);
-        //System.out.println(LogicaAeropuerto.getInstancia().getAeropuertos().get(3).nombre);
-        //System.out.println(LogicaUsuario.getInstancia().getUsuarios().get(3).nombre);
-        //System.out.println(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(2).numero);
-        //System.out.println(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(2).aeropuertoDestino.aeropuerto.nombre);        
-        //System.out.println(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias());
+        new MenuPrincipal().setVisible(true);                
     }
 }
