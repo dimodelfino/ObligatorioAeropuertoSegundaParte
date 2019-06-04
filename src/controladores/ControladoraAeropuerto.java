@@ -8,6 +8,7 @@ import modelo.EstadoEnum;
 import modelo.FachadaModelo;
 import modelo.FrecuenciaDeVuelo;
 import modelo.LogicaFrecuenciaVuelo;
+import modelo.LogicaVuelo;
 import modelo.Vuelo;
 import vistas.AplicacionAeropuerto;
 import vistas.DiaSemanaEnum;
@@ -24,6 +25,7 @@ public class ControladoraAeropuerto implements Observer{
     public ControladoraAeropuerto (AplicacionAeropuerto vistApAero){     
         this.vista = vistApAero;
         LogicaFrecuenciaVuelo.getInstancia().addObserver(this);
+        LogicaVuelo.getInstancia().addObserver(this);
     }
 
     public ArrayList<FrecuenciaDeVuelo> frecuenciasPorAeropuerto(String nomAero, String origDest) {
@@ -108,7 +110,7 @@ public class ControladoraAeropuerto implements Observer{
 
     public void agregregarVuelo(FrecuenciaDeVuelo fv) {
         FachadaModelo.getInstancia().agregarVuelo(fv);
-        LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
+       //TODO: LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
     }
 
     public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
@@ -121,17 +123,17 @@ public class ControladoraAeropuerto implements Observer{
 
     public void partioVuelo(Vuelo partida) {
         FachadaModelo.getInstancia().agregarPartidaVuelo(partida);
-        LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
+        //TODO: LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
     }
     
     public void arriboVuelo(Vuelo arribo){
     FachadaModelo.getInstancia().agregarLlegadaVuelo(arribo);
-    LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
+   //TODO: LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
     }
 
     @Override
     public void update(Observable o, Object arg1) {
-        if(o == LogicaFrecuenciaVuelo.getInstancia()){
+        if(o == LogicaFrecuenciaVuelo.getInstancia() || o == LogicaVuelo.getInstancia()){
             vista.actualizarListas();
         }
     }

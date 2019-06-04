@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import modelo.FachadaModelo;
 import modelo.LogicaFrecuenciaVuelo;
+import modelo.LogicaVuelo;
 import modelo.Vuelo;
 import vistas.AplicacionMonitoreo;
 
@@ -24,6 +25,7 @@ public class ControladoraMonitoreo implements Observer{
     public ControladoraMonitoreo(AplicacionMonitoreo apM){        
         this.vista = apM;
         LogicaFrecuenciaVuelo.getInstancia().addObserver(this);
+        LogicaVuelo.getInstancia().addObserver(this);
     }
 
     public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
@@ -36,7 +38,7 @@ public class ControladoraMonitoreo implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
-        if(o == LogicaFrecuenciaVuelo.getInstancia()){
+        if(o == LogicaFrecuenciaVuelo.getInstancia() || o == LogicaVuelo.getInstancia()){
             vista.actualizarListas();
         }
     }

@@ -129,7 +129,7 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
     private void bntLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLoginActionPerformed
         String pass = String.valueOf(txtPass.getPassword());
         try{
-            controlador.autenticar(txtUsuario.getText(), pass);
+            controlador.autenticar(txtUsuario.getText(), pass, this.tipoProxVentana);
         }catch(ExceptionLogin x){
             lblError.setText(x.getMessage());
         }

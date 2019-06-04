@@ -11,6 +11,7 @@ import java.util.Observer;
 import modelo.Compania;
 import modelo.FachadaModelo;
 import modelo.LogicaFrecuenciaVuelo;
+import modelo.LogicaVuelo;
 import utilities.ExceptionCompania;
 import vistas.AplicacionCompania;
 import vistas.DiaSemanaEnum;
@@ -26,6 +27,7 @@ public class ControladoraCompania implements Observer{
 
     public ControladoraCompania(AplicacionCompania apC) {
         LogicaFrecuenciaVuelo.getInstancia().addObserver(this);
+        LogicaVuelo.getInstancia().addObserver(this);
         this.vista = apC;
     }
     
@@ -66,7 +68,7 @@ public class ControladoraCompania implements Observer{
 
     @Override
     public void update(Observable o, Object arg1) {
-        if(o == LogicaFrecuenciaVuelo.getInstancia()){
+        if(o == LogicaFrecuenciaVuelo.getInstancia() || o == LogicaVuelo.getInstancia()){
             vista.actualizarListas();
         }
     }

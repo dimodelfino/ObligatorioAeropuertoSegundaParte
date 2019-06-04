@@ -10,17 +10,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Observable;
 
 /**
  *
  * @author dmoreno
  */
-public class LogicaVuelo {
+public class LogicaVuelo extends Observable{
 
-    private static LogicaVuelo instancia = new LogicaVuelo();    
+    private static LogicaVuelo instancia = null;    
     private static ArrayList<Vuelo> vuelos = new ArrayList<>();
 
     public static LogicaVuelo getInstancia() {
+        if (instancia == null) {
+            instancia = new LogicaVuelo();
+        }
         return instancia;
     }
 
@@ -42,7 +46,8 @@ public class LogicaVuelo {
         v.fechaPartida = (String) fecha.format(hoy);
         String e = this.calcularEstado(v.fVuelo.horaPartida, horaActual);
         v.estado = e;
-        this.vuelos.add(v);        
+        this.vuelos.add(v);    
+        notificarObservadores();
     }
 
     //Agrega los datos necesarios al vuelo cuando despega.
@@ -67,6 +72,7 @@ public class LogicaVuelo {
             }
             i++;
         }
+        notificarObservadores();
     }
 
     //Agrega los datos necesarios al vuelo cuando aterriza.
@@ -89,6 +95,7 @@ public class LogicaVuelo {
             }
             i++;
         }
+        notificarObservadores();
     }
 
     //Calcula el estado (Adelantado, Retrasado, En hora) dependiendo de la hora real
@@ -110,7 +117,7 @@ public class LogicaVuelo {
             result = "Retrasado";
         } else if (soloHoraSupuestaSalida == soloHoraRealSalida && ((minutoSupuestaHoraSalida - 5) <= minutoRealSalida) && ((minutoSupuestaHoraSalida + 5) >= minutoRealSalida)) {
             result = "En hora";
-        }
+        }        
         return result;
     }
 
@@ -131,5 +138,11 @@ public class LogicaVuelo {
         a.horaRealLlegada = "22:10:00 AM";
         a.estado = "VUELO TEST";        
         this.vuelos.add(a);
+        notificarObservadores();
+    }
+    
+    public void notificarObservadores(){
+        setChanged();
+        notifyObservers();
     }
 }
