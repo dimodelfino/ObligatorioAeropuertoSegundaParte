@@ -4,11 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/vistas/AplicacionAeropuerto.java</file>
+            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/modelo/FrecuenciaDeVuelo.java</file>
+            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/vistas/ObligatorioAeropuerto.java</file>
             <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/controladores/ControladoraAeropuerto.java</file>
+            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/modelo/Estado.java</file>
             <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/modelo/LogicaVuelo.java</file>
-            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/modelo/Vuelo.java</file>
-            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/modelo/LogicaAeropuerto.java</file>
-            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/modelo/Aeropuerto.java</file>
+            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/modelo/LogicaUsuario.java</file>
+            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/controladores/ControladoraCompania.java</file>
+            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/modelo/LogicaFrecuenciaVuelo.java</file>
+            <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/vistas/AplicacionCompania.java</file>
             <file>file:/C:/Users/dmoreno/Documents/NetBeansProjects/ObligatorioAeropuertoSegundaParte/src/modelo/FachadaModelo.java</file>
         </group>
     </open-files>

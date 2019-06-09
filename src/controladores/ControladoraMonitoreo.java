@@ -28,9 +28,10 @@ public class ControladoraMonitoreo implements Observer{
         LogicaVuelo.getInstancia().addObserver(this);
     }
 
-    public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
-        return FachadaModelo.getInstancia().getVuelosPorAeropuerto(nomAero, origDest);
-    } 
+// TODO: DELETE METHOD    
+//    public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
+//        return FachadaModelo.getInstancia().getVuelosPorAeropuerto(nomAero, origDest);
+//    } 
     
     public ArrayList<String> getVuelosPorAeropuertoMonitoreo(String nomAero, String origDest) {
         return FachadaModelo.getInstancia().getVuelosPorAeropuertoMonitoreo(nomAero, origDest);

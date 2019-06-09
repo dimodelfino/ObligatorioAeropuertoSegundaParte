@@ -10,15 +10,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Observable;
 
 /**
  *
  * @author dmoreno
  */
-public class LogicaVuelo extends Observable{
+public class LogicaVuelo extends Observable {
 
-    private static LogicaVuelo instancia = null;    
+    private static LogicaVuelo instancia = null;
     private static ArrayList<Vuelo> vuelos = new ArrayList<>();
 
     public static LogicaVuelo getInstancia() {
@@ -35,7 +36,7 @@ public class LogicaVuelo extends Observable{
     //Crea y guarda un vuelo con la frecuencia de vuelo pasada por parametro
     public void crearVuelo(FrecuenciaDeVuelo fv) {
         Vuelo v = new Vuelo();
-        v.fVuelo = fv;        
+        v.fVuelo = fv;
         Date hoy = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(hoy);
@@ -44,9 +45,9 @@ public class LogicaVuelo extends Observable{
         String horaActual = formato.format(hoy);
         v.horaRealPartida = horaActual;
         v.fechaPartida = (String) fecha.format(hoy);
-        String e = this.calcularEstado(v.fVuelo.horaPartida, horaActual);
+        String e = this.calcularEstado(v.fVuelo.horaPartida);
         v.estado = e;
-        this.vuelos.add(v);    
+        this.vuelos.add(v);
         notificarObservadores();
     }
 
@@ -65,7 +66,7 @@ public class LogicaVuelo extends Observable{
                 Vuelo variable = vuelos.get(i);
                 variable.horaRealPartida = horaActual;
                 variable.fechaPartida = (String) fecha.format(hoy);
-                String e = this.calcularEstado(variable.fVuelo.horaPartida, horaActual);
+                String e = this.calcularEstado(variable.fVuelo.horaPartida);
                 variable.estado = e;
                 vuelos.set(i, variable);
                 encontro = true;
@@ -91,7 +92,7 @@ public class LogicaVuelo extends Observable{
                 vue.horaRealLlegada = horaActual;
                 vue.estado = "Aterrizo";
                 encontro = true;
-                vuelos.set(i, vue);                
+                vuelos.set(i, vue);
             }
             i++;
         }
@@ -99,25 +100,41 @@ public class LogicaVuelo extends Observable{
     }
 
     //Calcula el estado (Adelantado, Retrasado, En hora) dependiendo de la hora real
-    public String calcularEstado(String horaSalidaFrecuencia, String horaRealSalida) {
-
+    public String calcularEstado(String horaSalidaFrecuencia) {
+        String result = "En hora";
+           
         String[] horaSalidaFrec;
-        String[] horaReal;
-
-        horaSalidaFrec = horaSalidaFrecuencia.split(":");
-        horaReal = horaRealSalida.split(":");
-
+        String stringHoraEstimadaSalida = horaSalidaFrecuencia;
+        horaSalidaFrec = stringHoraEstimadaSalida.split(":");
+        
         int soloHoraSupuestaSalida = Integer.parseInt(horaSalidaFrec[0]);
         int minutoSupuestaHoraSalida = Integer.parseInt(horaSalidaFrec[1]);
-        int soloHoraRealSalida = Integer.parseInt(horaReal[0]);
-        int minutoRealSalida = Integer.parseInt(horaReal[1]);
-
-        String result = "Adelantado";
-        if (soloHoraSupuestaSalida < soloHoraRealSalida) {
-            result = "Retrasado";
-        } else if (soloHoraSupuestaSalida == soloHoraRealSalida && ((minutoSupuestaHoraSalida - 5) <= minutoRealSalida) && ((minutoSupuestaHoraSalida + 5) >= minutoRealSalida)) {
-            result = "En hora";
+        String amPm = horaSalidaFrec[2];
+        
+        
+        Calendar salidaHoraEstimadaMenosCinco = new GregorianCalendar();
+        salidaHoraEstimadaMenosCinco.set(Calendar.MINUTE, minutoSupuestaHoraSalida-5);                      
+        salidaHoraEstimadaMenosCinco.set(Calendar.HOUR, soloHoraSupuestaSalida);
+        
+        Calendar salidaHoraEstimadaMasCinco = new GregorianCalendar();
+        salidaHoraEstimadaMasCinco.set(Calendar.MINUTE, minutoSupuestaHoraSalida+5);                
+        salidaHoraEstimadaMasCinco.set(Calendar.HOUR, soloHoraSupuestaSalida);
+        
+        
+        if(amPm.contains("AM")){
+           salidaHoraEstimadaMenosCinco.set(Calendar.AM_PM, Calendar.AM);
+           salidaHoraEstimadaMasCinco.set(Calendar.AM_PM, Calendar.AM);
+        }else{
+            salidaHoraEstimadaMenosCinco.set(Calendar.AM_PM, Calendar.PM);
+            salidaHoraEstimadaMasCinco.set(Calendar.AM_PM, Calendar.PM);
         }        
+        Calendar horaActual = new GregorianCalendar();
+        
+        if(horaActual.before(salidaHoraEstimadaMenosCinco)){
+            result = "Adelantado";
+        }else if (horaActual.after(salidaHoraEstimadaMasCinco)){
+           result ="Retrasado"; 
+        }                   
         return result;
     }
 
@@ -129,19 +146,19 @@ public class LogicaVuelo extends Observable{
         cal.setTime(hoy);
         DateFormat formato = new SimpleDateFormat("hh:mm:ss a");
 
-        Vuelo a = new Vuelo();        
+        Vuelo a = new Vuelo();
         salidaVuelo = cal.getTime();
         String horaActual = formato.format(hoy);
         a.fVuelo = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(3);
         a.fechaPartida = "21/05/2019";
         a.horaRealPartida = horaActual;
         a.horaRealLlegada = "22:10:00 AM";
-        a.estado = "VUELO TEST";        
+        a.estado = "VUELO TEST";
         this.vuelos.add(a);
         notificarObservadores();
     }
-    
-    public void notificarObservadores(){
+
+    public void notificarObservadores() {
         setChanged();
         notifyObservers();
     }

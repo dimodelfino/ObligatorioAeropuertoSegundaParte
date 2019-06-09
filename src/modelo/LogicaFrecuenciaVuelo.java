@@ -25,12 +25,17 @@ public class LogicaFrecuenciaVuelo extends Observable {
         return instancia;
     }
 
-    public ArrayList<FrecuenciaDeVuelo> getFrecuencias() {
-        return frecuencias;
+    public ArrayList<FrecuenciaDeVuelo> getFrecuencias() {        
+        return frecuencias;        
     }
 
     public void setFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuenci) {
         this.frecuencias = frecuenci;
+        notificarObservadores();
+    }
+    
+    public void actualizarDiasSemana(int indice, ArrayList<DiaSemanaEnum> dias){
+        this.frecuencias.get(indice).diasSemana.addAll(dias);
         notificarObservadores();
     }
 
@@ -43,9 +48,9 @@ public class LogicaFrecuenciaVuelo extends Observable {
         Estado eDestino = new Estado(destino);       
         ArrayList<DiaSemanaEnum> d = new ArrayList<>();
         d.add(DiaSemanaEnum.S);
-        d.add(DiaSemanaEnum.D);
-        d.add(DiaSemanaEnum.L);
-        d.add(DiaSemanaEnum.M);
+//        d.add(DiaSemanaEnum.D);
+//        d.add(DiaSemanaEnum.L);
+//        d.add(DiaSemanaEnum.M);
         d.add(DiaSemanaEnum.X);
         d.add(DiaSemanaEnum.J);
         d.add(DiaSemanaEnum.V);

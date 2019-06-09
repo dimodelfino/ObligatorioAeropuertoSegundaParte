@@ -38,7 +38,9 @@ public class FrecuenciaDeVuelo {
     @Override
     public String toString() {
 
-        return numero + " || " + aeropuertoOrigen.aeropuerto.nombre + " || " + aeropuertoOrigen.estado + " || " + aeropuertoDestino.aeropuerto.nombre
-                + " || " + aeropuertoDestino.estado + " || " + diasSemana + " || " + horaPartida + " || " + duracionEstimada;
+        return  "Numero: " + numero + " || Origen: " + aeropuertoOrigen.aeropuerto.nombre + " || Estado: " + aeropuertoOrigen.estado 
+                + " || Destino: " + aeropuertoDestino.aeropuerto.nombre
+                + " || Estado: " + aeropuertoDestino.estado 
+                + " || Dias: " + diasSemana + " || Partida: " + horaPartida + " || Duracion: " + duracionEstimada;
     }
 }

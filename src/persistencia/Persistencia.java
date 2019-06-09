@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
-
-import java.util.List;
+package persistencia;
 
 /**
  *
  * @author dmoreno
  */
-public class Aeropuerto {
-    public String nombre;
-    public String tipo;
- 
+public class Persistencia {
+    
 }

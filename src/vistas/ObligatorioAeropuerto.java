@@ -5,6 +5,10 @@
  */
 package vistas;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import modelo.LogicaAeropuerto;
 import modelo.LogicaCompania;
 import modelo.LogicaFrecuenciaVuelo;
@@ -22,11 +26,11 @@ public class ObligatorioAeropuerto {
      */
     public static void main(String[] args) {
 
-        LogicaCompania.getInstancia().iniciateCompanyList();        
-        LogicaAeropuerto.getInstancia().iniciateAirportsList();        
-        LogicaUsuario.getInstancia().iniciateUsersList();        
+        LogicaCompania.getInstancia().iniciateCompanyList();
+        LogicaAeropuerto.getInstancia().iniciateAirportsList();
+        LogicaUsuario.getInstancia().iniciateUsersList();
         LogicaFrecuenciaVuelo.getInstancia().iniciateFrecuenciaVueloList();
         LogicaVuelo.getInstancia().iniciatListaVuelos();
-        new MenuPrincipal().setVisible(true);                
+        new MenuPrincipal().setVisible(true);        
     }
 }
