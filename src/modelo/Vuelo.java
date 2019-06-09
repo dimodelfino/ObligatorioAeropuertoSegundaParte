@@ -19,6 +19,8 @@ public class Vuelo {
     public String horaRealPartida;
     public String horaRealLlegada;
     public String estado;
+    public int arancelPartida;
+    public int arancelLlegada;
     
     
      @Override

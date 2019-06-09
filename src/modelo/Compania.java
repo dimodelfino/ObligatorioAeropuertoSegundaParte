@@ -13,5 +13,6 @@ import java.util.List;
  */
 public class Compania {
     public String nombre;
-    public String alias;    
+    public String alias;   
+    public int costosVuelos;
 }
