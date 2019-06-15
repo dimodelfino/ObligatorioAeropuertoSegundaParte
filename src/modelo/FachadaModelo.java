@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import utilities.ExceptionCompania;
-import vistas.DiaSemanaEnum;
 
 /**
  *
@@ -131,7 +130,7 @@ public class FachadaModelo {
                     }
                 }
             }
-        }        
+        }
         return vuelosFiltrados;
     }
 
@@ -193,9 +192,8 @@ public class FachadaModelo {
             for (Vuelo vuel : v) {
                 if (origDest.equals("Origen")) {
                     if (vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
-                             && vuel.fVuelo.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
-                            && vuel.fVuelo.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) 
-                            /*&& vuel.horaRealPartida != null && vuel.horaRealLlegada == null && vuel.fechaPartida.equals(fch)*/) {
+                            && vuel.fVuelo.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
+                            && vuel.fVuelo.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) /*&& vuel.horaRealPartida != null && vuel.horaRealLlegada == null && vuel.fechaPartida.equals(fch)*/) {
                         vuelosFiltrados.add("Num: " + vuel.fVuelo.numero + " - Comp: " + vuel.fVuelo.compania.nombre
                                 + " - Aerop: " + vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre + " - Est: " + vuel.estado);
                     }
@@ -237,6 +235,47 @@ public class FachadaModelo {
                 break;
         }
         return diaSemana;
+    }
+
+    public Usuario buscarUsuario(String nombre, String contrasenia) {
+
+        return LogicaUsuario.getInstancia().buscarUsuario(nombre, contrasenia);
+
+    }
+
+    public void aprobarEstadoFrecuencia(FrecuenciaDeVuelo f, String origDest) {
+        ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
+
+        for (FrecuenciaDeVuelo frecuen : frecuencias) {
+            if (origDest.equals("Destino")) {
+                if (frecuen.equals(f) && frecuen.aeropuertoDestino.estado.equals(EstadoEnum.Pendiente)) {
+                    frecuen.aeropuertoDestino.estado = EstadoEnum.Aprobado;
+                }
+            } else {
+                if (frecuen.equals(f) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
+                    frecuen.aeropuertoOrigen.estado = EstadoEnum.Aprobado;
+                }
+            }
+        }
+        actualizarFrecuencias(frecuencias);
+    }
+
+    public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) {
+
+        ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
+
+        for (FrecuenciaDeVuelo frecuen : frecuencias) {
+            if (origDest.equals("Origen")) {
+                if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
+                    frecuen.aeropuertoOrigen.estado = EstadoEnum.Rechazado;
+                }
+            } else {
+                if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)) {
+                    frecuen.aeropuertoDestino.estado = EstadoEnum.Rechazado;
+                }
+            }
+        }
+        actualizarFrecuencias(frecuencias);
     }
 
 }

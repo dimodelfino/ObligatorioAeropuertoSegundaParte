@@ -6,7 +6,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import vistas.DiaSemanaEnum;
 
 /**
  *
@@ -21,8 +20,12 @@ public class FrecuenciaDeVuelo {
     public String duracionEstimada;
     public Compania compania;
     public ArrayList<DiaSemanaEnum> diasSemana = new ArrayList<>();
+    private int oid;
 
-    public FrecuenciaDeVuelo() {};
+    public FrecuenciaDeVuelo() {
+    }
+
+    ;
     
     public FrecuenciaDeVuelo(String num, Estado origen, Estado destino, String hrPartida, String duracionEst, Compania c, ArrayList<DiaSemanaEnum> diasSem) {
 
@@ -35,12 +38,20 @@ public class FrecuenciaDeVuelo {
         diasSemana = diasSem;
     }
 
+    public int getOid() {
+        return oid;
+    }
+
+    public void setOid(int oid) {
+        this.oid = oid;
+    }
+
     @Override
     public String toString() {
 
-        return  "Numero: " + numero + " || Origen: " + aeropuertoOrigen.aeropuerto.nombre + " || Estado: " + aeropuertoOrigen.estado 
+        return "Numero: " + numero + " || Origen: " + aeropuertoOrigen.aeropuerto.nombre + " || Estado: " + aeropuertoOrigen.estado
                 + " || Destino: " + aeropuertoDestino.aeropuerto.nombre
-                + " || Estado: " + aeropuertoDestino.estado 
+                + " || Estado: " + aeropuertoDestino.estado
                 + " || Dias: " + diasSemana + " || Partida: " + horaPartida + " || Duracion: " + duracionEstimada;
     }
 }

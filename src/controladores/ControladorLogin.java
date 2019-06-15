@@ -5,8 +5,8 @@
  */
 package controladores;
 
+import modelo.FachadaModelo;
 import modelo.Usuario;
-import modelo.LogicaUsuario;
 import modelo.UsuAeropuerto;
 import modelo.UsuCompania;
 import vistas.TipoVentanaEnum;
@@ -24,7 +24,7 @@ public class ControladorLogin {
     }
 
     public void autenticar(String nombre, String contrasenia, TipoVentanaEnum tipoVent) throws utilities.ExceptionLogin {
-        Usuario usu = LogicaUsuario.getInstancia().buscarUsuario(nombre, contrasenia);
+        Usuario usu = FachadaModelo.getInstancia().buscarUsuario(nombre, contrasenia);
         if (usu != null && checkTipoVentanaUsuario(usu, tipoVent)) {
             vista.ingresar(usu);
         } else {

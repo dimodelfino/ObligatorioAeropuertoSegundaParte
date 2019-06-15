@@ -109,7 +109,7 @@ public class LogicaUsuario {
 
     //Busca Usuarios por nombre
     public Usuario buscarUsuario(String nombre, String contrasenia) {
-        boolean existe = false;
+         boolean existe = false;
         int i = 0;
         Usuario usu = null;
 

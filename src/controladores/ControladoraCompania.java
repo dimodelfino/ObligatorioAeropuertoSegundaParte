@@ -13,8 +13,7 @@ import modelo.FachadaModelo;
 import modelo.LogicaFrecuenciaVuelo;
 import modelo.LogicaVuelo;
 import utilities.ExceptionCompania;
-import vistas.AplicacionCompania;
-import vistas.DiaSemanaEnum;
+import modelo.DiaSemanaEnum;
 
 /**
  *
@@ -23,12 +22,12 @@ import vistas.DiaSemanaEnum;
 public class ControladoraCompania implements Observer{
 
     private static int contador = 5;
-    private AplicacionCompania vista;
+    private IVistaCompania vista;
 
-    public ControladoraCompania(AplicacionCompania apC) {
+    public ControladoraCompania(IVistaCompania apC) {
         LogicaFrecuenciaVuelo.getInstancia().addObserver(this);
         LogicaVuelo.getInstancia().addObserver(this);
-        this.vista = apC;
+        vista = apC;
     }
     
     
@@ -69,7 +68,7 @@ public class ControladoraCompania implements Observer{
     @Override
     public void update(Observable o, Object arg1) {
         if(o == LogicaFrecuenciaVuelo.getInstancia() || o == LogicaVuelo.getInstancia()){
-            vista.actualizarListas();
+            vista.actualizarFrecuencias();
         }
     }
 

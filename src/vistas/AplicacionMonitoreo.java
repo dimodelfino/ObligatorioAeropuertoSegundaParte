@@ -6,7 +6,7 @@
 package vistas;
 
 import controladores.ControladoraMonitoreo;
-import controladores.IVistaAeropuerto;
+import controladores.IVistaMonitoreo;
 import modelo.UsuAeropuerto;
 import modelo.Usuario;
 
@@ -14,7 +14,7 @@ import modelo.Usuario;
  *
  * @author majuetcheverry
  */
-public class AplicacionMonitoreo extends javax.swing.JDialog implements IVistaAeropuerto{
+public class AplicacionMonitoreo extends javax.swing.JDialog implements IVistaMonitoreo {
 
     /**
      * Creates new form AplicacionMonitoreo
@@ -22,14 +22,19 @@ public class AplicacionMonitoreo extends javax.swing.JDialog implements IVistaAe
     public AplicacionMonitoreo(java.awt.Frame parent, boolean modal, Usuario u) {
         super(parent, modal);
         initComponents();
-        this.controlador = new ControladoraMonitoreo(this);                        
-        ua = (UsuAeropuerto) u; 
-        actualizarListas();
-    }    
-    
-     @Override
-    public void actualizarListas() {
+        this.controlador = new ControladoraMonitoreo(this);
+        ua = (UsuAeropuerto) u;
+        actualizarPartidas();
+        actualizarArribos();
+    }
+
+    @Override
+    public void actualizarPartidas() {
         lstPartidas.setListData(controlador.getVuelosPorAeropuertoMonitoreo(ua.aeropuerto.nombre, "Origen").toArray());
+    }
+
+    @Override
+    public void actualizarArribos() {
         lstArribos.setListData(controlador.getVuelosPorAeropuertoMonitoreo(ua.aeropuerto.nombre, "Destino").toArray());
     }
 
@@ -90,7 +95,7 @@ public class AplicacionMonitoreo extends javax.swing.JDialog implements IVistaAe
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    ControladoraMonitoreo controlador;    
+    ControladoraMonitoreo controlador;
     UsuAeropuerto ua = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
@@ -100,5 +105,5 @@ public class AplicacionMonitoreo extends javax.swing.JDialog implements IVistaAe
     private javax.swing.JList lstArribos;
     private javax.swing.JList lstPartidas;
     // End of variables declaration//GEN-END:variables
-   
+
 }

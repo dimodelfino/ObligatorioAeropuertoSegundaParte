@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import utilities.ExceptionLogin;
 
 /**
  *
@@ -32,7 +31,9 @@ public class BaseDatos {
 
     public void conectar(String driver, String url, String usr, String pass) {
         try {
-            Class.forName(driver);
+           // TODO QUE ES EL DRIVER??
+           
+           Class.forName(driver);
             conexion = DriverManager.getConnection(url, usr, pass);
             stmt = conexion.createStatement();
             System.out.println("Conectado");
@@ -43,6 +44,8 @@ public class BaseDatos {
 
     public void desconectar() {
         try {
+           // TODO ES NECESARIO CERRAR EL STATEMENT??
+           //stmt.close();
             conexion.close();
         } catch (SQLException ex) {
             System.out.println("Error al desconectar: " + ex.getMessage());
@@ -76,6 +79,7 @@ public class BaseDatos {
             conexion.setAutoCommit(false);
             for (String sql : sqls) {
                 if (ejecutar(sql) == -1) {
+                    System.out.println("Rollback");
                     conexion.rollback();
                     return false;
                 }

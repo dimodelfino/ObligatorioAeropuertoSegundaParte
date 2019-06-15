@@ -10,6 +10,8 @@ package controladores;
  * @author dmoreno
  */
 public interface IVistaAeropuerto {
-    
-    public void actualizarListas();
+    public void actualizarFrecuenciasPendientesOrigen();
+    public void actualizarFrecuenciasPendientesDestino();
+    public void actualizarVuelosDiarioPartidas();
+    public void actualizarVuelosDiariosArribos();
 }

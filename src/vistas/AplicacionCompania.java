@@ -1,8 +1,9 @@
 
 package vistas;
 
+import modelo.DiaSemanaEnum;
 import controladores.ControladoraCompania;
-import controladores.IVistaAeropuerto;
+import controladores.IVistaCompania;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
@@ -12,7 +13,7 @@ import modelo.LogicaFrecuenciaVuelo;
 import modelo.UsuCompania;
 import modelo.Usuario;
 
-public class AplicacionCompania extends javax.swing.JDialog implements IVistaAeropuerto {
+public class AplicacionCompania extends javax.swing.JDialog implements IVistaCompania {
 
   
     public AplicacionCompania(java.awt.Frame parent, boolean modal, Usuario u) {
@@ -24,7 +25,7 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         lblCompania.setText(uc.compania.nombre);
         getNombreAeropuertos();
         checkboxManager();
-        actualizarListas();
+        actualizarFrecuencias();
         this.controlador = new ControladoraCompania(this);
     }
 
@@ -370,11 +371,12 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
         return result;
     }
 
-    @Override
-    public void actualizarListas() {
-        lstVisualizarFrecuencias.setListData(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().toArray());
+   @Override
+    public void actualizarFrecuencias() {
+         lstVisualizarFrecuencias.setListData(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().toArray());
+       
     }
-
+    
     ButtonGroup bgDiaSemana = new ButtonGroup();
     ButtonGroup bgAmPm = new ButtonGroup();
     UsuCompania uc = null;
@@ -417,5 +419,7 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaAer
     private javax.swing.ButtonGroup rbtnGroupDiaSemana;
     private javax.swing.JRadioButton rbtnPm;
     // End of variables declaration//GEN-END:variables
+
+   
 
 }

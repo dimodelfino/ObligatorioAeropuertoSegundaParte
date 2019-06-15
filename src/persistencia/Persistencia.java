@@ -58,11 +58,10 @@ public class Persistencia {
         int oid = proximoOid();
         if (oid == -1) {
             System.out.println("OID inválido");
-            // aca podríamos tirar una excepción tal vez
-        }
+            // TODO TIRAR EXCEPCION 
+        } 
         m.setOid(oid);
         if (!bd.transaccion(m.sqlInsertar())) {
-            // si el objeto no se pudo insertar, el OID vuelve a 0
             m.setOid(0);
             System.out.println("Error al insertar");
         }
@@ -117,5 +116,6 @@ public class Persistencia {
         }
         return resultado;
     }
+    
     
 }

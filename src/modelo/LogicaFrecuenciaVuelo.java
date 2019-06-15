@@ -6,8 +6,8 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Observable;
-import vistas.DiaSemanaEnum;
 
 /**
  *
@@ -124,6 +124,53 @@ public class LogicaFrecuenciaVuelo extends Observable {
         return agregado;
     }
         
+    public ArrayList <FrecuenciaDeVuelo> frecuenciaPorAeropuerto (String nomAero, String origDest){
+     ArrayList<FrecuenciaDeVuelo> f = FachadaModelo.getInstancia().getFrecuencias();
+        ArrayList<FrecuenciaDeVuelo> frecuenciasFiltradas = new ArrayList<>();
+
+        for (FrecuenciaDeVuelo frec : f) {
+            if (origDest.equals("Origen")) {
+                if (frec.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)
+                        && frec.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero)) {
+                    frecuenciasFiltradas.add(frec);
+                }
+            } else {
+                if (frec.aeropuertoDestino.estado.equals(EstadoEnum.Pendiente) && frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)
+                        && frec.aeropuertoDestino.aeropuerto.nombre.equals(nomAero)) {
+                    frecuenciasFiltradas.add(frec);
+                }
+            }
+        }
+        return frecuenciasFiltradas;
+    
+    }
+    
+    public DiaSemanaEnum getDiaSemana(int dia) {
+        DiaSemanaEnum diaSemana = DiaSemanaEnum.D;
+
+        switch (dia) {
+            case Calendar.MONDAY:
+                diaSemana = DiaSemanaEnum.L;
+                break;
+            case Calendar.TUESDAY:
+                diaSemana = DiaSemanaEnum.M;
+                break;
+            case Calendar.WEDNESDAY:
+                diaSemana = DiaSemanaEnum.X;
+                break;
+            case Calendar.THURSDAY:
+                diaSemana = DiaSemanaEnum.J;
+                break;
+            case Calendar.FRIDAY:
+                diaSemana = DiaSemanaEnum.V;
+                break;
+            case Calendar.SATURDAY:
+                diaSemana = DiaSemanaEnum.S;
+                break;
+        }
+        return diaSemana;
+    }
+    
     public void notificarObservadores(){
         setChanged();
         notifyObservers();

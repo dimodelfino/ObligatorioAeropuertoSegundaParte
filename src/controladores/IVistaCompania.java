@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas;
+package controladores;
 
 /**
  *
- * @author dmoreno
+ * @author Maria.Etcheverry
  */
-public enum DiaSemanaEnum {    
-        L,M,X,J,V,S,D;    
+public interface IVistaCompania {
+    public void actualizarFrecuencias();
 }

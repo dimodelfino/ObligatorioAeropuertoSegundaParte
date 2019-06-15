@@ -13,22 +13,30 @@ import java.util.ArrayList;
  *
  * @author dmoreno
  */
-public interface IMapeador {        
+public interface IMapeador {
 
     int getOid();
+
     void setOid(int oid);
+
     String columnaOid();
 
- 
-    ArrayList<String> sqlInsertar();    
-    ArrayList<String> sqlActualizar(); 
-    ArrayList<String> sqlBorrar();
-    String sqlCargarTodos(); 
-    String sqlBuscar(String condicion);
+    public ArrayList<String> sqlInsertar();
 
-    void inicializarObjeto();
-    void cargarDatos(ResultSet rs)  throws SQLException;
-    void leerComponente(ResultSet rs) throws SQLException;
-    Object getObjeto(); 
-    
+    public ArrayList<String> sqlActualizar();
+
+    public ArrayList<String> sqlBorrar();
+
+    public String sqlCargarTodos();
+
+    public String sqlBuscar(String condicion);
+
+    public void inicializarObjeto();
+
+    public void cargarDatos(ResultSet rs) throws SQLException;
+
+    public void leerComponente(ResultSet rs) throws SQLException;
+
+    public Object getObjeto();
+
 }
