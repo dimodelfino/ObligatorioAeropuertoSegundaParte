@@ -5,6 +5,9 @@
  */
 package modelo;
 
+import modelo.strategy.Nacional;
+import modelo.strategy.Internacional;
+import modelo.strategy.Regional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,16 +33,22 @@ public class LogicaAeropuerto {
         this.aeropuertos = new ArrayList<Aeropuerto>();
         Aeropuerto a = new Aeropuerto();
         a.nombre = "Carrasco";
+        a.tipo = new Internacional();
         Aeropuerto b = new Aeropuerto();
         b.nombre = "Ezeiza";
+        b.tipo = new Regional();
         Aeropuerto c = new Aeropuerto();
         c.nombre = "Barajas";
+        c.tipo = new Nacional();
         Aeropuerto d = new Aeropuerto();
         d.nombre = "Guarulos";
+        d.tipo = new Internacional();
         Aeropuerto e = new Aeropuerto();
         e.nombre = "JFK";
+        e.tipo = new Regional();
         Aeropuerto f = new Aeropuerto();
         f.nombre = "La Guardia";
+        f.tipo = new Nacional();
         this.aeropuertos.add(a);
         this.aeropuertos.add(b);
         this.aeropuertos.add(c);

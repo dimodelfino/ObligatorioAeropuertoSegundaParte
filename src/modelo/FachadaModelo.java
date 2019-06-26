@@ -10,7 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import utilities.ExceptionCompania;
+import utilities.Utils;
 
 /**
  *
@@ -22,40 +24,40 @@ public class FachadaModelo {
 
     public static FachadaModelo getInstancia() {
         return instancia;
-    }
+    }          
+    
+    
 
     //Instancia una FrecuenciaDeVuelo, valida si existe y la envia a LogicaFrecuenciaVuelo a agregarse a su lista
     public boolean agregarFrecuencia(String num, String origen, String destino, String hrPartida, String duracionEst, Compania c, ArrayList<DiaSemanaEnum> diasSem) throws ExceptionCompania {
         boolean result = false;
-        Aeropuerto Aorigen = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(origen);
-        Aeropuerto Adestino = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(destino);
-        Estado eOrigen = new Estado(Aorigen);
-        Estado eDestino = new Estado(Adestino);
-        FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo(num, eOrigen, eDestino, hrPartida, duracionEst, c, diasSem);
+        Aeropuerto aOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(origen);
+        Aeropuerto aDestino = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(destino);
+        FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo(num, aOrigen, EstadoEnum.Pendiente, aDestino, EstadoEnum.Pendiente, hrPartida, duracionEst, c, diasSem);
         if (!existeFrecuencia(fv)) {
             result = LogicaFrecuenciaVuelo.getInstancia().GuardarFrecuencia(fv);
         }
         return result;
     }
 
+   // Valida si existe o no una frecuencia con los mismos datos
     public boolean existeFrecuencia(FrecuenciaDeVuelo fv) throws utilities.ExceptionCompania {
         boolean ret = false;
         int i = 0;
-        while (i < this.getFrecuencias().size() && !ret) {
-            FrecuenciaDeVuelo frecIteracion = this.getFrecuencias().get(i);
-            if ((frecIteracion.aeropuertoOrigen.estado != EstadoEnum.Rechazado
-                    && frecIteracion.aeropuertoDestino.estado != EstadoEnum.Rechazado)
-                    && fv.aeropuertoDestino.aeropuerto.nombre.equals(frecIteracion.aeropuertoDestino.aeropuerto.nombre)
-                    && fv.aeropuertoOrigen.aeropuerto.nombre.equals(frecIteracion.aeropuertoOrigen.aeropuerto.nombre)
+        ArrayList<FrecuenciaDeVuelo> frecuencias = this.getFrecuencias();
+        while (i < frecuencias.size() && !ret) {
+            FrecuenciaDeVuelo frecIteracion = frecuencias.get(i);
+            if ((frecIteracion.estadoOrigen != EstadoEnum.Rechazado
+                    && frecIteracion.estadoDestino != EstadoEnum.Rechazado)
+                    && fv.aeropuertoDestino.nombre.equals(frecIteracion.aeropuertoDestino.nombre)
+                    && fv.aeropuertoOrigen.nombre.equals(frecIteracion.aeropuertoOrigen.nombre)
                     && fv.compania.nombre.equals(frecIteracion.compania.nombre)) {
 
                 ArrayList<DiaSemanaEnum> auxDiasSemanaFrecuenciaVieja = (ArrayList<DiaSemanaEnum>) frecIteracion.diasSemana.clone();
                 ArrayList<DiaSemanaEnum> auxDiasSemanaFrecuenciaNueva = (ArrayList<DiaSemanaEnum>) new ArrayList<>(fv.diasSemana).clone();
                 auxDiasSemanaFrecuenciaVieja.retainAll(auxDiasSemanaFrecuenciaNueva);
-
                 if (auxDiasSemanaFrecuenciaVieja.size() == 0) {
                     LogicaFrecuenciaVuelo.getInstancia().actualizarDiasSemana(i, fv.diasSemana);
-                    //frecIteracion.diasSemana.addAll(fv.diasSemana);
                     ret = true;
                 } else {
                     auxDiasSemanaFrecuenciaNueva.removeAll(auxDiasSemanaFrecuenciaVieja);
@@ -63,7 +65,6 @@ public class FachadaModelo {
                         throw new utilities.ExceptionCompania("Ya existe una frecuencia con los datos ingresados. Intente nuevamente.");
                     } else {
                         LogicaFrecuenciaVuelo.getInstancia().actualizarDiasSemana(i, auxDiasSemanaFrecuenciaNueva);
-                        //frecIteracion.diasSemana.addAll(auxDiasSemanaFrecuenciaNueva);
                         ret = true;
                     }
                 }
@@ -80,12 +81,7 @@ public class FachadaModelo {
 
     //Devuelve la lista de FrecuenciaDeVuelo de LogicaFrecuencia
     public ArrayList<FrecuenciaDeVuelo> getFrecuencias() {
-        return LogicaFrecuenciaVuelo.getInstancia().getFrecuencias();
-    }
-
-    //Devuelve la lista de Vuelos de LogicaVuelo
-    public ArrayList<Vuelo> getVuelos() {
-        return LogicaVuelo.getInstancia().getVuelos();
+        return LogicaFrecuenciaVuelo.getInstancia().getFrecuencias();        
     }
 
     //Recibe una lista de FrecuenciaDeVuelo actualizada y la agrega a la lista de LogicaFrecuenciaVuelo
@@ -94,60 +90,69 @@ public class FachadaModelo {
     }
 
     //Recibe una FrecuenciaDeVuelo y la agrega a LogicaVuelo
-    public void agregarVuelo(FrecuenciaDeVuelo fv) {
-        LogicaVuelo.getInstancia().crearVuelo(fv);
+    public void agregarVuelo(Vuelo v) {
+        FrecuenciaDeVuelo fv = buscarFrecuencia(v.numero);
+        FrecuenciaDeVuelo fvActualizada = LogicaVuelo.getInstancia().crearVuelo(fv, v);
+        actualizarFrecuenciaDeVuelo(fvActualizada);
     }
 
-    //Recibe un Vuelo y lo agrega a LogicaVuelo
-    public void agregarPartidaVuelo(Vuelo partida) {
-        LogicaVuelo.getInstancia().agregarPartidaVuelo(partida);
+    public FrecuenciaDeVuelo buscarFrecuencia(String numero) {
+        ArrayList<FrecuenciaDeVuelo> frecuencias = getFrecuencias();
+        FrecuenciaDeVuelo frec = null;
+        boolean existe = false;
+        int i = 0;
+        while (i < frecuencias.size() && !existe) {
+            if (frecuencias.get(i).numero == numero) {
+                frec = frecuencias.get(i);
+                existe = true;
+            }
+            i++;
+        }
+        return frec;
+    }
+
+    public void actualizarFrecuenciaDeVuelo(FrecuenciaDeVuelo fv) {
+        LogicaFrecuenciaVuelo.getInstancia().actualizarFrecuencia(fv);
     }
 
     //Recibe un Vuelo y le agrega los datos necesarios de su aterrizaje
     public void agregarLlegadaVuelo(Vuelo arribo) {
-        LogicaVuelo.getInstancia().agregarLlegadaVuelo(arribo);
+        FrecuenciaDeVuelo fv = buscarFrecuencia(arribo.numero);
+        FrecuenciaDeVuelo fvActualizada = LogicaVuelo.getInstancia().agregarLlegadaVuelo(fv, arribo);
+        actualizarFrecuenciaDeVuelo(fvActualizada);
     }
 
-    //Recibe un nombre de aeropuerto y si es de origen o destino. Devuelve una lista de vuelos que tenga ese aeropuerto
+    //Recibe un nombre de aeropuerto y si es de origen o destino. Devuelve una lista de vuelos de la fecha actual que tenga ese aeropuerto
     //como origen o destino dependiendo del atributo origDest
     public ArrayList<Vuelo> getVuelosPorAeropuerto(String nomAero, String origDest) {
-        ArrayList<Vuelo> v = FachadaModelo.getInstancia().getVuelos();
+        ArrayList<Vuelo> v = LogicaFrecuenciaVuelo.getInstancia().getVuelosPorAeropuerto(nomAero, origDest);
         ArrayList<Vuelo> vuelosFiltrados = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        int dia = calendar.get(Calendar.DAY_OF_WEEK);
-        DiaSemanaEnum hoy = getDiaSemana(dia);
         if (v != null && v.size() != 0) {
             for (Vuelo vuel : v) {
-                if (origDest.equals("Origen")) {
-                    if (vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
-                            && vuel.horaRealPartida == null) {
-                        vuelosFiltrados.add(vuel);
-                    }
-                } else {
-                    if (vuel.fVuelo.aeropuertoDestino.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
-                            && vuel.horaRealPartida != null && vuel.horaRealLlegada == null) {
-                        vuelosFiltrados.add(vuel);
-                    }
+                if (vuel.horaRealPartida != null && vuel.horaRealLlegada == null) {
+                    vuelosFiltrados.add(vuel);
                 }
             }
         }
         return vuelosFiltrados;
     }
 
-    //Recibe un nombre de aeropuerto y si es de origen o destino. Devuelve una lista de vuelos que tenga ese aeropuerto
-    //como origen o destino dependiendo del atributo origDest Y que tengan en su frecuencia de vuelo el dia de hoy.
+    //Recibe un nombre de aeropuerto y si es de origen o destino. Devuelve una lista de vuelos que no hayan partido
+    //todavia el dia de la consulta, que tenga ese aeropuerto como origen o destino dependiendo del atributo origDest     
+    //Y que tengan en su frecuencia de vuelo el dia de hoy. Los vuelos no estan guardados en ninguna frecuencia
     public ArrayList<Vuelo> getVuelosDiarios(String nomAero, String origDest) {
         ArrayList<Vuelo> vuelosAux = new ArrayList<Vuelo>();
         Calendar calendar = Calendar.getInstance();
         int dia = calendar.get(Calendar.DAY_OF_WEEK);
-        DiaSemanaEnum hoy = getDiaSemana(dia);
+        DiaSemanaEnum hoy = Utils.getDiaSemana(dia);
 
         for (FrecuenciaDeVuelo frec : FachadaModelo.getInstancia().getFrecuencias()) {
-            if (frec.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && frec.diasSemana.contains(hoy)
-                    && frec.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && frec.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
+            if (frec.aeropuertoOrigen.nombre.equals(nomAero) && frec.diasSemana.contains(hoy)
+                    && frec.estadoOrigen.equals(EstadoEnum.Aprobado) && frec.estadoDestino.equals(EstadoEnum.Aprobado)
                     && !vueloYaPartio(frec)) {
                 Vuelo v = new Vuelo();
-                v.fVuelo = frec;
+                v.numero = frec.numero;
+                v.estado = "En Hora";
                 vuelosAux.add(v);
             }
         }
@@ -163,11 +168,10 @@ public class FachadaModelo {
         cal.setTime(hoy);
         DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         String fch = fecha.format(hoy);
-        ArrayList<Vuelo> vuelos = FachadaModelo.getInstancia().getVuelos();
-        while (!partio && vuelos.size() != 0 && i < vuelos.size()) {
-            FrecuenciaDeVuelo frec = vuelos.get(i).fVuelo;
+        ArrayList<Vuelo> vuelos = f.vuelos;
+        while (!partio && vuelos.size() > 0 && i < vuelos.size()) {
             String fecha_String = vuelos.get(i).fechaPartida;
-            if (frec.equals(f) && fecha_String.equals(fch)) {
+            if (vuelos.get(i).fechaPartida != null && fecha_String.equals(fch)) {
                 partio = true;
             }
             i++;
@@ -177,70 +181,61 @@ public class FachadaModelo {
 
     //Devuelve lista de vuelos del dia de hoy que tengan el nombre de aeropuerto (nomAero) como origen/destino, dependiendo de origDest
     public ArrayList<String> getVuelosPorAeropuertoMonitoreo(String nomAero, String origDest) {
-        ArrayList<Vuelo> v = FachadaModelo.getInstancia().getVuelos();
+        ArrayList<Vuelo> v = LogicaFrecuenciaVuelo.getInstancia().getVuelosPorAeropuerto(nomAero, origDest);
         ArrayList<String> vuelosFiltrados = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
-        int dia = calendar.get(Calendar.DAY_OF_WEEK);
-        DiaSemanaEnum hoy = getDiaSemana(dia);
-
         Date fechaHoy = new Date();
         calendar.setTime(fechaHoy);
         DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         String fch = fecha.format(fechaHoy);
 
-        if (v != null) {
+        if (v != null && v.size() > 0) {
             for (Vuelo vuel : v) {
+                FrecuenciaDeVuelo fv = buscarFrecuencia(vuel.numero);
                 if (origDest.equals("Origen")) {
-                    if (vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
-                            && vuel.fVuelo.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
-                            && vuel.fVuelo.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) /*&& vuel.horaRealPartida != null && vuel.horaRealLlegada == null && vuel.fechaPartida.equals(fch)*/) {
-                        vuelosFiltrados.add("Num: " + vuel.fVuelo.numero + " - Comp: " + vuel.fVuelo.compania.nombre
-                                + " - Aerop: " + vuel.fVuelo.aeropuertoOrigen.aeropuerto.nombre + " - Est: " + vuel.estado);
+                    if (vuel.horaRealLlegada == null) {
+                        vuelosFiltrados.add("Num: " + vuel.numero + " - Comp: " + fv.compania.nombre
+                                + " - Aerop: " + fv.aeropuertoOrigen.nombre + " - Est: " + vuel.estado);
                     }
                 } else {
-                    if (vuel.fVuelo.aeropuertoDestino.aeropuerto.nombre.equals(nomAero) && vuel.fVuelo.diasSemana.contains(hoy)
-                            && vuel.horaRealPartida != null && vuel.horaRealLlegada != null && vuel.fVuelo.aeropuertoDestino.estado.equals(EstadoEnum.Aprobado)
-                            && vuel.fVuelo.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado) && vuel.fechaPartida.equals(fch)) {
-                        vuelosFiltrados.add("Num: " + vuel.fVuelo.numero + " - Comp: " + vuel.fVuelo.compania.nombre
-                                + " - Aerop: " + vuel.fVuelo.aeropuertoDestino.aeropuerto.nombre + " - Est:" + vuel.estado);
+                    if (vuel.horaRealPartida != null /*&& vuel.horaRealLlegada != null */
+                            && vuel.fechaPartida.equals(fch)) {
+                        vuelosFiltrados.add("Num: " + vuel.numero + " - Comp: " + fv.compania.nombre
+                                + " - Aerop: " + fv.aeropuertoDestino.nombre + " - Est:" + vuel.estado);
                     }
+                }
+            }
+        }
+        vuelosFiltrados.addAll(getVuelosDiariosString(nomAero, origDest));
+        return vuelosFiltrados;
+    }
+
+    public ArrayList<String> getVuelosDiariosString(String nomAero, String origDest) {
+        ArrayList<Vuelo> vuelos = getVuelosDiarios(nomAero, origDest);
+        ArrayList<String> vuelosFiltrados = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        Date fechaHoy = new Date();
+        calendar.setTime(fechaHoy);
+        DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        String fch = fecha.format(fechaHoy);
+        for (Vuelo vuel : vuelos) {
+            FrecuenciaDeVuelo fv = buscarFrecuencia(vuel.numero);
+            if (origDest.equals("Origen")) {
+                vuelosFiltrados.add("Num: " + vuel.numero + " - Comp: " + fv.compania.nombre
+                        + " - Aerop: " + fv.aeropuertoOrigen.nombre + " - Est: " + vuel.estado);
+            } else {
+                if (vuel.horaRealPartida != null /*&& vuel.horaRealLlegada != null */
+                        && vuel.fechaPartida.equals(fch)) {
+                    vuelosFiltrados.add("Num: " + vuel.numero + " - Comp: " + fv.compania.nombre
+                            + " - Aerop: " + fv.aeropuertoDestino.nombre + " - Est:" + vuel.estado);
                 }
             }
         }
         return vuelosFiltrados;
     }
 
-    //Devuelve el DiaSemanaEnum equivalente al ind de dia de la semana que se le pase por parametro
-    public DiaSemanaEnum getDiaSemana(int dia) {
-        DiaSemanaEnum diaSemana = DiaSemanaEnum.D;
-
-        switch (dia) {
-            case Calendar.MONDAY:
-                diaSemana = DiaSemanaEnum.L;
-                break;
-            case Calendar.TUESDAY:
-                diaSemana = DiaSemanaEnum.M;
-                break;
-            case Calendar.WEDNESDAY:
-                diaSemana = DiaSemanaEnum.X;
-                break;
-            case Calendar.THURSDAY:
-                diaSemana = DiaSemanaEnum.J;
-                break;
-            case Calendar.FRIDAY:
-                diaSemana = DiaSemanaEnum.V;
-                break;
-            case Calendar.SATURDAY:
-                diaSemana = DiaSemanaEnum.S;
-                break;
-        }
-        return diaSemana;
-    }
-
     public Usuario buscarUsuario(String nombre, String contrasenia) {
-
         return LogicaUsuario.getInstancia().buscarUsuario(nombre, contrasenia);
-
     }
 
     public void aprobarEstadoFrecuencia(FrecuenciaDeVuelo f, String origDest) {
@@ -248,12 +243,12 @@ public class FachadaModelo {
 
         for (FrecuenciaDeVuelo frecuen : frecuencias) {
             if (origDest.equals("Destino")) {
-                if (frecuen.equals(f) && frecuen.aeropuertoDestino.estado.equals(EstadoEnum.Pendiente)) {
-                    frecuen.aeropuertoDestino.estado = EstadoEnum.Aprobado;
+                if (frecuen.equals(f) && frecuen.estadoDestino.equals(EstadoEnum.Pendiente)) {
+                    frecuen.estadoDestino = EstadoEnum.Aprobado;
                 }
             } else {
-                if (frecuen.equals(f) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
-                    frecuen.aeropuertoOrigen.estado = EstadoEnum.Aprobado;
+                if (frecuen.equals(f) && frecuen.estadoOrigen.equals(EstadoEnum.Pendiente)) {
+                    frecuen.estadoOrigen = EstadoEnum.Aprobado;
                 }
             }
         }
@@ -266,16 +261,24 @@ public class FachadaModelo {
 
         for (FrecuenciaDeVuelo frecuen : frecuencias) {
             if (origDest.equals("Origen")) {
-                if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Pendiente)) {
-                    frecuen.aeropuertoOrigen.estado = EstadoEnum.Rechazado;
+                if (frecuen.equals(frec) && frecuen.estadoOrigen.equals(EstadoEnum.Pendiente)) {
+                    frecuen.estadoOrigen = EstadoEnum.Rechazado;
                 }
             } else {
-                if (frecuen.equals(frec) && frecuen.aeropuertoOrigen.estado.equals(EstadoEnum.Aprobado)) {
-                    frecuen.aeropuertoDestino.estado = EstadoEnum.Rechazado;
+                if (frecuen.equals(frec) && frecuen.estadoOrigen.equals(EstadoEnum.Aprobado)) {
+                    frecuen.estadoDestino = EstadoEnum.Rechazado;
                 }
             }
         }
         actualizarFrecuencias(frecuencias);
+    }
+    
+    public List<Aeropuerto> getAeropuertos(){
+        return LogicaAeropuerto.getInstancia().getAeropuertos();
+    }
+    
+    public ArrayList<String> getVuelosString(FrecuenciaDeVuelo fv){
+        return LogicaFrecuenciaVuelo.getInstancia().getVuelosString(fv);
     }
 
 }

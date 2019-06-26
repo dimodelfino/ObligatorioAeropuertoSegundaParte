@@ -1,4 +1,3 @@
-
 package vistas;
 
 import modelo.DiaSemanaEnum;
@@ -8,14 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonGroup;
 import modelo.Aeropuerto;
+import modelo.FrecuenciaDeVuelo;
 import modelo.LogicaAeropuerto;
 import modelo.LogicaFrecuenciaVuelo;
 import modelo.UsuCompania;
 import modelo.Usuario;
+import utilities.Utils;
 
 public class AplicacionCompania extends javax.swing.JDialog implements IVistaCompania {
 
-  
     public AplicacionCompania(java.awt.Frame parent, boolean modal, Usuario u) {
         super(parent, modal);
         initComponents();
@@ -23,10 +23,10 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
         lblNombreCompleto.setText(u.nombreCompleto);
         uc = (UsuCompania) u;
         lblCompania.setText(uc.compania.nombre);
+        this.controlador = new ControladoraCompania(this);        
         getNombreAeropuertos();
         checkboxManager();
-        actualizarFrecuencias();
-        this.controlador = new ControladoraCompania(this);
+        actualizarFrecuencias();        
     }
 
     private void groupButton() {
@@ -74,6 +74,8 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
         chkBxViernes = new javax.swing.JCheckBox();
         chkBxSabado = new javax.swing.JCheckBox();
         chkBxDomingo = new javax.swing.JCheckBox();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstVuelosDeFrecuencia = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,6 +89,11 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
 
         lblHoraPartida1.setText("Duración");
 
+        lstVisualizarFrecuencias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstVisualizarFrecuenciasValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lstVisualizarFrecuencias);
 
         lblFrecuencias.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -141,27 +148,37 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
 
         chkBxDomingo.setText("Domingo");
 
+        jScrollPane2.setViewportView(lstVuelosDeFrecuencia);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(lblFrecuencias)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblIngresarMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblNombreCompleto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblCompania))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblHoraPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblHoraPartida, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                                     .addComponent(lblHoraPartida1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(101, 101, 101)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMinDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblMinDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                                     .addComponent(lblMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cmbMinutosDuracion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cmbMinutosDuracion, 0, 57, Short.MAX_VALUE)
                                         .addGap(118, 118, 118))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(cmbMinutoPartida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -171,15 +188,19 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
                                                 .addComponent(rbtnAM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(rbtnPm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addComponent(btnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNombreCompleto)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblCompania)))
+                                            .addComponent(btnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                         .addGap(134, 134, 134))
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblHsDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblHs, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbHoraDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbAeropOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,42 +210,31 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
                                     .addComponent(cmbAeropDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbAeropOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(lblIngresarFrecuencia)
-                            .addComponent(lblFrecuencias))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chkBxLunes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(chkBxSabado)
+                                        .addGap(33, 33, 33)
+                                        .addComponent(chkBxDomingo))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(chkBxMartes)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(chkBxMiercoles)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(chkBxJueves)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(chkBxViernes)))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblIngresarMessage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(70, 70, 70)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblHsDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblHs, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cmbHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cmbHoraDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(lblDiaSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chkBxLunes)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(chkBxSabado)
-                                                .addGap(33, 33, 33)
-                                                .addComponent(chkBxDomingo))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(chkBxMartes)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(chkBxMiercoles)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(chkBxJueves)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(chkBxViernes)))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(70, 70, 70))))
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +265,7 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkBxSabado)
                     .addComponent(chkBxDomingo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoraPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rbtnAM)
@@ -274,19 +284,21 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
                     .addComponent(lblHoraPartida1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(btnIngresar)
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblIngresarMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFrecuencias)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Valida crea e ingresa la frecuencia||||FALTA VALIDAR QUE NO HAYAN 2 FRECUENCIAS CON MISMOS ORIGEN-DESTINO Y MISMO DIA
+    //Valida crea e ingresa la frecuencia
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String aeroOrigen = cmbAeropOrigen.getSelectedItem().toString();
         String aeroDestino = cmbAeropDestino.getSelectedItem().toString();
@@ -294,19 +306,29 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
         String partidaHora = cmbHoraPartida.getSelectedItem().toString();
         String partidaMinutos = cmbMinutoPartida.getSelectedItem().toString();
         String duracionHora = cmbHoraDuracion.getSelectedItem().toString();
-        String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString(); 
+        String duracionMinutos = cmbMinutosDuracion.getSelectedItem().toString();
         String amPm = null;
-        if(bgAmPm.getSelection() != null){amPm = bgAmPm.getSelection().getActionCommand();}
-        try{            
+        if (bgAmPm.getSelection() != null) {
+            amPm = bgAmPm.getSelection().getActionCommand();
+        }
+        try {
             controlador.ValidaIngresaFrecuencia(aeroOrigen, aeroDestino, diasSeleccionados, partidaHora, partidaMinutos, duracionHora, duracionMinutos, amPm, uc.compania);
             lblIngresarMessage.setText("Se ingreso la frecuencia con exito.");
-        }catch(utilities.ExceptionCompania x){
+        } catch (utilities.ExceptionCompania x) {
             lblIngresarMessage.setText("Ha ocurrido un error: " + x.getMessage());
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void lstVisualizarFrecuenciasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstVisualizarFrecuenciasValueChanged
+        Object obj = lstVisualizarFrecuencias.getSelectedValue();
+        if (obj != null && obj instanceof FrecuenciaDeVuelo) {
+            fv = (FrecuenciaDeVuelo) obj;            
+            actualizarVuelosPorFrecuencia();
+        }
+    }//GEN-LAST:event_lstVisualizarFrecuenciasValueChanged
     //Carga nombres de aeropuertos a comboBox
     private void getNombreAeropuertos() {
-        List<Aeropuerto> aeropuertos = LogicaAeropuerto.getInstancia().getAeropuertos();
+        List<Aeropuerto> aeropuertos =  controlador.getAeropuertos(); //LogicaAeropuerto.getInstancia().getAeropuertos();
         for (Aeropuerto a : aeropuertos) {
             cmbAeropDestino.addItem(a.nombre);
             cmbAeropOrigen.addItem(a.nombre);
@@ -336,49 +358,25 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
         ArrayList<DiaSemanaEnum> result = new ArrayList<>();
         for (javax.swing.JCheckBox box : dias) {
             if (box.isSelected()) {
-                result.addAll(getDiaSemanaEnum(box.getActionCommand()));
+                result.addAll(Utils.getDiaSemanaEnum(box.getActionCommand()));
             }
         }
         return result;
     }
-
-    //Recibe String con los dias de la semana y devuelve ArrayList de tipo DiaSemanaEnum
-    private ArrayList<DiaSemanaEnum> getDiaSemanaEnum(String diaSemana) {
-        ArrayList<DiaSemanaEnum> result = new ArrayList<>();
-        switch (diaSemana) {
-            case "Lunes":
-                result.add(DiaSemanaEnum.L);
-                break;
-            case "Martes":
-                result.add(DiaSemanaEnum.M);
-                break;
-            case "Miercoles":
-                result.add(DiaSemanaEnum.X);
-                break;
-            case "Jueves":
-                result.add(DiaSemanaEnum.J);
-                break;
-            case "Viernes":
-                result.add(DiaSemanaEnum.V);
-                break;
-            case "Sabado":
-                result.add(DiaSemanaEnum.S);
-                break;
-            case "Domingo":
-                result.add(DiaSemanaEnum.D);
-                break;
-        }
-        return result;
-    }
-
-   @Override
+   
+    @Override
     public void actualizarFrecuencias() {
-         lstVisualizarFrecuencias.setListData(LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().toArray());
-       
+        lstVisualizarFrecuencias.setListData(controlador.getFrecuencias().toArray()); //LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().toArray()); 
     }
     
+    @Override
+    public void actualizarVuelosPorFrecuencia(){
+        lstVuelosDeFrecuencia.setListData(controlador.getVuelosString(fv).toArray());
+    }
+
     ButtonGroup bgDiaSemana = new ButtonGroup();
     ButtonGroup bgAmPm = new ButtonGroup();
+    FrecuenciaDeVuelo fv = null;
     UsuCompania uc = null;
     ArrayList<javax.swing.JCheckBox> dias = new ArrayList<>();
     ControladoraCompania controlador;
@@ -399,6 +397,7 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
     private javax.swing.JComboBox<String> cmbMinutoPartida;
     private javax.swing.JComboBox<String> cmbMinutosDuracion;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbAeropDestino;
     private javax.swing.JLabel lbAeropOrigen;
     private javax.swing.JLabel lblCompania;
@@ -414,12 +413,11 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
     private javax.swing.JLabel lblMinDuracion;
     private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JList lstVisualizarFrecuencias;
+    private javax.swing.JList lstVuelosDeFrecuencia;
     private javax.swing.JRadioButton rbtnAM;
     private javax.swing.ButtonGroup rbtnGroupAmPm;
     private javax.swing.ButtonGroup rbtnGroupDiaSemana;
     private javax.swing.JRadioButton rbtnPm;
     // End of variables declaration//GEN-END:variables
-
-   
 
 }

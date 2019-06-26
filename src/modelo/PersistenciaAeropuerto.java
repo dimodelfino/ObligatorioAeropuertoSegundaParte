@@ -90,7 +90,7 @@ public class PersistenciaAeropuerto implements IMapeador {
     @Override
     public void cargarDatos(ResultSet rs) throws SQLException {
         a.nombre = rs.getString("nombre");
-        a.tipo = rs.getString("tipo");
+       // a.tipo = rs.getString("tipo");
         a.setOid(rs.getInt("idAeropuerto"));
     }
 

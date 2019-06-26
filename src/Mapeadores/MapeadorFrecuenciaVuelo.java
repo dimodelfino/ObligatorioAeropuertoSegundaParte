@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.Compania;
 import modelo.DiaSemanaEnum;
-import modelo.Estado;
 import modelo.FrecuenciaDeVuelo;
 import persistencia.IMapeador;
 import persistencia.Persistencia;
@@ -178,11 +177,11 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
     public void leerComponente(ResultSet rs) throws SQLException {
         MapeadorEstado me = new MapeadorEstado();
         MapeadorCompania mc = new MapeadorCompania();
-        Estado aeropuertoOrigen = (Estado)Persistencia.getInstancia().buscar( me, "WHERE idEstado=" + rs.getInt("aeropuertoOrigen"));
-        Estado aeropuertoDestino = (Estado)Persistencia.getInstancia().buscar(me, "WHERE idEstado=" + rs.getInt("aeropuertoDestino"));
+       // Estadol aeropuertoOrigen = (Estadol)Persistencia.getInstancia().buscar( me, "WHERE idEstado=" + rs.getInt("aeropuertoOrigen"));
+        //Estadol aeropuertoDestino = (Estadol)Persistencia.getInstancia().buscar(me, "WHERE idEstado=" + rs.getInt("aeropuertoDestino"));
         Compania c = (Compania)Persistencia.getInstancia().buscar(mc, "WHERE idCompania=" + rs.getInt("compania"));
-        fv.aeropuertoOrigen= aeropuertoOrigen;
-        fv.aeropuertoDestino= aeropuertoDestino;
+//        fv.aeropuertoOrigen= aeropuertoOrigen;
+//        fv.aeropuertoDestino= aeropuertoDestino;
         fv.compania= c;
     }
 

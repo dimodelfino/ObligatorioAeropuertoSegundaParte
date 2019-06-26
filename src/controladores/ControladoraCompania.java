@@ -6,14 +6,17 @@
 package controladores;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import modelo.Aeropuerto;
 import modelo.Compania;
 import modelo.FachadaModelo;
 import modelo.LogicaFrecuenciaVuelo;
 import modelo.LogicaVuelo;
 import utilities.ExceptionCompania;
 import modelo.DiaSemanaEnum;
+import modelo.FrecuenciaDeVuelo;
 
 /**
  *
@@ -64,12 +67,24 @@ public class ControladoraCompania implements Observer{
         String alias = c.alias + contador++;
         return alias;
     }
+    
+    public List<Aeropuerto> getAeropuertos(){
+        return FachadaModelo.getInstancia().getAeropuertos();
+    }
+    
+     public ArrayList<FrecuenciaDeVuelo> getFrecuencias(){
+         return FachadaModelo.getInstancia().getFrecuencias();
+     }
+     
+     public ArrayList<String> getVuelosString(FrecuenciaDeVuelo fv){
+         return FachadaModelo.getInstancia().getVuelosString(fv);
+     }
 
     @Override
     public void update(Observable o, Object arg1) {
         if(o == LogicaFrecuenciaVuelo.getInstancia() || o == LogicaVuelo.getInstancia()){
             vista.actualizarFrecuencias();
+            vista.actualizarVuelosPorFrecuencia();
         }
     }
-
 }

@@ -11,4 +11,6 @@ package controladores;
  */
 public interface IVistaCompania {
     public void actualizarFrecuencias();
+    
+    public void actualizarVuelosPorFrecuencia();
 }

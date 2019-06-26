@@ -199,7 +199,7 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
                                 .addComponent(btnIngresarPartida))
                             .addComponent(btnIngresarArribo)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(14, 53, Short.MAX_VALUE))
+                .addGap(14, 73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,10 +286,9 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
     }//GEN-LAST:event_btnRechazarDestinoFrecuenciaActionPerformed
 
     private void btnIngresarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarPartidaActionPerformed
-        controlador.agregregarVuelo(partida.fVuelo);
+        controlador.agregregarVuelo(partida);
         actualizarVuelosDiarioPartidas();
         actualizarVuelosDiariosArribos();
-
     }//GEN-LAST:event_btnIngresarPartidaActionPerformed
 
     private void btnIngresarArriboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarArriboActionPerformed

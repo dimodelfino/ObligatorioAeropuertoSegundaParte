@@ -5,31 +5,33 @@
  */
 package modelo;
 
-import java.util.List;
+import modelo.strategy.ITipoAeropuerto;
 
 /**
  *
  * @author dmoreno
  */
 public class Aeropuerto {
+
     public String nombre;
-    public String tipo;  
+    public ITipoAeropuerto tipo;
     private int oid;
-    
-    public int getOid(){
-    return oid;
+
+    public int getOid() {
+        return oid;
     }
-    
-    public void setOid(int oid){
+
+    public void setOid(int oid) {
         this.oid = oid;
     }
-    
-    public Aeropuerto (){};
-    
-    public Aeropuerto (String nombre, String tipo, int oid){
-        this.nombre= nombre;
-        this.tipo=tipo;
-        this.oid=oid;
+
+    public Aeropuerto() {
+    }
+
+    public Aeropuerto(String nombre, String tipo, int oid, ITipoAeropuerto t) {
+        this.nombre = nombre;
+        this.tipo = t;
+        this.oid = oid;
     }
 
 }
