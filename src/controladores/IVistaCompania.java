@@ -10,7 +10,9 @@ package controladores;
  * @author Maria.Etcheverry
  */
 public interface IVistaCompania {
+
     public void actualizarFrecuencias();
-    
+
     public void actualizarVuelosPorFrecuencia();
+        
 }

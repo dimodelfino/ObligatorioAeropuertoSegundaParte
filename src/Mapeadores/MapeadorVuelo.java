@@ -15,35 +15,65 @@ import persistencia.IMapeador;
  *
  * @author Maria.Etcheverry
  */
-public class MapeadorVuelo implements IMapeador{
-    
-       private Vuelo v;
-    
-    private MapeadorVuelo(){}
+public class MapeadorVuelo implements IMapeador {
+
+    private Vuelo v;
+
+    public MapeadorVuelo() {
+    }
+
+    public MapeadorVuelo(Vuelo vuel) {
+        this.v = vuel;
+    }
+
+    public void setVuelo(Vuelo vuel) {
+        this.v = vuel;
+    }
 
     @Override
     public int getOid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return v.oId;
     }
 
     @Override
     public void setOid(int oid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        v.oId = oid;
     }
 
     @Override
     public String columnaOid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "idVuelo";
     }
 
     @Override
     public ArrayList<String> sqlInsertar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> sqls = new ArrayList();
+        String sql = "INSERT INTO Vuelo VALUES(";
+        sql += getOid() + ",";
+        sql += "'" + v.numero + "',";
+        sql += "'" + v.fechaPartida + "',";        
+        sql += "'" + v.horaRealPartida + "',";
+        sql += "'" + v.horaRealLlegada + "',";
+        sql += "'" + v.estado + "',";
+        sql += "'" + v.arancelPartida + "',";
+        sql += "'" + v.arancelLlegada + "',";         
+        sql += "'" + v.getOidFrecVuelo() + "')";
+        sqls.add(sql);
+        return sqls;
     }
 
     @Override
     public ArrayList<String> sqlActualizar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> sqls = new ArrayList();
+        String sql = "UPDATE Vuelo SET(";                          
+        sql += "horaRealPartida = '" + v.horaRealPartida + "',";
+        sql += "horaRealLlegada = '" + v.horaRealLlegada + "',";
+        sql += "estado = '" + v.estado + "',";
+        sql += "arancelPartida = " + v.arancelPartida + ",";
+        sql += "arancelLlegada = " + v.arancelLlegada;         
+        sql += "WHERE idVuelo = " + v.getOidFrecVuelo() + ")";
+        sqls.add(sql);
+        return sqls;
     }
 
     @Override
@@ -53,22 +83,33 @@ public class MapeadorVuelo implements IMapeador{
 
     @Override
     public String sqlCargarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "SELECT * FROM Vuelo v, FrecuenciaDeVuelo fv WHERE v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "
+                + "ORDER BY fv.idFrecuenciaVuelo";
     }
 
     @Override
     public String sqlBuscar(String condicion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         String sql = "SELECT * FROM Vuelo v ";
+        if (condicion != null && !condicion.isEmpty()) {
+            sql += "WHERE " + condicion;
+        }        
+        return sql;
     }
 
     @Override
     public void inicializarObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        v = new Vuelo();
     }
 
     @Override
     public void cargarDatos(ResultSet rs) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        v.numero = rs.getString("numero");
+        v.fechaPartida = rs.getString("fechaPartida");
+        v.horaRealPartida = rs.getString("horaRealPartida");
+        v.horaRealLlegada = rs.getString("horaRealLlegada");
+        v.estado = rs.getString("estado");
+        v.arancelPartida = rs.getInt("arancelPartida");
+        v.arancelLlegada = rs.getInt("arancelLlegada");        
     }
 
     @Override
@@ -78,7 +119,7 @@ public class MapeadorVuelo implements IMapeador{
 
     @Override
     public Object getObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return v;
     }
-    
+
 }

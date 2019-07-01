@@ -25,6 +25,7 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
         this.parent= parent;
         controlador = new ControladorLogin(this);
     }
+    //TODO COMO SOLUCIONAR EL USO DE tipoVentanaEnum EN LA VERSION WEB DE LA APLICACION
        
     @Override
     public void ingresar(Usuario u) {

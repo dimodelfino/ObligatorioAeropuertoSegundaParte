@@ -68,42 +68,42 @@ public class LogicaUsuario {
         c.nombre = "Moriana";
         c.nombreCompleto = "Moriana Pi";
         c.contrasenia = "Moriana123";
-        ((UsuAeropuerto) c).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(0);
+        ((UsuAeropuerto) c).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(0);//Carrasco
         this.usuarios.add(c);
 
         Usuario d = new UsuAeropuerto();
         d.nombre = "Ale";
         d.nombreCompleto = "Alejandro Horne";
         d.contrasenia = "Ale123";
-        ((UsuAeropuerto) d).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(1);
+        ((UsuAeropuerto) d).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(1);//Ezeiza
         this.usuarios.add(d);
         
         Usuario h = new UsuAeropuerto();
         h.nombre = "Juan";
         h.nombreCompleto = "Juan Rodriguez";
         h.contrasenia = "Juan123";
-        ((UsuAeropuerto) h).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(2);
+        ((UsuAeropuerto) h).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(2); //Barajas
         this.usuarios.add(h);
         
         Usuario i = new UsuAeropuerto();
         i.nombre = "Sandra";
         i.nombreCompleto = "Sandra Press";
         i.contrasenia = "Sandra123";
-        ((UsuAeropuerto) i).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(3);
+        ((UsuAeropuerto) i).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(3); //Guarulos
         this.usuarios.add(i);
         
         Usuario j = new UsuAeropuerto();
         j.nombre = "Alicia";
         j.nombreCompleto = "Alicia Moreno";
         j.contrasenia = "Alicia123";
-        ((UsuAeropuerto) j).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(4);
+        ((UsuAeropuerto) j).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(4);//JFK
         this.usuarios.add(j);
         
         Usuario k = new UsuAeropuerto();
         k.nombre = "Ana";
         k.nombreCompleto = "Ana Milovan";
         k.contrasenia = "Ana123";
-        ((UsuAeropuerto) k).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(5);
+        ((UsuAeropuerto) k).aeropuerto = LogicaAeropuerto.getInstancia().getAeropuertos().get(5);// La Guardia
         this.usuarios.add(k);
     }
 

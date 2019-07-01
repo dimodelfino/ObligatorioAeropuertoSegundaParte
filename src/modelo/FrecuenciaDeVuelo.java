@@ -61,7 +61,8 @@ public class FrecuenciaDeVuelo implements Runnable {
 
     @Override
     public String toString() {
-        return "Numero: " + numero + " || Origen: " + aeropuertoOrigen.nombre + " || Estado: " + estadoOrigen.toString()
+        return "Numero: " + numero + "Segundos Restantes: " + tiempoEspera + " || Origen: " + aeropuertoOrigen.nombre 
+                + " || Estado: " + estadoOrigen.toString()
                 + " || Destino: " + aeropuertoDestino.nombre
                 + " || Estado: " + estadoDestino.toString()
                 + " || Dias: " + diasSemana + " || Partida: " + horaPartida + " || Duracion: " + duracionEstimada;

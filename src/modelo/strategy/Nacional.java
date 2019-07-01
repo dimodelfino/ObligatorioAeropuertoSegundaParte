@@ -13,6 +13,8 @@ import modelo.Vuelo;
  * @author dmoreno
  */
 public class Nacional implements ITipoAeropuerto {
+    
+    int oId;
 
    @Override
     public int CalcularArancelPartida(String estado, Vuelo v, int minRetraso) {

@@ -14,7 +14,7 @@ import java.util.Date;
  * @author dmoreno
  */
 public class Vuelo {
-    //public FrecuenciaDeVuelo fVuelo;
+    
     public String numero;
     public String fechaPartida;
     public String horaRealPartida;
@@ -23,6 +23,15 @@ public class Vuelo {
     public int arancelPartida;
     public int arancelLlegada;
     public int oId;
+    private int oIdFrecuenciaVuelo;
+    
+    public int getOidFrecVuelo(){
+        return this.oIdFrecuenciaVuelo;
+    }
+    
+    public void setOidFrecVuelo(int oidFrecV){
+        this.oIdFrecuenciaVuelo = oidFrecV;
+    }
     
      @Override
     public String toString() {

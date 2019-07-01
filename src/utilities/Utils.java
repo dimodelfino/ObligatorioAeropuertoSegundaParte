@@ -8,6 +8,7 @@ package utilities;
 import java.util.ArrayList;
 import java.util.Calendar;
 import modelo.DiaSemanaEnum;
+import modelo.EstadoEnum;
 
 /**
  *
@@ -70,4 +71,56 @@ public class Utils {
         }
         return result;
     }
+    
+   public static EstadoEnum getEstadoEnum(String estado){
+       EstadoEnum e = EstadoEnum.Rechazado;
+       if(estado == "Aprobado"){
+           e = EstadoEnum.Aprobado;
+       }else if(estado == "Pendiente"){
+           e = EstadoEnum.Pendiente; 
+       }       
+       return e;
+   }
+   
+    public static ArrayList<DiaSemanaEnum> convertirDiaSemanaEnum(String diasSemana) {
+        ArrayList<DiaSemanaEnum> result = new ArrayList();
+        for (int i = 0; i < diasSemana.length(); i++) {
+            char c = diasSemana.charAt(i);
+            String s = Character.toString(c);
+            DiaSemanaEnum diaSemana = getDiasSemanaEnum(s);
+            if (diaSemana != null) {
+                result.add(diaSemana);
+            }
+        }
+        return result;
+    }
+    
+     public static DiaSemanaEnum getDiasSemanaEnum(String diasSemana) {
+        DiaSemanaEnum result = null;
+        switch (diasSemana) {
+            case "Lunes":
+                result = DiaSemanaEnum.L;
+                break;
+            case "Martes":
+                result = DiaSemanaEnum.M;
+                break;
+            case "Miercoles":
+                result = DiaSemanaEnum.X;
+                break;
+            case "Jueves":
+                result = DiaSemanaEnum.J;
+                break;
+            case "Viernes":
+                result = DiaSemanaEnum.V;
+                break;
+            case "Sabado":
+                result = DiaSemanaEnum.S;
+                break;
+            case "Domingo":
+                result = DiaSemanaEnum.D;
+                break;
+        }
+        return result;
+    }
+
 }

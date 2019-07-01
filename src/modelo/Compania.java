@@ -12,5 +12,13 @@ package modelo;
 public class Compania {
     public String nombre;
     public String alias;   
-    public int costosVuelos;
+    private int oId;
+    
+    public int getoId(){
+        return this.oId;
+    }
+    
+    public void setOid(int oid){
+        this.oId = oid;
+    }
 }
