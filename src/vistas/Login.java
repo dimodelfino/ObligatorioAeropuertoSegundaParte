@@ -21,34 +21,34 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
     public Login(java.awt.Frame parent, boolean modal, TipoVentanaEnum tipoProxVentana) {
         super(parent, modal);
         initComponents();
-        this.tipoProxVentana= tipoProxVentana;
-        this.parent= parent;
+        this.tipoProxVentana = tipoProxVentana;
+        this.parent = parent;
         controlador = new ControladorLogin(this);
     }
     //TODO COMO SOLUCIONAR EL USO DE tipoVentanaEnum EN LA VERSION WEB DE LA APLICACION
-       
+
     @Override
     public void ingresar(Usuario u) {
-       if(u == null){
-           JOptionPane.showMessageDialog(parent, this);
-       } else {
-           JDialog proxDialogo;
-           switch (tipoProxVentana){
-               case Compania: 
-                   proxDialogo = new AplicacionCompania(parent, false, u);
-                   break;
-               case Aeropuerto: 
-                   proxDialogo = new AplicacionAeropuerto(parent, false, u);
-                   break;
-               case Monitoreo:
-                   proxDialogo = new AplicacionMonitoreo(parent, false,u);
-                   break;
-               default:
-                   proxDialogo=null;  
-           }
-           dispose();
-           proxDialogo.setVisible(true);
-       } 
+        if (u == null) {
+            JOptionPane.showMessageDialog(parent, this);
+        } else {
+            JDialog proxDialogo;
+            switch (tipoProxVentana) {
+                case Compania:
+                    proxDialogo = new AplicacionCompania(parent, false, u);
+                    break;
+                case Aeropuerto:
+                    proxDialogo = new AplicacionAeropuerto(parent, false, u);
+                    break;
+                case Monitoreo:
+                    proxDialogo = new AplicacionMonitoreo(parent, false, u);
+                    break;
+                default:
+                    proxDialogo = null;
+            }
+            dispose();
+            proxDialogo.setVisible(true);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -129,19 +129,19 @@ public class Login extends javax.swing.JDialog implements IVistaLogIn {
 
     private void bntLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLoginActionPerformed
         String pass = String.valueOf(txtPass.getPassword());
-        try{
+        try {
             controlador.autenticar(txtUsuario.getText(), pass, this.tipoProxVentana);
-        }catch(ExceptionLogin x){
+        } catch (ExceptionLogin x) {
             lblError.setText(x.getMessage());
         }
-        
-    }//GEN-LAST:event_bntLoginActionPerformed
-   
-   public ControladorLogin controlador;
-   private TipoVentanaEnum tipoProxVentana;
-   private java.awt.Frame parent;
 
-    
+    }//GEN-LAST:event_bntLoginActionPerformed
+
+    public ControladorLogin controlador;
+    private TipoVentanaEnum tipoProxVentana;
+    private java.awt.Frame parent;
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bntLogin;
     private javax.swing.JLabel jLabel1;

@@ -67,7 +67,7 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
     @Override
     public ArrayList<String> sqlActualizar() {
         ArrayList<String> sqls = new ArrayList();
-        String sql = "UPDATE FrecuenciaDeVuelo SET(";
+        String sql = "UPDATE frecuenciaDeVuelo SET(";
         sql += "estadoOrigen = '" + fv.estadoOrigen + "',";
         sql += "estadoDestino = '" + fv.estadoDestino + "',";
         sql += "diaSemana = '" + fv.diasSemana + "',";
