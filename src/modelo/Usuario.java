@@ -13,4 +13,13 @@ public class Usuario {
     public String nombre;
     public String nombreCompleto;
     public String contrasenia;
+    private int oId;
+    
+    public int getOid(){
+        return this.oId;
+    }
+    
+    public void setOid (int oId){
+        this.oId = oId;
+    }
 }

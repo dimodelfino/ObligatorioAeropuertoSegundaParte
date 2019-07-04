@@ -7,6 +7,7 @@ package modelo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -169,6 +170,12 @@ public class LogicaVuelo extends Observable {
         a.estado = "VUELO TEST";
         fv.vuelos.add(a);
         notificarObservadores();
+    }
+    
+    public ArrayList<Vuelo> getVuelosPorFrecuencia(int idFrec){
+        ArrayList<Vuelo> vuelosDeFrec = new ArrayList<>();
+        int cant = vuelos.size();
+        
     }
 
     public void notificarObservadores() {

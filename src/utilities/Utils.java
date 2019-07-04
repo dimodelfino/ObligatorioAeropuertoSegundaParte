@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import modelo.DiaSemanaEnum;
 import modelo.EstadoEnum;
+import modelo.strategy.ITipoAeropuerto;
+import modelo.strategy.Internacional;
+import modelo.strategy.Nacional;
+import modelo.strategy.Regional;
 
 /**
  *
@@ -19,7 +23,6 @@ public class Utils {
      //Devuelve el DiaSemanaEnum equivalente al ind de dia de la semana que se le pase por parametro
     public static DiaSemanaEnum getDiaSemana(int dia) {
         DiaSemanaEnum diaSemana = DiaSemanaEnum.D;
-
         switch (dia) {
             case Calendar.MONDAY:
                 diaSemana = DiaSemanaEnum.L;
@@ -122,5 +125,20 @@ public class Utils {
         }
         return result;
     }
-
+     
+     public static ITipoAeropuerto getTipoAeropuerto(String tipoAero){
+         ITipoAeropuerto tipoAeropuerto = null;
+         switch (tipoAero){             
+            case "Internacional":
+                tipoAeropuerto =  new Internacional();
+                break;
+            case "Nacional":
+                tipoAeropuerto = new Nacional();
+                break;
+            case "Regional":
+                tipoAeropuerto = new Regional();
+                break;                
+         }         
+         return tipoAeropuerto;
+     }
 }

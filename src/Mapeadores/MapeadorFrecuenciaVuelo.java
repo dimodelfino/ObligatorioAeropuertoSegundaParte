@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.FrecuenciaDeVuelo;
+import modelo.LogicaAeropuerto;
+import modelo.LogicaCompania;
 import persistencia.IMapeador;
 import utilities.Utils;
 
@@ -82,13 +84,9 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
     }
 
     @Override
-    public String sqlCargarTodos() {
-        //TODO; COMO TRAER LOS AEROPUERTOS
-        return "SELECT * FROM frecuenciavuelo fv, compania c, Vuelo v, Aeropuerto a "
-                + "WHERE fv.idCompania = c.idCompania "
-                + "AND fv.aeropuertoOrigen = a.idAeropuerto "
-                + "AND fv.aeropuertoDestino = a.idAeropuerto "
-                + "AND fv.idFrecuenciaVuelo = v.ididFrecuenciaVuelo";                                
+    public String sqlCargarTodos() {        
+        return "SELECT * FROM frecuenciavuelo fv, Vuelo v "                               
+                + "AND fv.idFrecuenciaVuelo = v.idFrecuenciaVuelo";                                
     }
 
     @Override
@@ -117,17 +115,19 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
         fv.duracionEstimada = rs.getString("duracionEstimada");        
         fv.estadoOrigen = Utils.getEstadoEnum(rs.getString("estadoOrigen"));        
         fv.estadoOrigen = Utils.getEstadoEnum(rs.getString("estadoDestino"));
+        fv.aeropuertoOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoOrigen"));
+        fv.aeropuertoOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoDestino"));
+        fv.compania = LogicaCompania.getInstancia().buscarCompaniaOid(rs.getInt("idCompania"));
     }   
    
     @Override
     public void leerComponente(ResultSet rs) throws SQLException {
-        //TODO IMPLEMENTAR ESTE METODO
-        
+                
         //MapeadorCompania mc = new MapeadorCompania();
         // Estadol aeropuertoOrigen = (Estadol)Persistencia.getInstancia().buscar( me, "WHERE idEstado=" + rs.getInt("aeropuertoOrigen"));
         //Estadol aeropuertoDestino = (Estadol)Persistencia.getInstancia().buscar(me, "WHERE idEstado=" + rs.getInt("aeropuertoDestino"));
         //Compania c = (Compania) Persistencia.getInstancia().buscar(mc, "WHERE idCompania=" + rs.getInt("compania"));
-//        fv.aeropuertoOrigen= aeropuertoOrigen;
+        //fv.aeropuertoOrigen= aeropuertoOrigen;
 //        fv.aeropuertoDestino= aeropuertoDestino;
         //fv.compania = c;
     }

@@ -71,5 +71,20 @@ public class LogicaAeropuerto {
         }
         return a;
     }
+    
+    //Busca aeropuertos por oId
+    public Aeropuerto buscarAeropuertoOid(int oId) {
+        Aeropuerto a = null;
+        boolean existe = false;
+        int i = 0;
+        while (!existe) {
+            if (aeropuertos.get(i).getOid() == oId) {
+                a = aeropuertos.get(i);
+                existe = true;
+            }
+            i++;
+        }
+        return a;
+    }
 
 }

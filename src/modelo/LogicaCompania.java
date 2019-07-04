@@ -49,6 +49,22 @@ public class LogicaCompania {
         e.alias = "JBL ";
         this.companias.add(e);
     }        
+    
+    
+    //Busca companias por oId
+    public Compania buscarCompaniaOid(int oId) {
+        Compania c = null;
+        boolean existe = false;
+        int i = 0;
+        while (!existe) {
+            if (companias.get(i).getoId() == oId) {
+                c = companias.get(i);
+                existe = true;
+            }
+            i++;
+        }
+        return c;
+    }
 }
 
 

@@ -32,7 +32,8 @@ public class BaseDatos {
     public void conectar(String driver, String url, String usr, String pass) {
         try {
            // TODO QUE ES EL DRIVER??
-           
+           // Driver de ObliAeropuertoLocal org.apache.derby.jdbc.ClientDriver
+           // URL ObliAeropuertoLocal jdbc:derby://localhost:1527/ObliAeropuertoLocal
            Class.forName(driver);
             conexion = DriverManager.getConnection(url, usr, pass);
             stmt = conexion.createStatement();

@@ -115,7 +115,5 @@ public class Persistencia {
             ex.printStackTrace();
         }
         return resultado;
-    }
-    
-    
+    }        
 }

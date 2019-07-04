@@ -89,7 +89,7 @@ public class MapeadorVuelo implements IMapeador {
 
     @Override
     public String sqlBuscar(String condicion) {
-         String sql = "SELECT * FROM Vuelo v ";
+        String sql = "SELECT * FROM Vuelo v ";
         if (condicion != null && !condicion.isEmpty()) {
             sql += "WHERE " + condicion;
         }        
@@ -109,12 +109,14 @@ public class MapeadorVuelo implements IMapeador {
         v.horaRealLlegada = rs.getString("horaRealLlegada");
         v.estado = rs.getString("estado");
         v.arancelPartida = rs.getInt("arancelPartida");
-        v.arancelLlegada = rs.getInt("arancelLlegada");        
+        v.arancelLlegada = rs.getInt("arancelLlegada");  
+        v.setOidFrecVuelo(rs.getInt("idFrecuenciaVuelo"));
+        v.oId = rs.getInt("idVuelo");
     }
 
     @Override
     public void leerComponente(ResultSet rs) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Vacio porque no necesita cargarse datos.
     }
 
     @Override
