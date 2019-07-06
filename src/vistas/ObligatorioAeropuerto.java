@@ -5,9 +5,6 @@
  */
 package vistas;
 
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import modelo.LogicaAeropuerto;
 import modelo.LogicaCompania;
 import modelo.LogicaFrecuenciaVuelo;
@@ -25,12 +22,12 @@ public class ObligatorioAeropuerto {
      */
     public static void main(String[] args) {
 
-        LogicaCompania.getInstancia().iniciateCompanyList();
-        LogicaAeropuerto.getInstancia().iniciateAirportsList();
-        LogicaUsuario.getInstancia().iniciateUsersList();
-        LogicaFrecuenciaVuelo.getInstancia().iniciateFrecuenciaVueloList();
-        LogicaVuelo.getInstancia().iniciateListaVuelos();
-        new MenuPrincipal().setVisible(true);  
+          LogicaCompania.getInstancia().iniciateCompanyList();
+          LogicaAeropuerto.getInstancia().iniciateAirportsList();
+          LogicaUsuario.getInstancia().iniciateUsersList();
+//        LogicaFrecuenciaVuelo.getInstancia().iniciateFrecuenciaVueloList();
+//        LogicaVuelo.getInstancia().iniciateListaVuelos();
+          new MenuPrincipal().setVisible(true);  
                                 
     }
 }

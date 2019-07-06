@@ -77,9 +77,9 @@ public class Utils {
     
    public static EstadoEnum getEstadoEnum(String estado){
        EstadoEnum e = EstadoEnum.Rechazado;
-       if(estado == "Aprobado"){
-           e = EstadoEnum.Aprobado;
-       }else if(estado == "Pendiente"){
+       if(estado.trim().equals( "Aprobado")){
+           e = EstadoEnum   .Aprobado;
+       }else if(estado.trim().equals("Pendiente")){
            e = EstadoEnum.Pendiente; 
        }       
        return e;
@@ -101,25 +101,25 @@ public class Utils {
      public static DiaSemanaEnum getDiasSemanaEnum(String diasSemana) {
         DiaSemanaEnum result = null;
         switch (diasSemana) {
-            case "Lunes":
+            case "L":
                 result = DiaSemanaEnum.L;
                 break;
-            case "Martes":
+            case "M":
                 result = DiaSemanaEnum.M;
                 break;
-            case "Miercoles":
+            case "X":
                 result = DiaSemanaEnum.X;
                 break;
-            case "Jueves":
+            case "J":
                 result = DiaSemanaEnum.J;
                 break;
-            case "Viernes":
+            case "V":
                 result = DiaSemanaEnum.V;
                 break;
-            case "Sabado":
+            case "S":
                 result = DiaSemanaEnum.S;
                 break;
-            case "Domingo":
+            case "D":
                 result = DiaSemanaEnum.D;
                 break;
         }

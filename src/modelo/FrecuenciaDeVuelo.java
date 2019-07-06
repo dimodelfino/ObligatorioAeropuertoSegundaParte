@@ -28,9 +28,12 @@ public class FrecuenciaDeVuelo implements Runnable {
     private int oid;
     public ArrayList<Vuelo> vuelos = new ArrayList<>();
     private Thread thread;
-    private int tiempoEspera = 4;
+    private int tiempoEspera = 400;
 
     public FrecuenciaDeVuelo() {
+//        if(estadoOrigen != EstadoEnum.Aprobado || estadoDestino != EstadoEnum.Aprobado){
+//           iniciateThread();
+//        }
     }
 
     public FrecuenciaDeVuelo(String num, Aeropuerto origen, EstadoEnum estadoOrigen, Aeropuerto destino, EstadoEnum estadoDestino, String hrPartida, String duracionEst, Compania c, ArrayList<DiaSemanaEnum> diasSem) {
@@ -43,7 +46,9 @@ public class FrecuenciaDeVuelo implements Runnable {
         duracionEstimada = duracionEst;
         compania = c;
         diasSemana = diasSem;
-        iniciateThread();
+//        if(estadoOrigen != EstadoEnum.Aprobado || estadoDestino != EstadoEnum.Aprobado){
+//           iniciateThread();
+//        }
     }
 
     private void iniciateThread() {
@@ -61,7 +66,7 @@ public class FrecuenciaDeVuelo implements Runnable {
 
     @Override
     public String toString() {
-        return "Numero: " + numero + "Segundos Restantes: " + tiempoEspera + " || Origen: " + aeropuertoOrigen.nombre 
+        return "Numero: " + numero + " || Segundos Restantes: " + tiempoEspera + " || Origen: " + aeropuertoOrigen.nombre 
                 + " || Estado: " + estadoOrigen.toString()
                 + " || Destino: " + aeropuertoDestino.nombre
                 + " || Estado: " + estadoDestino.toString()

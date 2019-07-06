@@ -5,15 +5,12 @@
  */
 package modelo;
 
-import Mapeadores.MapeadorVuelo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Observable;
-import persistencia.BaseDatos;
-import persistencia.Persistencia;
 
 /**
  *
@@ -170,12 +167,8 @@ public class LogicaVuelo extends Observable {
         a.horaRealPartida = horaActual;
         a.horaRealLlegada = "22:10:00 AM";
         a.estado = "VUELO TEST";
-        a.arancelPartida = fv.aeropuertoOrigen.tipo.CalcularArancelPartida(horaActual, a, calcularMinutosRetraso(fv.horaPartida, horaActual));
-        a.arancelLlegada = fv.aeropuertoDestino.tipo.CalcularArancelLlegada(fv.aeropuertoOrigen);
-        a.oId = 0;
-        a.setOidFrecVuelo(26);
         fv.vuelos.add(a);
-               
+
         notificarObservadores();
     }        
 

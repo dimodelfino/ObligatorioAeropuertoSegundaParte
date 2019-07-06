@@ -35,23 +35,27 @@ public class LogicaCompania {
         Compania a = new Compania();
         a.nombre = "LAN ";
         a.alias = "LAN ";
-        a.setOid(0);
+        a.setOid(7);
         this.companias.add(a);
         Compania b = new Compania();
         b.nombre = "Aerolineas Argentinas ";
         b.alias = "AAR ";
+        b.setOid(8);
         this.companias.add(b);
         Compania c = new Compania();
         c.nombre = "PLUNA ";
         c.alias = "PLU ";
+        c.setOid(9);
         this.companias.add(c);
         Compania d = new Compania();
         d.nombre = "Air France ";
         d.alias = "AFR ";
+        d.setOid(10);
         this.companias.add(d);
         Compania e = new Compania();
         e.nombre = "Jet Blue ";
         e.alias = "JBL ";
+        e.setOid(11);
         this.companias.add(e);        
     }        
     
@@ -61,7 +65,7 @@ public class LogicaCompania {
         Compania c = null;
         boolean existe = false;
         int i = 0;
-        while (!existe) {
+        while (!existe && i<companias.size()) {
             if (companias.get(i).getoId() == oId) {
                 c = companias.get(i);
                 existe = true;

@@ -8,6 +8,8 @@ package persistencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import utilities.ExceptionCompania;
+import utilities.ExceptionFrecuenciaVuelo;
 
 /**
  *
@@ -45,7 +47,7 @@ public class Persistencia {
         }
     }
 
-    public void guardar(IMapeador m) {     
+    public void guardar(IMapeador m) throws ExceptionCompania{     
         if (m.getOid() == 0) {
             insertar(m);
         } else {
@@ -53,16 +55,15 @@ public class Persistencia {
         }
     }
 
-    private void insertar(IMapeador m) {
+    private void insertar(IMapeador m) throws ExceptionCompania{
         int oid = proximoOid();
-        if (oid == -1) {
-            System.out.println("OID inválido");
-            // TODO TIRAR EXCEPCION 
+        if (oid == -1) {            
+            throw new utilities.ExceptionCompania("OID inválido");
         } 
         m.setOid(oid);
         if (!bd.transaccion(m.sqlInsertar())) {
-            m.setOid(0);
-            System.out.println("Error al insertar");
+            m.setOid(0);            
+            throw new utilities.ExceptionCompania("Error al insertar");
         }
     }
 

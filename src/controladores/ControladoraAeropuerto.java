@@ -9,6 +9,7 @@ import modelo.LogicaFrecuenciaVuelo;
 import modelo.LogicaVuelo;
 import modelo.Vuelo;
 import modelo.DiaSemanaEnum;
+import utilities.ExceptionCompania;
 
 /**
  *
@@ -32,15 +33,15 @@ public class ControladoraAeropuerto implements Observer {
         return LogicaFrecuenciaVuelo.getInstancia().getDiaSemana(dia);
     }
 
-    public void aprobarEstadoFrecuencia(FrecuenciaDeVuelo f, String origDest) {
+    public void aprobarEstadoFrecuencia(FrecuenciaDeVuelo f, String origDest) throws ExceptionCompania {
         FachadaModelo.getInstancia().aprobarEstadoFrecuencia(f, origDest);
     }
 
-    public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) {
+    public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) throws ExceptionCompania {
         FachadaModelo.getInstancia().rechazarEstadoFrecuencia(frec, origDest);
     }
 
-    public void agregregarVuelo(Vuelo v) {
+    public void agregregarVuelo(Vuelo v) throws ExceptionCompania {
         FachadaModelo.getInstancia().agregarVuelo(v);
     }
 
@@ -52,7 +53,7 @@ public class ControladoraAeropuerto implements Observer {
         return FachadaModelo.getInstancia().getVuelosDiarios(nomAero, origDest);
     }
 
-    public void arriboVuelo(Vuelo arribo) {
+    public void arriboVuelo(Vuelo arribo) throws ExceptionCompania {
         FachadaModelo.getInstancia().agregarLlegadaVuelo(arribo);
     }
 

@@ -68,7 +68,7 @@ public class MapeadorCompania implements IMapeador {
 
     @Override
     public String sqlBuscar(String condicion) {
-        String sql = "SELECT * FROM compania";
+        String sql = "SELECT * FROM companias";
         if (condicion != null && !condicion.isEmpty()) {
             sql += "WHERE " + condicion;
         }

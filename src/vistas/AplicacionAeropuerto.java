@@ -11,6 +11,7 @@ import modelo.FrecuenciaDeVuelo;
 import modelo.UsuAeropuerto;
 import modelo.Usuario;
 import modelo.Vuelo;
+import utilities.ExceptionCompania;
 
 /**
  *
@@ -250,15 +251,23 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAprobarOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarOrigenActionPerformed
-        controlador.aprobarEstadoFrecuencia(frecPendOrigen, "Origen");
-        actualizarFrecuenciasPendientesOrigen();
-        actualizarFrecuenciasPendientesDestino();
+        try {
+            controlador.aprobarEstadoFrecuencia(frecPendOrigen, "Origen");
+            actualizarFrecuenciasPendientesOrigen();
+            actualizarFrecuenciasPendientesDestino();
+        } catch (ExceptionCompania x) {
+            System.out.println(x);
+        }
     }//GEN-LAST:event_btnAprobarOrigenActionPerformed
 
     private void btnAprobarDestinoFrecuenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarDestinoFrecuenciaActionPerformed
-        controlador.aprobarEstadoFrecuencia(frecPendDestino, "Destino");
-        actualizarFrecuenciasPendientesDestino();
-        actualizarVuelosDiarioPartidas();
+        try {
+            controlador.aprobarEstadoFrecuencia(frecPendDestino, "Destino");
+            actualizarFrecuenciasPendientesDestino();
+            actualizarVuelosDiarioPartidas();
+        } catch (ExceptionCompania x) {
+            System.out.println(x);
+        }
     }//GEN-LAST:event_btnAprobarDestinoFrecuenciaActionPerformed
 
     private void lstFrecuenciasPendientesDestinoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstFrecuenciasPendientesDestinoValueChanged
@@ -276,24 +285,41 @@ public class AplicacionAeropuerto extends javax.swing.JDialog implements IVistaA
     }//GEN-LAST:event_lstFrecuenciasPendientesOrigenValueChanged
 
     private void btnRechazarOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarOrigenActionPerformed
-        controlador.rechazarEstadoFrecuencia(frecPendOrigen, "Origen");
-        actualizarFrecuenciasPendientesOrigen();
+        try {
+            controlador.rechazarEstadoFrecuencia(frecPendOrigen, "Origen");
+            actualizarFrecuenciasPendientesOrigen();
+        } catch (ExceptionCompania x) {
+            System.out.println(x);
+        }
     }//GEN-LAST:event_btnRechazarOrigenActionPerformed
 
     private void btnRechazarDestinoFrecuenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarDestinoFrecuenciaActionPerformed
-        controlador.rechazarEstadoFrecuencia(frecPendDestino, "Destino");
-        actualizarFrecuenciasPendientesDestino();
+        try {
+            controlador.rechazarEstadoFrecuencia(frecPendDestino, "Destino");
+            actualizarFrecuenciasPendientesDestino();
+        } catch (ExceptionCompania x) {
+            System.out.println(x);
+        }
     }//GEN-LAST:event_btnRechazarDestinoFrecuenciaActionPerformed
 
     private void btnIngresarPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarPartidaActionPerformed
-        controlador.agregregarVuelo(partida);
-        actualizarVuelosDiarioPartidas();
-        actualizarVuelosDiariosArribos();
+        try{
+            controlador.agregregarVuelo(partida);
+            actualizarVuelosDiarioPartidas();
+            actualizarVuelosDiariosArribos();
+        }
+        catch (ExceptionCompania x) {
+            System.out.println(x);
+        }                
     }//GEN-LAST:event_btnIngresarPartidaActionPerformed
 
     private void btnIngresarArriboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarArriboActionPerformed
-        controlador.arriboVuelo(arribo);
-        actualizarVuelosDiarioPartidas();
+        try{
+            controlador.arriboVuelo(arribo);
+            actualizarVuelosDiarioPartidas();
+        }catch (ExceptionCompania x) {
+            System.out.println(x);
+        }                   
     }//GEN-LAST:event_btnIngresarArriboActionPerformed
 
     private void lstVuelosDiariosPartidasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstVuelosDiariosPartidasValueChanged

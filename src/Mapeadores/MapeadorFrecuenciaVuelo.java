@@ -8,6 +8,7 @@ package Mapeadores;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modelo.EstadoEnum;
 import modelo.FrecuenciaDeVuelo;
 import modelo.LogicaAeropuerto;
 import modelo.LogicaCompania;
@@ -69,11 +70,11 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
     @Override
     public ArrayList<String> sqlActualizar() {
         ArrayList<String> sqls = new ArrayList();
-        String sql = "UPDATE frecuenciaDeVuelo SET(";
+        String sql = "UPDATE aeropuerto.frecuenciaDeVuelo SET ";
         sql += "estadoOrigen = '" + fv.estadoOrigen + "',";
         sql += "estadoDestino = '" + fv.estadoDestino + "',";
-        sql += "diaSemana = '" + fv.diasSemana + "',";
-        sql += "WHERE idFrecuenciaDeVuelo = " + fv.getOid() + ")";
+        sql += "diaSemana = '" + fv.diasSemana + "'";
+        sql += " WHERE idFrecuenciaVuelo = " + fv.getOid() + ";";
         sqls.add(sql);
         return sqls;
     }
@@ -85,20 +86,19 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
 
     @Override
     public String sqlCargarTodos() {        
-        return "SELECT * FROM frecuenciavuelo fv, Vuelo v "                               
-                + "AND fv.idFrecuenciaVuelo = v.idFrecuenciaVuelo";                                
+        return "SSELECT * FROM aeropuerto.frecuenciadevuelo fv" +
+        "LEFT JOIN aeropuerto.vuelos v" +
+        "ON fv.idFrecuenciaVuelo = v.idFrecuenciaVuelo" +
+        "ORDER BY fv.idFrecuenciaVuelo, v.idFrecuenciaVuelo;";                                
     }
 
     @Override
     public String sqlBuscar(String condicion) {
-        String sql = "SELECT * FROM frecuenciavuelo,  compania c, Vuelo v, Aeropuerto a "
-                + "WHERE fv.idCompania = c.idCompania "
-                + "AND fv.aeropuertoOrigen = a.idAeropuerto "
-                + "AND fv.aeropuertoDestino = a.idAeropuerto "
-                + "AND fv.idFrecuenciaVuelo = v.ididFrecuenciaVuelo";
+        String sql = "SELECT * FROM aeropuerto.frecuenciadevuelo ";       
         if (condicion != null && !condicion.isEmpty()) {
-            sql += " AND " + condicion;
+            sql += condicion;
         }
+        System.out.println("Sql Buscar: " + sql);
         return sql;
     }
 
@@ -109,15 +109,17 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
 
     @Override
     public void cargarDatos(ResultSet rs) throws SQLException {
+        //inicializarObjeto();
         fv.numero = rs.getString("numero");
         fv.horaPartida = rs.getString("horaPartida");
         fv.diasSemana = Utils.convertirDiaSemanaEnum(rs.getString("diaSemana"));
         fv.duracionEstimada = rs.getString("duracionEstimada");        
         fv.estadoOrigen = Utils.getEstadoEnum(rs.getString("estadoOrigen"));        
-        fv.estadoOrigen = Utils.getEstadoEnum(rs.getString("estadoDestino"));
+        fv.estadoDestino = Utils.getEstadoEnum(rs.getString("estadoDestino"));
         fv.aeropuertoOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoOrigen"));
-        fv.aeropuertoOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoDestino"));
-        fv.compania = LogicaCompania.getInstancia().buscarCompaniaOid(rs.getInt("idCompania"));
+        fv.aeropuertoDestino = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoDestino"));
+        fv.compania = LogicaCompania.getInstancia().buscarCompaniaOid(rs.getInt("idCompania"));        
+        fv.setOid(rs.getInt("idFrecuenciaVuelo"));
     }   
    
     @Override

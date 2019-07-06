@@ -363,7 +363,12 @@ public class AplicacionCompania extends javax.swing.JDialog implements IVistaCom
    
     @Override
     public void actualizarFrecuencias() {
-        lstVisualizarFrecuencias.setListData(controlador.getFrecuencias().toArray()); //LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().toArray()); 
+        lstVisualizarFrecuencias.setListData(controlador.getFrecuencias().toArray());
+    }
+    
+    //@Override
+    public void actualizarTiempoRestante() {
+        lstVisualizarFrecuencias.setListData(controlador.getFrecuencias().toArray());
     }
     
     @Override

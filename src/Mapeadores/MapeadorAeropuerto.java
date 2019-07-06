@@ -69,7 +69,7 @@ public class MapeadorAeropuerto implements IMapeador{
 
     @Override
     public String sqlBuscar(String condicion) {
-        String sql = "SELECT * FROM aeropuerto";
+        String sql = "SELECT * FROM aeropuerto.aeropuerto ";
         if (condicion != null && !condicion.isEmpty()) {
             sql += "WHERE " + condicion;
         }        
@@ -95,7 +95,7 @@ public class MapeadorAeropuerto implements IMapeador{
 
     @Override
     public Object getObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return a;
     }
     
 }

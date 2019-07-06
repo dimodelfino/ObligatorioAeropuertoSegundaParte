@@ -5,13 +5,17 @@
  */
 package modelo;
 
+import Mapeadores.MapeadorFrecuenciaVuelo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import persistencia.BaseDatos;
+import persistencia.Persistencia;
 import utilities.ExceptionCompania;
+import utilities.ExceptionFrecuenciaVuelo;
 import utilities.Utils;
 
 /**
@@ -24,23 +28,20 @@ public class FachadaModelo {
 
     public static FachadaModelo getInstancia() {
         return instancia;
-    }          
-    
-    
+    }
 
     //Instancia una FrecuenciaDeVuelo, valida si existe y la envia a LogicaFrecuenciaVuelo a agregarse a su lista
-    public boolean agregarFrecuencia(String num, String origen, String destino, String hrPartida, String duracionEst, Compania c, ArrayList<DiaSemanaEnum> diasSem) throws ExceptionCompania {
+    public void agregarFrecuencia(String num, String origen, String destino, String hrPartida, String duracionEst, Compania c, ArrayList<DiaSemanaEnum> diasSem) throws ExceptionCompania {
         boolean result = false;
         Aeropuerto aOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(origen);
         Aeropuerto aDestino = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(destino);
         FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo(num, aOrigen, EstadoEnum.Pendiente, aDestino, EstadoEnum.Pendiente, hrPartida, duracionEst, c, diasSem);
         if (!existeFrecuencia(fv)) {
-            result = LogicaFrecuenciaVuelo.getInstancia().GuardarFrecuencia(fv);
-        }
-        return result;
+            LogicaFrecuenciaVuelo.getInstancia().GuardarFrecuencia(fv);
+        }       
     }
 
-   // Valida si existe o no una frecuencia con los mismos datos
+    // Valida si existe o no una frecuencia con los mismos datos
     public boolean existeFrecuencia(FrecuenciaDeVuelo fv) throws utilities.ExceptionCompania {
         boolean ret = false;
         int i = 0;
@@ -57,14 +58,14 @@ public class FachadaModelo {
                 ArrayList<DiaSemanaEnum> auxDiasSemanaFrecuenciaNueva = (ArrayList<DiaSemanaEnum>) new ArrayList<>(fv.diasSemana).clone();
                 auxDiasSemanaFrecuenciaVieja.retainAll(auxDiasSemanaFrecuenciaNueva);
                 if (auxDiasSemanaFrecuenciaVieja.size() == 0) {
-                    LogicaFrecuenciaVuelo.getInstancia().actualizarDiasSemana(i, fv.diasSemana);
+                    LogicaFrecuenciaVuelo.getInstancia().actualizarDiasSemana(frecIteracion, fv.diasSemana);
                     ret = true;
                 } else {
                     auxDiasSemanaFrecuenciaNueva.removeAll(auxDiasSemanaFrecuenciaVieja);
                     if (auxDiasSemanaFrecuenciaNueva.size() == 0) {
                         throw new utilities.ExceptionCompania("Ya existe una frecuencia con los datos ingresados. Intente nuevamente.");
                     } else {
-                        LogicaFrecuenciaVuelo.getInstancia().actualizarDiasSemana(i, auxDiasSemanaFrecuenciaNueva);
+                        LogicaFrecuenciaVuelo.getInstancia().actualizarDiasSemana(frecIteracion, auxDiasSemanaFrecuenciaNueva);
                         ret = true;
                     }
                 }
@@ -81,16 +82,15 @@ public class FachadaModelo {
 
     //Devuelve la lista de FrecuenciaDeVuelo de LogicaFrecuencia
     public ArrayList<FrecuenciaDeVuelo> getFrecuencias() {
-        return LogicaFrecuenciaVuelo.getInstancia().getFrecuencias();        
+        return LogicaFrecuenciaVuelo.getInstancia().getFrecuencias();
     }
 
-    //Recibe una lista de FrecuenciaDeVuelo actualizada y la agrega a la lista de LogicaFrecuenciaVuelo
-    public void actualizarFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias) {
-        LogicaFrecuenciaVuelo.getInstancia().setFrecuencias(frecuencias);
-    }
-
+//    //Recibe una lista de FrecuenciaDeVuelo actualizada y la agrega a la lista de LogicaFrecuenciaVuelo
+//    public void actualizarFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias) {
+//        LogicaFrecuenciaVuelo.getInstancia().setFrecuencias(frecuencias);
+//    }
     //Recibe una FrecuenciaDeVuelo y la agrega a LogicaVuelo
-    public void agregarVuelo(Vuelo v) {
+    public void agregarVuelo(Vuelo v) throws ExceptionCompania{
         FrecuenciaDeVuelo fv = buscarFrecuencia(v.numero);
         FrecuenciaDeVuelo fvActualizada = LogicaVuelo.getInstancia().crearVuelo(fv, v);
         actualizarFrecuenciaDeVuelo(fvActualizada);
@@ -111,12 +111,12 @@ public class FachadaModelo {
         return frec;
     }
 
-    public void actualizarFrecuenciaDeVuelo(FrecuenciaDeVuelo fv) {
+    public void actualizarFrecuenciaDeVuelo(FrecuenciaDeVuelo fv) throws ExceptionCompania{
         LogicaFrecuenciaVuelo.getInstancia().actualizarFrecuencia(fv);
     }
 
     //Recibe un Vuelo y le agrega los datos necesarios de su aterrizaje
-    public void agregarLlegadaVuelo(Vuelo arribo) {
+    public void agregarLlegadaVuelo(Vuelo arribo) throws ExceptionCompania{
         FrecuenciaDeVuelo fv = buscarFrecuencia(arribo.numero);
         FrecuenciaDeVuelo fvActualizada = LogicaVuelo.getInstancia().agregarLlegadaVuelo(fv, arribo);
         actualizarFrecuenciaDeVuelo(fvActualizada);
@@ -238,46 +238,47 @@ public class FachadaModelo {
         return LogicaUsuario.getInstancia().buscarUsuario(nombre, contrasenia);
     }
 
-    public void aprobarEstadoFrecuencia(FrecuenciaDeVuelo f, String origDest) {
-        ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
-
-        for (FrecuenciaDeVuelo frecuen : frecuencias) {
+    public void aprobarEstadoFrecuencia(FrecuenciaDeVuelo f, String origDest) throws ExceptionCompania{               
             if (origDest.equals("Destino")) {
-                if (frecuen.equals(f) && frecuen.estadoDestino.equals(EstadoEnum.Pendiente)) {
-                    frecuen.estadoDestino = EstadoEnum.Aprobado;
+                if (f.estadoDestino.equals(EstadoEnum.Pendiente)) {
+                    f.estadoDestino = EstadoEnum.Aprobado;
                 }
             } else {
-                if (frecuen.equals(f) && frecuen.estadoOrigen.equals(EstadoEnum.Pendiente)) {
-                    frecuen.estadoOrigen = EstadoEnum.Aprobado;
+                if (f.estadoOrigen.equals(EstadoEnum.Pendiente)) {
+                    f.estadoOrigen = EstadoEnum.Aprobado;
                 }
-            }
-        }
-        actualizarFrecuencias(frecuencias);
+            }        
+        BaseDatos bd = BaseDatos.getInstancia();        
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
+        MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo(); 
+        mfv.setFrecuenciaDeVuelo(f);
+        Persistencia.getInstancia().guardar(mfv);
+        bd.desconectar();
     }
 
-    public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) {
-
-        ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
-
-        for (FrecuenciaDeVuelo frecuen : frecuencias) {
-            if (origDest.equals("Origen")) {
-                if (frecuen.equals(frec) && frecuen.estadoOrigen.equals(EstadoEnum.Pendiente)) {
-                    frecuen.estadoOrigen = EstadoEnum.Rechazado;
-                }
-            } else {
-                if (frecuen.equals(frec) && frecuen.estadoOrigen.equals(EstadoEnum.Aprobado)) {
-                    frecuen.estadoDestino = EstadoEnum.Rechazado;
-                }
+    public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) throws ExceptionCompania{
+        if (origDest.equals("Origen")) {
+            if (frec.estadoOrigen.equals(EstadoEnum.Pendiente)) {
+                frec.estadoOrigen = EstadoEnum.Rechazado;
+            }
+        } else {
+            if (frec.estadoOrigen.equals(EstadoEnum.Aprobado)) {
+                frec.estadoDestino = EstadoEnum.Rechazado;
             }
         }
-        actualizarFrecuencias(frecuencias);
+        BaseDatos bd = BaseDatos.getInstancia();        
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
+        MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo(); 
+        mfv.setFrecuenciaDeVuelo(frec);
+        Persistencia.getInstancia().guardar(mfv);
+        bd.desconectar();
     }
-    
-    public List<Aeropuerto> getAeropuertos(){
+
+    public List<Aeropuerto> getAeropuertos() {
         return LogicaAeropuerto.getInstancia().getAeropuertos();
     }
-    
-    public ArrayList<String> getVuelosString(FrecuenciaDeVuelo fv){
+
+    public ArrayList<String> getVuelosString(FrecuenciaDeVuelo fv) {
         return LogicaFrecuenciaVuelo.getInstancia().getVuelosString(fv);
     }
 

@@ -34,33 +34,29 @@ public class ControladoraCompania implements Observer{
     }
     
     
-    public boolean ValidaIngresaFrecuencia(String aeroOrigen, String aeroDestino, ArrayList<DiaSemanaEnum> diaSemana, String horaPartida,
+    public void ValidaIngresaFrecuencia(String aeroOrigen, String aeroDestino, ArrayList<DiaSemanaEnum> diaSemana, String horaPartida,
             String minutosPartida, String horaDuracion, String minutosDuracion,
-            String amPm, Compania c) throws utilities.ExceptionCompania{
-        boolean ingreso = false;
+            String amPm, Compania c) throws utilities.ExceptionCompania{        
         if (!aeroOrigen.equals(aeroDestino)) {
             if (diaSemana.size() == 0 || amPm == null || (horaPartida.equals("00") && minutosPartida.equals("00")) || (horaDuracion.equals("00") && minutosDuracion.equals("00"))) {                
                 throw new utilities.ExceptionCompania("Debe ingresar todos los datos.");
             } else {                    
-                if (this.IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diaSemana, horaPartida, minutosPartida, horaDuracion, minutosDuracion, amPm, c)) {
-                    ingreso = true;                
-                }                
+                this.IngresoFrecuenciaVuelo(aeroOrigen, aeroDestino, diaSemana, horaPartida, minutosPartida, horaDuracion, minutosDuracion, amPm, c);                    
             }
         } else {            
              throw new utilities.ExceptionCompania("El Aeropuerto de origen y el de destino no pueden ser iguales.");
-        }
-        return ingreso;
+        }        
     }
     
 
-    public boolean IngresoFrecuenciaVuelo(String aeroOrigen, String aeroDestino, ArrayList<DiaSemanaEnum> diaSemana, String horaPartida,
+    public void IngresoFrecuenciaVuelo(String aeroOrigen, String aeroDestino, ArrayList<DiaSemanaEnum> diaSemana, String horaPartida,
             String minutosPartida, String horaDuracion, String minutosDuracion,
             String amPm, Compania c) throws ExceptionCompania{
         
         String numeroFrecuencia = this.generarNumeroFrecuencia(c);
         String partida = horaPartida + ":" + minutosPartida + ":00" + " " + amPm;
         String duracion = horaDuracion + ":" + minutosDuracion + ":00";
-        return FachadaModelo.getInstancia().agregarFrecuencia(numeroFrecuencia, aeroOrigen, aeroDestino, partida, duracion, c, diaSemana);
+        FachadaModelo.getInstancia().agregarFrecuencia(numeroFrecuencia, aeroOrigen, aeroDestino, partida, duracion, c, diaSemana);
     }
 
     public String generarNumeroFrecuencia(Compania c) {
