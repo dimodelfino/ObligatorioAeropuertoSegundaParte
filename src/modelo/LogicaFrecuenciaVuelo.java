@@ -5,9 +5,12 @@
  */
 package modelo;
 
+import Mapeadores.MapeadorFrecuenciaVuelo;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Observable;
+import persistencia.BaseDatos;
+import persistencia.Persistencia;
 import utilities.Utils;
 
 /**
@@ -27,7 +30,12 @@ public class LogicaFrecuenciaVuelo extends Observable {
     }
 
     public ArrayList<FrecuenciaDeVuelo> getFrecuencias() {
-        return frecuencias;
+        BaseDatos bd = BaseDatos.getInstancia();        
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
+        MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo(); 
+        Object frecuencias = Persistencia.getInstancia().cargarTodos(mfv);        
+        bd.desconectar();
+        return (ArrayList)frecuencias;        
     }
 
     public void setFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuenci) {

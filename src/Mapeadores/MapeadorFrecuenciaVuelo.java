@@ -22,10 +22,10 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
 
     private FrecuenciaDeVuelo fv;
 
-    private MapeadorFrecuenciaVuelo() {
+    public MapeadorFrecuenciaVuelo() {
     }
 
-    private MapeadorFrecuenciaVuelo(FrecuenciaDeVuelo fv) {
+    public MapeadorFrecuenciaVuelo(FrecuenciaDeVuelo fv) {
         this.fv = fv;
     }
 

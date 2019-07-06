@@ -175,14 +175,7 @@ public class LogicaVuelo extends Observable {
         a.oId = 0;
         a.setOidFrecVuelo(26);
         fv.vuelos.add(a);
-        
-        BaseDatos bd = BaseDatos.getInstancia();        
-        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/aeropuerto", "root", "root");
-        MapeadorVuelo mv = new MapeadorVuelo();
-        mv.setVuelo(a);
-        Persistencia.getInstancia().guardar(mv);
-        bd.desconectar();
-        
+               
         notificarObservadores();
     }        
 
