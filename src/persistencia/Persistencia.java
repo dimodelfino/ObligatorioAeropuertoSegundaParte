@@ -45,8 +45,7 @@ public class Persistencia {
         }
     }
 
-    public void guardar(IMapeador m) {
-     
+    public void guardar(IMapeador m) {     
         if (m.getOid() == 0) {
             insertar(m);
         } else {

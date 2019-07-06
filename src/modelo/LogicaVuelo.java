@@ -170,13 +170,7 @@ public class LogicaVuelo extends Observable {
         a.estado = "VUELO TEST";
         fv.vuelos.add(a);
         notificarObservadores();
-    }
-    
-    public ArrayList<Vuelo> getVuelosPorFrecuencia(int idFrec){
-        ArrayList<Vuelo> vuelosDeFrec = new ArrayList<>();
-        int cant = vuelos.size();
-        
-    }
+    }        
 
     public void notificarObservadores() {
         setChanged();

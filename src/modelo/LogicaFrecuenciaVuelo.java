@@ -99,7 +99,7 @@ public class LogicaFrecuenciaVuelo extends Observable {
         getInstancia().frecuencias.add(fv3);
         notificarObservadores();
     }
-    
+
     //Guarda una frecuencia en la lista de frecuencias.
     public boolean GuardarFrecuencia(FrecuenciaDeVuelo fv) {
         boolean agregado = false;
@@ -111,7 +111,7 @@ public class LogicaFrecuenciaVuelo extends Observable {
         notificarObservadores();
         return agregado;
     }
-    
+
     public void actualizarFrecuencia(FrecuenciaDeVuelo fv) {
         boolean existe = false;
         int i = 0;
@@ -191,6 +191,20 @@ public class LogicaFrecuenciaVuelo extends Observable {
                 break;
         }
         return diaSemana;
+    }
+
+    public ArrayList<Vuelo> getVuelosPorOidFrecuencia(int oidFrec) {
+        ArrayList<Vuelo> vuelosDeFrec = null;
+        int i = 0;
+        boolean encontrado = false;
+
+        while (!encontrado && i < frecuencias.size()) {
+            if (frecuencias.get(i).getOid() == oidFrec) {
+                vuelosDeFrec = frecuencias.get(i).vuelos;
+                encontrado = true;
+            }
+        }
+        return vuelosDeFrec;
     }
 
     public ArrayList<String> getVuelosString(FrecuenciaDeVuelo fv) {
