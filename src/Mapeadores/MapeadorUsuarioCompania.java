@@ -49,7 +49,15 @@ public class MapeadorUsuarioCompania implements IMapeador{
 
     @Override
     public ArrayList<String> sqlInsertar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> sqls = new ArrayList();
+        String sql = "INSERT INTO usuariocompania VALUES(";        
+        sql += "'" + uc.nombre + "',";
+        sql += "'" + uc.nombreCompleto+ "',";        
+        sql += "'" + uc.contrasenia + "',";
+        sql += "'" + uc.compania.getoId() + "',";
+        sql += "'" + uc.compania.getoId() + "')";
+        sqls.add(sql);
+        return sqls;
     }
 
     @Override

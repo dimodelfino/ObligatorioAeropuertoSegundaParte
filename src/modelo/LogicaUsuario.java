@@ -5,8 +5,11 @@
  */
 package modelo;
 
+import Mapeadores.MapeadorUsuarioCompania;
 import java.util.ArrayList;
 import java.util.List;
+import persistencia.BaseDatos;
+import persistencia.Persistencia;
 
 /**
  *
@@ -35,6 +38,13 @@ public class LogicaUsuario {
         a.contrasenia = "Diego123";
         ((UsuCompania) a).compania = LogicaCompania.getInstancia().getCompanias().get(0);
         this.usuarios.add(a);
+        
+        BaseDatos bd = BaseDatos.getInstancia();        
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/aeropuerto", "root", "root");
+        MapeadorUsuarioCompania muc = new MapeadorUsuarioCompania();
+        muc.setUsuCompania((UsuCompania)a);
+        Persistencia.getInstancia().guardar(muc);
+        bd.desconectar();
 
         Usuario b = new UsuCompania();
         b.nombre = "Maju";

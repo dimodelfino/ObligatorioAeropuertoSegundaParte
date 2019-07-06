@@ -8,6 +8,7 @@ package modelo;
 import Mapeadores.MapeadorCompania;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 import persistencia.BaseDatos;
 import persistencia.Persistencia;
 
@@ -36,30 +37,22 @@ public class LogicaCompania {
         a.alias = "LAN ";
         a.setOid(0);
         this.companias.add(a);
-//        Compania b = new Compania();
-//        b.nombre = "Aerolineas Argentinas ";
-//        b.alias = "AAR ";
-//        this.companias.add(b);
-//        Compania c = new Compania();
-//        c.nombre = "PLUNA ";
-//        c.alias = "PLU ";
-//        this.companias.add(c);
-//        Compania d = new Compania();
-//        d.nombre = "Air France ";
-//        d.alias = "AFR ";
-//        this.companias.add(d);
-//        Compania e = new Compania();
-//        e.nombre = "Jet Blue ";
-//        e.alias = "JBL ";
-//        this.companias.add(e);
-        BaseDatos bd = BaseDatos.getInstancia();
-        // Driver de ObliAeropuertoLocal 
-           // URL ObliAeropuertoLocal 
-        bd.conectar("apache_derby_net", "jdbc:derby://localhost:1527/ObliAeropuertoLocal", "admin", "admin");
-        MapeadorCompania ma = new MapeadorCompania();
-        ma.setCompania(a);
-        Persistencia.getInstancia().guardar(ma);
-        bd.desconectar();
+        Compania b = new Compania();
+        b.nombre = "Aerolineas Argentinas ";
+        b.alias = "AAR ";
+        this.companias.add(b);
+        Compania c = new Compania();
+        c.nombre = "PLUNA ";
+        c.alias = "PLU ";
+        this.companias.add(c);
+        Compania d = new Compania();
+        d.nombre = "Air France ";
+        d.alias = "AFR ";
+        this.companias.add(d);
+        Compania e = new Compania();
+        e.nombre = "Jet Blue ";
+        e.alias = "JBL ";
+        this.companias.add(e);        
     }        
     
     
