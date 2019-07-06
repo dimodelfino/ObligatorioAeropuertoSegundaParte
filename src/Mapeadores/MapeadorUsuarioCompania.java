@@ -54,7 +54,7 @@ public class MapeadorUsuarioCompania implements IMapeador{
         sql += "'" + uc.nombre + "',";
         sql += "'" + uc.nombreCompleto+ "',";        
         sql += "'" + uc.contrasenia + "',";
-        sql += "'" + uc.compania.getoId() + "',";
+        sql += "'" + uc.getOid() + "',";
         sql += "'" + uc.compania.getoId() + "')";
         sqls.add(sql);
         return sqls;

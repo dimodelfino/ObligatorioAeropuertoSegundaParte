@@ -28,8 +28,8 @@ public class ObligatorioAeropuerto {
         LogicaCompania.getInstancia().iniciateCompanyList();
         LogicaAeropuerto.getInstancia().iniciateAirportsList();
         LogicaUsuario.getInstancia().iniciateUsersList();
-        //LogicaFrecuenciaVuelo.getInstancia().iniciateFrecuenciaVueloList();
-        //LogicaVuelo.getInstancia().iniciateListaVuelos();
+        LogicaFrecuenciaVuelo.getInstancia().iniciateFrecuenciaVueloList();
+        LogicaVuelo.getInstancia().iniciateListaVuelos();
         new MenuPrincipal().setVisible(true);  
                                 
     }

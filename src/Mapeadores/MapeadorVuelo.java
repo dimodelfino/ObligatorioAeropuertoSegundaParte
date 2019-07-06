@@ -48,15 +48,15 @@ public class MapeadorVuelo implements IMapeador {
     @Override
     public ArrayList<String> sqlInsertar() {
         ArrayList<String> sqls = new ArrayList();
-        String sql = "INSERT INTO Vuelo VALUES(";
-        sql += getOid() + ",";
+        String sql = "INSERT INTO Vuelos VALUES(";        
         sql += "'" + v.numero + "',";
         sql += "'" + v.fechaPartida + "',";        
         sql += "'" + v.horaRealPartida + "',";
         sql += "'" + v.horaRealLlegada + "',";
         sql += "'" + v.estado + "',";
         sql += "'" + v.arancelPartida + "',";
-        sql += "'" + v.arancelLlegada + "',";         
+        sql += "'" + v.arancelLlegada + "',";    
+        sql += v.oId + ",";
         sql += "'" + v.getOidFrecVuelo() + "')";
         sqls.add(sql);
         return sqls;

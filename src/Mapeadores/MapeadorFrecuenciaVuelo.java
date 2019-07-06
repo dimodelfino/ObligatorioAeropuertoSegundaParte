@@ -51,17 +51,17 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
     @Override
     public ArrayList<String> sqlInsertar() {
         ArrayList<String> sqls = new ArrayList();
-        String sql = "INSERT INTO frecuenciaDeVuelo VALUES(";
-        sql += getOid() + ",";
+        String sql = "INSERT INTO frecuenciaDeVuelo VALUES(";        
         sql += "'" + fv.numero + "',";
         sql += fv.aeropuertoOrigen.getOid() + ",";
-        sql += "'" + fv.estadoOrigen + "',";
         sql += fv.aeropuertoDestino.getOid() + ",";
+        sql += "'" + fv.estadoOrigen + "',";        
         sql += "'" + fv.estadoDestino + "',";
         sql += "'" + fv.horaPartida + "',";
         sql += "'" + fv.duracionEstimada + "',";
         sql += fv.compania.getoId() + ",";
         sql += "'" + fv.diasSemana + "',";
+        sql += getOid() + ")";
         sqls.add(sql);
         return sqls;
     }
