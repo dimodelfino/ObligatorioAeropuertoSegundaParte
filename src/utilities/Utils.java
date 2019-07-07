@@ -7,20 +7,26 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import modelo.Aeropuerto;
 import modelo.DiaSemanaEnum;
 import modelo.EstadoEnum;
 import modelo.strategy.ITipoAeropuerto;
 import modelo.strategy.Internacional;
 import modelo.strategy.Nacional;
 import modelo.strategy.Regional;
+import vistas.AplicacionAeropuerto;
+import vistas.AplicacionCompania;
+import vistas.AplicacionMonitoreo;
+import vistas.TipoVentanaEnum;
+import static vistas.TipoVentanaEnum.Monitoreo;
 
 /**
  *
  * @author dmoreno
  */
 public class Utils {
-    
-     //Devuelve el DiaSemanaEnum equivalente al ind de dia de la semana que se le pase por parametro
+
+    //Devuelve el DiaSemanaEnum equivalente al ind de dia de la semana que se le pase por parametro
     public static DiaSemanaEnum getDiaSemana(int dia) {
         DiaSemanaEnum diaSemana = DiaSemanaEnum.D;
         switch (dia) {
@@ -45,8 +51,8 @@ public class Utils {
         }
         return diaSemana;
     }
-    
-     //Recibe String con los dias de la semana y devuelve ArrayList de tipo DiaSemanaEnum
+
+    //Recibe String con los dias de la semana y devuelve ArrayList de tipo DiaSemanaEnum
     public static ArrayList<DiaSemanaEnum> getDiaSemanaEnum(String diaSemana) {
         ArrayList<DiaSemanaEnum> result = new ArrayList<>();
         switch (diaSemana) {
@@ -74,17 +80,17 @@ public class Utils {
         }
         return result;
     }
-    
-   public static EstadoEnum getEstadoEnum(String estado){
-       EstadoEnum e = EstadoEnum.Rechazado;
-       if(estado.trim().equals( "Aprobado")){
-           e = EstadoEnum   .Aprobado;
-       }else if(estado.trim().equals("Pendiente")){
-           e = EstadoEnum.Pendiente; 
-       }       
-       return e;
-   }
-   
+
+    public static EstadoEnum getEstadoEnum(String estado) {
+        EstadoEnum e = EstadoEnum.Rechazado;
+        if (estado.trim().equals("Aprobado")) {
+            e = EstadoEnum.Aprobado;
+        } else if (estado.trim().equals("Pendiente")) {
+            e = EstadoEnum.Pendiente;
+        }
+        return e;
+    }
+
     public static ArrayList<DiaSemanaEnum> convertirDiaSemanaEnum(String diasSemana) {
         ArrayList<DiaSemanaEnum> result = new ArrayList();
         for (int i = 0; i < diasSemana.length(); i++) {
@@ -97,8 +103,8 @@ public class Utils {
         }
         return result;
     }
-    
-     public static DiaSemanaEnum getDiasSemanaEnum(String diasSemana) {
+
+    public static DiaSemanaEnum getDiasSemanaEnum(String diasSemana) {
         DiaSemanaEnum result = null;
         switch (diasSemana) {
             case "L":
@@ -125,20 +131,34 @@ public class Utils {
         }
         return result;
     }
-     
-     public static ITipoAeropuerto getTipoAeropuerto(String tipoAero){
-         ITipoAeropuerto tipoAeropuerto = null;
-         switch (tipoAero){             
+
+    public static ITipoAeropuerto getTipoAeropuerto(String tipoAero) {
+        ITipoAeropuerto tipoAeropuerto = null;
+        switch (tipoAero) {
             case "Internacional":
-                tipoAeropuerto =  new Internacional();
+                tipoAeropuerto = new Internacional();
                 break;
             case "Nacional":
                 tipoAeropuerto = new Nacional();
                 break;
             case "Regional":
                 tipoAeropuerto = new Regional();
-                break;                
-         }         
-         return tipoAeropuerto;
-     }
+                break;
+        }
+        return tipoAeropuerto;
+    }
+
+    public static TipoVentanaEnum getTipoVentana(String tipoVentana) {
+        TipoVentanaEnum tipoVent = TipoVentanaEnum.Monitoreo;;
+        switch (tipoVentana) {
+            case "Aeropuerto":
+                tipoVent = TipoVentanaEnum.Aeropuerto;
+                break;
+            case "Compania":
+                tipoVent = TipoVentanaEnum.Compania;
+                break;            
+        }
+        return tipoVent;
+    }
+
 }
