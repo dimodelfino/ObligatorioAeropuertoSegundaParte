@@ -87,18 +87,24 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
 
     @Override
     public String sqlCargarTodos() {
-//        return "SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
-//               "LEFT JOIN aeropuerto.vuelos v " +
-//               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "+
-//               "UNION SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
-//               "RIGHT JOIN aeropuerto.vuelos v " + 
-//               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo";
-        return "SELECT * FROM aeropuerto.frecuenciadevuelo fv ";
+        return "SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
+               "LEFT JOIN aeropuerto.vuelos v " +
+               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "+
+               "UNION SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
+               "RIGHT JOIN aeropuerto.vuelos v " + 
+               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo";
+//        return "SELECT * FROM aeropuerto.frecuenciadevuelo fv ";
     }
 
     @Override
     public String sqlBuscar(String condicion) {
-        String sql = "SELECT * FROM  aeropuerto.frecuenciadevuelo fv ";               
+        String sql = "SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
+               " LEFT JOIN aeropuerto.vuelos v " +
+               " ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "+
+                condicion + 
+               " UNION SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
+               " RIGHT JOIN aeropuerto.vuelos v " + 
+               " ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo";              
         if (condicion != null && !condicion.isEmpty()) {
             sql += condicion;
         }
@@ -129,16 +135,16 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
 
     @Override
     public void leerComponente(ResultSet rs) throws SQLException {
-        MapeadorVuelo mv = new MapeadorVuelo();
-        fv.vuelos.addAll((ArrayList<Vuelo>)Persistencia.getInstancia().buscar(mv, "WHERE idFrecuenciaVuelo = " + fv.getOid()));
-        
-//        int idVuelo = rs.getInt("idVuelo");
-//        if (idVuelo != 0) {
-//            Vuelo v = new Vuelo(rs.getString("numero"), rs.getString("fechaPartida"), rs.getString("horaRealPartida"),
-//                    rs.getString("horaRealLlegada"), rs.getString("estado"), rs.getInt("arancelPartida"),
-//                    rs.getInt("arancelLlegada"), idVuelo, rs.getInt("idFrecuenciaVuelo"));
-//            fv.vuelos.add(v);
-//        }
+//        MapeadorVuelo mv = new MapeadorVuelo();
+//        fv.vuelos.addAll((ArrayList<Vuelo>)Persistencia.getInstancia().buscar(mv, "WHERE idFrecuenciaVuelo = " + fv.getOid()));
+//        
+        int idVuelo = rs.getInt("idVuelo");
+        if (idVuelo != 0) {
+            Vuelo v = new Vuelo(rs.getString("numero"), rs.getString("fechaPartida"), rs.getString("horaRealPartida"),
+                    rs.getString("horaRealLlegada"), rs.getString("estado"), rs.getInt("arancelPartida"),
+                    rs.getInt("arancelLlegada"), idVuelo, rs.getInt("idFrecuenciaVuelo"));
+            fv.vuelos.add(v);
+        }
     }
 
     @Override

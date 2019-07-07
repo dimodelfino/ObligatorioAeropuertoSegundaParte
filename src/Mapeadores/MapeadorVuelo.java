@@ -48,15 +48,15 @@ public class MapeadorVuelo implements IMapeador {
     @Override
     public ArrayList<String> sqlInsertar() {
         ArrayList<String> sqls = new ArrayList();
-        String sql = "INSERT INTO Vuelos VALUES(";        
-        sql += "'" + v.numero + "',";
-        sql += "'" + v.fechaPartida + "',";        
-        sql += "'" + v.horaRealPartida + "',";
-        sql += "'" + v.horaRealLlegada + "',";
-        sql += "'" + v.estado + "',";
-        sql += "'" + v.arancelPartida + "',";
-        sql += "'" + v.arancelLlegada + "',";    
-        sql += v.oId + ",";
+        String sql = "INSERT INTO aeropuerto.vuelos VALUES(";        
+        sql += "'" + v.numero + "', ";
+        sql += "'" + v.fechaPartida + "', ";        
+        sql += "'" + v.horaRealPartida + "', ";
+        sql += "'" + v.horaRealLlegada + "', ";
+        sql += "'" + v.estado + "', ";
+        sql += "'" + v.arancelPartida + "', ";
+        sql += "'" + v.arancelLlegada + "', ";    
+        sql += v.oId + ", ";
         sql += "'" + v.getOidFrecVuelo() + "')";
         sqls.add(sql);
         return sqls;
@@ -65,13 +65,13 @@ public class MapeadorVuelo implements IMapeador {
     @Override
     public ArrayList<String> sqlActualizar() {
         ArrayList<String> sqls = new ArrayList();
-        String sql = "UPDATE Vuelos SET(";                          
-        sql += "horaRealPartida = '" + v.horaRealPartida + "',";
-        sql += "horaRealLlegada = '" + v.horaRealLlegada + "',";
-        sql += "estado = '" + v.estado + "',";
-        sql += "arancelPartida = " + v.arancelPartida + ",";
-        sql += "arancelLlegada = " + v.arancelLlegada;         
-        sql += "WHERE idVuelo = " + v.getOidFrecVuelo() + ")";
+        String sql = " UPDATE aeropuerto.vuelos SET ";                          
+        sql += " horaRealPartida = '" + v.horaRealPartida + "',";
+        sql += " horaRealLlegada = '" + v.horaRealLlegada + "',";
+        sql += " estado = '" + v.estado + "',";
+        sql += " arancelPartida = " + v.arancelPartida + ",";
+        sql += " arancelLlegada = " + v.arancelLlegada;         
+        sql += " WHERE idVuelo = " + v.oId;
         sqls.add(sql);
         return sqls;
     }
@@ -83,13 +83,13 @@ public class MapeadorVuelo implements IMapeador {
 
     @Override
     public String sqlCargarTodos() {
-        return "SELECT * FROM Vuelos v, FrecuenciaDeVuelo fv WHERE v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "
-                + "ORDER BY fv.idFrecuenciaVuelo";
+        return "SELECT * FROM aeropuerto.vuelos v, aeropuerto.frecuenciadevuelo fv WHERE v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "
+                + " ORDER BY fv.idFrecuenciaVuelo";
     }
 
     @Override
     public String sqlBuscar(String condicion) {
-        String sql = "SELECT * FROM Vuelos v ";
+        String sql = "SELECT * FROM aeropuerto.vuelos v ";
         if (condicion != null && !condicion.isEmpty()) {
             sql += condicion;
         }        

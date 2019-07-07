@@ -56,8 +56,9 @@ public class LogicaVuelo extends Observable {
         v.horaRealPartida = horaActual;
         v.fechaPartida = (String) fecha.format(hoy);
         String e = this.calcularEstado(fv.horaPartida);
-        v.estado = e;
+        v.estado = e;        
         v.arancelPartida = fv.aeropuertoOrigen.tipo.CalcularArancelPartida(v.estado, v, calcularMinutosRetraso(fv.horaPartida, horaActual));
+        v.setOidFrecVuelo(fv.getOid());
         conectar();
         MapeadorVuelo mv = new MapeadorVuelo();
         mv.setVuelo(v);
@@ -67,32 +68,23 @@ public class LogicaVuelo extends Observable {
     }
 
     //Agrega los datos necesarios al vuelo cuando aterriza.
-    public FrecuenciaDeVuelo agregarLlegadaVuelo(FrecuenciaDeVuelo fv, Vuelo arribo) {
+    public FrecuenciaDeVuelo agregarLlegadaVuelo(FrecuenciaDeVuelo fv, Vuelo arribo) throws ExceptionCompania {
         boolean encontro = false;
         int i = 0;
         Date hoy = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(hoy);
         DateFormat formato = new SimpleDateFormat("hh:mm:ss a");
-        String horaActual = formato.format(hoy);
-
-        while (!encontro && i < fv.vuelos.size()) {
-            if (fv.vuelos.get(i).equals(arribo)) {
-                Vuelo vue = fv.vuelos.get(i);
-                vue.horaRealLlegada = horaActual;
-                vue.estado = "Aterrizo";
-                vue.arancelLlegada = fv.aeropuertoDestino.tipo.CalcularArancelLlegada(fv.aeropuertoOrigen);
-                fv.vuelos.set(i, vue);
-                encontro = true;
-            }
-            i++;
-        }
-//        conectar();
-//        MapeadorVuelo mv = new MapeadorVuelo();
-//        mv.setVuelo(vue);
-//        Persistencia.getInstancia().guardar(mv);        
-//        desconectar();
-//        notificarObservadores();
+        String horaActual = formato.format(hoy);        
+        arribo.horaRealLlegada = horaActual;
+        arribo.estado = "Aterrizo";
+        arribo.arancelLlegada = fv.aeropuertoDestino.tipo.CalcularArancelLlegada(fv.aeropuertoOrigen);
+        conectar();
+        MapeadorVuelo mv = new MapeadorVuelo();
+        mv.setVuelo(arribo);
+        Persistencia.getInstancia().guardar(mv);        
+        desconectar();
+        notificarObservadores();
         return fv;
     }
 

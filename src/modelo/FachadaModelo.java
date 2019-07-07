@@ -132,8 +132,12 @@ public class FachadaModelo {
         ArrayList<Vuelo> vuelosFiltrados = new ArrayList<>();
         if (v != null && v.size() != 0) {
             for (Vuelo vuel : v) {
-                if (vuel.horaRealPartida != null && vuel.horaRealLlegada == null) {
-                    vuelosFiltrados.add(vuel);
+                String horaPartida = vuel.horaRealPartida;
+                String horaLlegada = vuel.horaRealLlegada;
+                if (horaPartida != null) {
+                    if(horaLlegada == null|| "null".equals(horaLlegada)){
+                        vuelosFiltrados.add(vuel);
+                    }                    
                 }
             }
         }
