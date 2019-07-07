@@ -24,8 +24,18 @@ import utilities.Utils;
  */
 public class FachadaModelo {
 
-    private static FachadaModelo instancia = new FachadaModelo();
-
+    private static FachadaModelo instancia = new FachadaModelo();    
+    private final BaseDatos bd = BaseDatos.getInstancia();
+    
+    private void conectar(){
+        //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/Aeropuerto", "root", "root");
+    }
+    
+    private void desconectar(){
+        bd.desconectar();
+    }
+    
     public static FachadaModelo getInstancia() {
         return instancia;
     }
@@ -85,41 +95,34 @@ public class FachadaModelo {
         return LogicaFrecuenciaVuelo.getInstancia().getFrecuencias();
     }
 
-//    //Recibe una lista de FrecuenciaDeVuelo actualizada y la agrega a la lista de LogicaFrecuenciaVuelo
-//    public void actualizarFrecuencias(ArrayList<FrecuenciaDeVuelo> frecuencias) {
-//        LogicaFrecuenciaVuelo.getInstancia().setFrecuencias(frecuencias);
-//    }
-    //Recibe una FrecuenciaDeVuelo y la agrega a LogicaVuelo
+    //Recibe un vuelo y la agrega a la frecuencia
     public void agregarVuelo(Vuelo v) throws ExceptionCompania{
         FrecuenciaDeVuelo fv = buscarFrecuencia(v.numero);
-        FrecuenciaDeVuelo fvActualizada = LogicaVuelo.getInstancia().crearVuelo(fv, v);
-        actualizarFrecuenciaDeVuelo(fvActualizada);
+        LogicaVuelo.getInstancia().crearVuelo(fv, v);
+        //actualizarFrecuenciaDeVuelo(fvActualizada);
     }
 
     public FrecuenciaDeVuelo buscarFrecuencia(String numero) {
-        ArrayList<FrecuenciaDeVuelo> frecuencias = getFrecuencias();
-        FrecuenciaDeVuelo frec = null;
-        boolean existe = false;
-        int i = 0;
-        while (i < frecuencias.size() && !existe) {
-            if (frecuencias.get(i).numero == numero) {
-                frec = frecuencias.get(i);
-                existe = true;
-            }
-            i++;
+        FrecuenciaDeVuelo frecuencia = null;
+        conectar();        
+        MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo();        
+        ArrayList<FrecuenciaDeVuelo> frec = (ArrayList<FrecuenciaDeVuelo>) Persistencia.getInstancia().buscar(mfv, " WHERE fv.numero = '" + numero + "'");       
+        desconectar();
+        if(frec.size() != 0){
+            frecuencia = frec.get(0);
         }
-        return frec;
+        return frecuencia;
     }
 
-    public void actualizarFrecuenciaDeVuelo(FrecuenciaDeVuelo fv) throws ExceptionCompania{
-        LogicaFrecuenciaVuelo.getInstancia().actualizarFrecuencia(fv);
-    }
+//    public void actualizarFrecuenciaDeVuelo(FrecuenciaDeVuelo fv) throws ExceptionCompania{
+//        LogicaFrecuenciaVuelo.getInstancia().actualizarFrecuencia(fv);
+//    }
 
     //Recibe un Vuelo y le agrega los datos necesarios de su aterrizaje
     public void agregarLlegadaVuelo(Vuelo arribo) throws ExceptionCompania{
         FrecuenciaDeVuelo fv = buscarFrecuencia(arribo.numero);
-        FrecuenciaDeVuelo fvActualizada = LogicaVuelo.getInstancia().agregarLlegadaVuelo(fv, arribo);
-        actualizarFrecuenciaDeVuelo(fvActualizada);
+        LogicaVuelo.getInstancia().agregarLlegadaVuelo(fv, arribo);
+        //actualizarFrecuenciaDeVuelo(fvActualizada);
     }
 
     //Recibe un nombre de aeropuerto y si es de origen o destino. Devuelve una lista de vuelos de la fecha actual que tenga ese aeropuerto
@@ -145,14 +148,14 @@ public class FachadaModelo {
         Calendar calendar = Calendar.getInstance();
         int dia = calendar.get(Calendar.DAY_OF_WEEK);
         DiaSemanaEnum hoy = Utils.getDiaSemana(dia);
-
-        for (FrecuenciaDeVuelo frec : FachadaModelo.getInstancia().getFrecuencias()) {
+        ArrayList<FrecuenciaDeVuelo> frecuencias = FachadaModelo.getInstancia().getFrecuencias();
+        for (FrecuenciaDeVuelo frec : frecuencias) {
             if (frec.aeropuertoOrigen.nombre.equals(nomAero) && frec.diasSemana.contains(hoy)
                     && frec.estadoOrigen.equals(EstadoEnum.Aprobado) && frec.estadoDestino.equals(EstadoEnum.Aprobado)
                     && !vueloYaPartio(frec)) {
                 Vuelo v = new Vuelo();
                 v.numero = frec.numero;
-                v.estado = "En Hora";
+                v.estado = "En Hora";                
                 vuelosAux.add(v);
             }
         }
@@ -170,7 +173,7 @@ public class FachadaModelo {
         String fch = fecha.format(hoy);
         ArrayList<Vuelo> vuelos = f.vuelos;
         while (!partio && vuelos.size() > 0 && i < vuelos.size()) {
-            String fecha_String = vuelos.get(i).fechaPartida;
+            String fecha_String = vuelos.get(i).fechaPartida.trim();
             if (vuelos.get(i).fechaPartida != null && fecha_String.equals(fch)) {
                 partio = true;
             }
@@ -248,12 +251,7 @@ public class FachadaModelo {
                     f.estadoOrigen = EstadoEnum.Aprobado;
                 }
             }        
-        BaseDatos bd = BaseDatos.getInstancia();        
-        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
-        MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo(); 
-        mfv.setFrecuenciaDeVuelo(f);
-        Persistencia.getInstancia().guardar(mfv);
-        bd.desconectar();
+        LogicaFrecuenciaVuelo.getInstancia().actualizarFrecuencia(f);
     }
 
     public void rechazarEstadoFrecuencia(FrecuenciaDeVuelo frec, String origDest) throws ExceptionCompania{
@@ -266,12 +264,7 @@ public class FachadaModelo {
                 frec.estadoDestino = EstadoEnum.Rechazado;
             }
         }
-        BaseDatos bd = BaseDatos.getInstancia();        
-        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
-        MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo(); 
-        mfv.setFrecuenciaDeVuelo(frec);
-        Persistencia.getInstancia().guardar(mfv);
-        bd.desconectar();
+       LogicaFrecuenciaVuelo.getInstancia().actualizarFrecuencia(frec);
     }
 
     public List<Aeropuerto> getAeropuertos() {

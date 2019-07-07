@@ -8,11 +8,12 @@ package Mapeadores;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import modelo.EstadoEnum;
 import modelo.FrecuenciaDeVuelo;
 import modelo.LogicaAeropuerto;
 import modelo.LogicaCompania;
+import modelo.Vuelo;
 import persistencia.IMapeador;
+import persistencia.Persistencia;
 import utilities.Utils;
 
 /**
@@ -52,11 +53,11 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
     @Override
     public ArrayList<String> sqlInsertar() {
         ArrayList<String> sqls = new ArrayList();
-        String sql = "INSERT INTO frecuenciaDeVuelo VALUES(";        
+        String sql = "INSERT INTO frecuenciaDeVuelo VALUES(";
         sql += "'" + fv.numero + "',";
         sql += fv.aeropuertoOrigen.getOid() + ",";
         sql += fv.aeropuertoDestino.getOid() + ",";
-        sql += "'" + fv.estadoOrigen + "',";        
+        sql += "'" + fv.estadoOrigen + "',";
         sql += "'" + fv.estadoDestino + "',";
         sql += "'" + fv.horaPartida + "',";
         sql += "'" + fv.duracionEstimada + "',";
@@ -85,19 +86,23 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
     }
 
     @Override
-    public String sqlCargarTodos() {        
-        return "SSELECT * FROM aeropuerto.frecuenciadevuelo fv" +
-        "LEFT JOIN aeropuerto.vuelos v" +
-        "ON fv.idFrecuenciaVuelo = v.idFrecuenciaVuelo" +
-        "ORDER BY fv.idFrecuenciaVuelo, v.idFrecuenciaVuelo;";                                
+    public String sqlCargarTodos() {
+//        return "SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
+//               "LEFT JOIN aeropuerto.vuelos v " +
+//               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "+
+//               "UNION SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
+//               "RIGHT JOIN aeropuerto.vuelos v " + 
+//               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo";
+        return "SELECT * FROM aeropuerto.frecuenciadevuelo fv ";
     }
 
     @Override
     public String sqlBuscar(String condicion) {
-        String sql = "SELECT * FROM aeropuerto.frecuenciadevuelo ";       
+        String sql = "SELECT * FROM  aeropuerto.frecuenciadevuelo fv ";               
         if (condicion != null && !condicion.isEmpty()) {
             sql += condicion;
         }
+        //sql += " ORDER BY fv.idFrecuenciaVuelo, v.idFrecuenciaVuelo;";
         System.out.println("Sql Buscar: " + sql);
         return sql;
     }
@@ -113,25 +118,27 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
         fv.numero = rs.getString("numero");
         fv.horaPartida = rs.getString("horaPartida");
         fv.diasSemana = Utils.convertirDiaSemanaEnum(rs.getString("diaSemana"));
-        fv.duracionEstimada = rs.getString("duracionEstimada");        
-        fv.estadoOrigen = Utils.getEstadoEnum(rs.getString("estadoOrigen"));        
+        fv.duracionEstimada = rs.getString("duracionEstimada");
+        fv.estadoOrigen = Utils.getEstadoEnum(rs.getString("estadoOrigen"));
         fv.estadoDestino = Utils.getEstadoEnum(rs.getString("estadoDestino"));
         fv.aeropuertoOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoOrigen"));
         fv.aeropuertoDestino = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoDestino"));
-        fv.compania = LogicaCompania.getInstancia().buscarCompaniaOid(rs.getInt("idCompania"));        
+        fv.compania = LogicaCompania.getInstancia().buscarCompaniaOid(rs.getInt("idCompania"));
         fv.setOid(rs.getInt("idFrecuenciaVuelo"));
-    }   
-   
+    }
+
     @Override
     public void leerComponente(ResultSet rs) throws SQLException {
-                
-        //MapeadorCompania mc = new MapeadorCompania();
-        // Estadol aeropuertoOrigen = (Estadol)Persistencia.getInstancia().buscar( me, "WHERE idEstado=" + rs.getInt("aeropuertoOrigen"));
-        //Estadol aeropuertoDestino = (Estadol)Persistencia.getInstancia().buscar(me, "WHERE idEstado=" + rs.getInt("aeropuertoDestino"));
-        //Compania c = (Compania) Persistencia.getInstancia().buscar(mc, "WHERE idCompania=" + rs.getInt("compania"));
-        //fv.aeropuertoOrigen= aeropuertoOrigen;
-//        fv.aeropuertoDestino= aeropuertoDestino;
-        //fv.compania = c;
+        MapeadorVuelo mv = new MapeadorVuelo();
+        fv.vuelos.addAll((ArrayList<Vuelo>)Persistencia.getInstancia().buscar(mv, "WHERE idFrecuenciaVuelo = " + fv.getOid()));
+        
+//        int idVuelo = rs.getInt("idVuelo");
+//        if (idVuelo != 0) {
+//            Vuelo v = new Vuelo(rs.getString("numero"), rs.getString("fechaPartida"), rs.getString("horaRealPartida"),
+//                    rs.getString("horaRealLlegada"), rs.getString("estado"), rs.getInt("arancelPartida"),
+//                    rs.getInt("arancelLlegada"), idVuelo, rs.getInt("idFrecuenciaVuelo"));
+//            fv.vuelos.add(v);
+//        }
     }
 
     @Override

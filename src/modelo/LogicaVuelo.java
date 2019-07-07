@@ -5,12 +5,16 @@
  */
 package modelo;
 
+import Mapeadores.MapeadorVuelo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Observable;
+import persistencia.BaseDatos;
+import persistencia.Persistencia;
+import utilities.ExceptionCompania;
 
 /**
  *
@@ -19,7 +23,17 @@ import java.util.Observable;
 public class LogicaVuelo extends Observable {
 
     private static LogicaVuelo instancia = null;
-    //private static ArrayList<Vuelo> vuelos = new ArrayList<>();
+     private final BaseDatos bd = BaseDatos.getInstancia();
+    
+    private void conectar(){
+        //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/Aeropuerto", "root", "root");
+    }
+    
+    private void desconectar(){
+        bd.desconectar();
+    }
+    
 
     public static LogicaVuelo getInstancia() {
         if (instancia == null) {
@@ -32,7 +46,7 @@ public class LogicaVuelo extends Observable {
 //        return vuelos;
 //    }
     //Crea y guarda un vuelo con el numero de frecuencia de vuelo pasada por parametro       
-    public FrecuenciaDeVuelo crearVuelo(FrecuenciaDeVuelo fv, Vuelo v) {
+    public void crearVuelo(FrecuenciaDeVuelo fv, Vuelo v) throws ExceptionCompania {                
         Date hoy = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(hoy);
@@ -44,9 +58,12 @@ public class LogicaVuelo extends Observable {
         String e = this.calcularEstado(fv.horaPartida);
         v.estado = e;
         v.arancelPartida = fv.aeropuertoOrigen.tipo.CalcularArancelPartida(v.estado, v, calcularMinutosRetraso(fv.horaPartida, horaActual));
-        fv.vuelos.add(v);
-        notificarObservadores();
-        return fv;
+        conectar();
+        MapeadorVuelo mv = new MapeadorVuelo();
+        mv.setVuelo(v);
+        Persistencia.getInstancia().guardar(mv);        
+        desconectar();
+        notificarObservadores();        
     }
 
     //Agrega los datos necesarios al vuelo cuando aterriza.
@@ -70,7 +87,12 @@ public class LogicaVuelo extends Observable {
             }
             i++;
         }
-        notificarObservadores();
+//        conectar();
+//        MapeadorVuelo mv = new MapeadorVuelo();
+//        mv.setVuelo(vue);
+//        Persistencia.getInstancia().guardar(mv);        
+//        desconectar();
+//        notificarObservadores();
         return fv;
     }
 

@@ -65,7 +65,7 @@ public class MapeadorVuelo implements IMapeador {
     @Override
     public ArrayList<String> sqlActualizar() {
         ArrayList<String> sqls = new ArrayList();
-        String sql = "UPDATE Vuelo SET(";                          
+        String sql = "UPDATE Vuelos SET(";                          
         sql += "horaRealPartida = '" + v.horaRealPartida + "',";
         sql += "horaRealLlegada = '" + v.horaRealLlegada + "',";
         sql += "estado = '" + v.estado + "',";
@@ -83,15 +83,15 @@ public class MapeadorVuelo implements IMapeador {
 
     @Override
     public String sqlCargarTodos() {
-        return "SELECT * FROM Vuelo v, FrecuenciaDeVuelo fv WHERE v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "
+        return "SELECT * FROM Vuelos v, FrecuenciaDeVuelo fv WHERE v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "
                 + "ORDER BY fv.idFrecuenciaVuelo";
     }
 
     @Override
     public String sqlBuscar(String condicion) {
-        String sql = "SELECT * FROM Vuelo v ";
+        String sql = "SELECT * FROM Vuelos v ";
         if (condicion != null && !condicion.isEmpty()) {
-            sql += "WHERE " + condicion;
+            sql += condicion;
         }        
         return sql;
     }

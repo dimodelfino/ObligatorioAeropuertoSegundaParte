@@ -25,6 +25,22 @@ public class Vuelo {
     public int oId;
     private int oIdFrecuenciaVuelo;
     
+    public Vuelo(){
+        
+    }
+    
+    public Vuelo(String numero, String fechaPartida, String horaRealPartida, String horaRealLlegada, String estado, int arancelPartida, int arancelLlegada, int oId, int idFrecuenciaVuelo){
+        this.numero = numero;
+        this.fechaPartida = fechaPartida;
+        this.horaRealPartida = horaRealPartida;
+        this.horaRealLlegada = horaRealLlegada;
+        this.estado = estado;
+        this.arancelPartida = arancelPartida;
+        this.arancelLlegada = arancelLlegada;
+        this.oId = oId;
+        this.oIdFrecuenciaVuelo = idFrecuenciaVuelo;
+    }
+    
     public int getOidFrecVuelo(){
         return this.oIdFrecuenciaVuelo;
     }
