@@ -26,8 +26,8 @@ public class LogicaFrecuenciaVuelo extends Observable {
     private final BaseDatos bd = BaseDatos.getInstancia();
     
     private void conectar(){
-        //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
-        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/Aeropuerto", "root", "root");
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
+        //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/Aeropuerto", "root", "root");
     }
     
     private void desconectar(){
@@ -84,7 +84,7 @@ public class LogicaFrecuenciaVuelo extends Observable {
         ArrayList<FrecuenciaDeVuelo> frecuenciasFiltradas = new ArrayList<>();
         conectar();
         MapeadorAeropuerto ma = new MapeadorAeropuerto();
-        ArrayList<Aeropuerto> aero = (ArrayList<Aeropuerto>)Persistencia.getInstancia().buscar(ma, " nombre = \"" + nomAero + "\"");
+        ArrayList<Aeropuerto> aero = (ArrayList<Aeropuerto>)Persistencia.getInstancia().buscar(ma, " WHERE nombre = \"" + nomAero + "\"");
         MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo();            
         if (origDest.equals("Origen")) {                        
             frecuenciasFiltradas = (ArrayList<FrecuenciaDeVuelo>)Persistencia.getInstancia().buscar(
@@ -105,28 +105,32 @@ public class LogicaFrecuenciaVuelo extends Observable {
         DiaSemanaEnum hoy = Utils.getDiaSemana(dia);
         conectar();
         MapeadorAeropuerto ma = new MapeadorAeropuerto();
-        ArrayList<Aeropuerto> aero = (ArrayList<Aeropuerto>)Persistencia.getInstancia().buscar(ma, " nombre = " + "\"" + nomAero + "\"");
+        ArrayList<Aeropuerto> aero = (ArrayList<Aeropuerto>)Persistencia.getInstancia().buscar(ma, " WHERE nombre = " + "\"" + nomAero + "\"");
+        desconectar();
         MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo();  
         ArrayList <FrecuenciaDeVuelo> frecuencias;
 
             if (origDest == "Origen") {
+                conectar();
                 frecuencias = (ArrayList <FrecuenciaDeVuelo>)Persistencia.getInstancia().buscar(
-                        mfv, " idAeropuertoOrigen = " + aero.get(0).getOid()+ " AND estadoDestino = \"Aprobado\" AND estadoOrigen = \"Aprobado\" ");
+                        mfv, " WHERE idAeropuertoOrigen = " + aero.get(0).getOid()+ " AND estadoDestino = \"Aprobado\" AND estadoOrigen = \"Aprobado\" ");
+                desconectar();
                 for(FrecuenciaDeVuelo frec : frecuencias){
                     if(!frec.diasSemana.contains(hoy)){
                         frecuencias.remove(frec);                   
                     }
                 }
             } else {
+                conectar();
                  frecuencias = (ArrayList <FrecuenciaDeVuelo>)Persistencia.getInstancia().buscar(
                         mfv, " WHERE idAeropuertoDestino = " + aero.get(0).getOid()+ " AND estadoDestino = \"Aprobado\" AND estadoOrigen = \"Aprobado\" ");
+                 desconectar();
                 for(FrecuenciaDeVuelo frec : frecuencias){
                     if(!frec.diasSemana.contains(hoy)){
                         frecuencias.remove(frec);                   
                     }    
                 }
             }
-            desconectar();      
             for (FrecuenciaDeVuelo v : frecuencias){
                 if(!v.vuelos.isEmpty()){
                     vuelos = new ArrayList<>();

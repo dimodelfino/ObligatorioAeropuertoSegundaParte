@@ -88,27 +88,28 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
     @Override
     public String sqlCargarTodos() {
         return "SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
-               "LEFT JOIN aeropuerto.vuelos v " +
-               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "+
-               "UNION SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
-               "RIGHT JOIN aeropuerto.vuelos v " + 
-               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo";
-//        return "SELECT * FROM aeropuerto.frecuenciadevuelo fv ";
+                "LEFT JOIN aeropuerto.vuelos v  ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo"  +
+                "ORDER BY  fv.idFrecuenciaVuelo, v.idFrecuenciaVuelo";
+        
+        
+        
+        
+//        return "SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
+//               "LEFT JOIN aeropuerto.vuelos v " +
+//               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "+
+//               "UNION SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
+//               "RIGHT JOIN aeropuerto.vuelos v " + 
+//               "ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo";
     }
 
     @Override
     public String sqlBuscar(String condicion) {
         String sql = "SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
-               " LEFT JOIN aeropuerto.vuelos v " +
-               " ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo "+
-                condicion + 
-               " UNION SELECT * FROM aeropuerto.frecuenciadevuelo fv " +
-               " RIGHT JOIN aeropuerto.vuelos v " + 
-               " ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo";              
+                "LEFT JOIN aeropuerto.vuelos v  ON v.idFrecuenciaVuelo = fv.idFrecuenciaVuelo ";                             
         if (condicion != null && !condicion.isEmpty()) {
             sql += condicion;
         }
-        //sql += " ORDER BY fv.idFrecuenciaVuelo, v.idFrecuenciaVuelo;";
+        sql += " ORDER BY  fv.idFrecuenciaVuelo, v.idFrecuenciaVuelo";
         System.out.println("Sql Buscar: " + sql);
         return sql;
     }
@@ -120,7 +121,7 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
 
     @Override
     public void cargarDatos(ResultSet rs) throws SQLException {
-        inicializarObjeto();
+        //inicializarObjeto();
         fv.numero = rs.getString("numero");
         fv.horaPartida = rs.getString("horaPartida");
         fv.diasSemana = Utils.convertirDiaSemanaEnum(rs.getString("diaSemana"));

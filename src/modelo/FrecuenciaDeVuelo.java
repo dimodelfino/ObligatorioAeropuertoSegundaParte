@@ -34,8 +34,8 @@ public class FrecuenciaDeVuelo implements Runnable {
     private final BaseDatos bd = BaseDatos.getInstancia();
     
     private void conectar(){
-        //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
-        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/Aeropuerto", "root", "root");
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
+        //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/Aeropuerto", "root", "root");
     }
     
     private void desconectar(){
@@ -43,9 +43,9 @@ public class FrecuenciaDeVuelo implements Runnable {
     }       
 
     public FrecuenciaDeVuelo() {
-        if(estadoOrigen == EstadoEnum.Pendiente || estadoDestino == EstadoEnum.Pendiente){
-           iniciateThread();
-        }
+//        if(estadoOrigen == EstadoEnum.Pendiente || estadoDestino == EstadoEnum.Pendiente){
+//           iniciateThread();
+//        }
     }
 
     public FrecuenciaDeVuelo(String num, Aeropuerto origen, EstadoEnum estadoOrigen, Aeropuerto destino, EstadoEnum estadoDestino, String hrPartida, String duracionEst, Compania c, ArrayList<DiaSemanaEnum> diasSem) {
@@ -58,9 +58,9 @@ public class FrecuenciaDeVuelo implements Runnable {
         duracionEstimada = duracionEst;
         compania = c;
         diasSemana = diasSem;
-        if(estadoOrigen == EstadoEnum.Pendiente || estadoDestino == EstadoEnum.Pendiente){
-           iniciateThread();
-        }
+//        if(estadoOrigen == EstadoEnum.Pendiente || estadoDestino == EstadoEnum.Pendiente){
+//           iniciateThread();
+//        }
     }
 
     private void iniciateThread() {

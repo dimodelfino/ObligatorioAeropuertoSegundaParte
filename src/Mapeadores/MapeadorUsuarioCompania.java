@@ -44,7 +44,7 @@ public class MapeadorUsuarioCompania implements IMapeador{
 
     @Override
     public String columnaOid() {
-        return "idUsuCompania";
+        return "oId";
     }
 
     @Override
@@ -77,9 +77,9 @@ public class MapeadorUsuarioCompania implements IMapeador{
 
     @Override
     public String sqlBuscar(String condicion) {
-        String sql = "SELECT * FROM usuariocompania";
+        String sql = "SELECT * FROM usuariocompania ";
         if (condicion != null && !condicion.isEmpty()) {
-            sql += "WHERE " + condicion;
+            sql += condicion;
         }        
         return sql;
     }
@@ -95,7 +95,7 @@ public class MapeadorUsuarioCompania implements IMapeador{
         uc.nombre = rs.getString("nombre");
         uc.nombreCompleto = rs.getString("nombreCompleto");
         uc.compania = LogicaCompania.getInstancia().buscarCompaniaOid(rs.getInt("idCompania"));
-        uc.setOid(rs.getInt("idUsuCompania"));
+        uc.setOid(rs.getInt("oId"));
     }
 
     @Override

@@ -44,7 +44,7 @@ public class MapeadorUsuarioAeropuerto implements IMapeador{
 
     @Override
     public String columnaOid() {
-        return "idUsuAeropuerto";
+        return "oId";
     }
 
     @Override
@@ -69,9 +69,9 @@ public class MapeadorUsuarioAeropuerto implements IMapeador{
 
     @Override
     public String sqlBuscar(String condicion) {
-        String sql = "SELECT * FROM usuarioaeropuerto";
+        String sql = "SELECT * FROM usuarioaeropuerto ";
         if (condicion != null && !condicion.isEmpty()) {
-            sql += "WHERE " + condicion;
+            sql += condicion;
         }        
         return sql;
     }
@@ -87,7 +87,7 @@ public class MapeadorUsuarioAeropuerto implements IMapeador{
         ua.nombre = rs.getString("nombre");
         ua.nombreCompleto = rs.getString("nombreCompleto");        
         ua.aeropuerto = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuerto"));
-        ua.setOid(rs.getInt("idUsuAeropuerto"));
+        ua.setOid(rs.getInt("oId"));
     }
 
     @Override
@@ -97,7 +97,7 @@ public class MapeadorUsuarioAeropuerto implements IMapeador{
 
     @Override
     public Object getObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return ua;
     }
     
 }
