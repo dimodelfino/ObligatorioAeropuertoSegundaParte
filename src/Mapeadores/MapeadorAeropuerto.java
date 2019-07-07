@@ -71,7 +71,7 @@ public class MapeadorAeropuerto implements IMapeador{
     public String sqlBuscar(String condicion) {
         String sql = "SELECT * FROM aeropuerto.aeropuerto ";
         if (condicion != null && !condicion.isEmpty()) {
-            sql += "WHERE " + condicion;
+            sql += condicion;
         }        
         return sql;
     }

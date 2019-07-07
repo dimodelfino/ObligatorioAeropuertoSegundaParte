@@ -51,11 +51,9 @@ public class LogicaFrecuenciaVuelo extends Observable {
 
     public void actualizarDiasSemana(FrecuenciaDeVuelo fv, ArrayList<DiaSemanaEnum> dias) throws ExceptionCompania {        
         conectar();
-        MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo();
-        mfv.setFrecuenciaDeVuelo(fv);
-        FrecuenciaDeVuelo frec = (FrecuenciaDeVuelo) Persistencia.getInstancia().buscar(mfv, "");
-        frec.diasSemana.addAll(dias);
-        mfv.setFrecuenciaDeVuelo(frec);
+        MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo();                
+        fv.diasSemana.addAll(dias);
+        mfv.setFrecuenciaDeVuelo(fv);        
         Persistencia.getInstancia().guardar(mfv);
         desconectar();
         notificarObservadores();

@@ -5,10 +5,12 @@
  */
 package modelo;
 
+import Mapeadores.MapeadorFrecuenciaVuelo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import persistencia.BaseDatos;
 
 /**
  *
@@ -28,12 +30,22 @@ public class FrecuenciaDeVuelo implements Runnable {
     private int oid;
     public ArrayList<Vuelo> vuelos = new ArrayList<>();
     private Thread thread;
-    private int tiempoEspera = 400;
+    private int tiempoEspera = 15;
+    private final BaseDatos bd = BaseDatos.getInstancia();
+    
+    private void conectar(){
+        //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/Aeropuerto", "root", "root");
+    }
+    
+    private void desconectar(){
+        bd.desconectar();
+    }       
 
     public FrecuenciaDeVuelo() {
-//        if(estadoOrigen != EstadoEnum.Aprobado || estadoDestino != EstadoEnum.Aprobado){
-//           iniciateThread();
-//        }
+        if(estadoOrigen == EstadoEnum.Pendiente || estadoDestino == EstadoEnum.Pendiente){
+           iniciateThread();
+        }
     }
 
     public FrecuenciaDeVuelo(String num, Aeropuerto origen, EstadoEnum estadoOrigen, Aeropuerto destino, EstadoEnum estadoDestino, String hrPartida, String duracionEst, Compania c, ArrayList<DiaSemanaEnum> diasSem) {
@@ -46,9 +58,9 @@ public class FrecuenciaDeVuelo implements Runnable {
         duracionEstimada = duracionEst;
         compania = c;
         diasSemana = diasSem;
-//        if(estadoOrigen != EstadoEnum.Aprobado || estadoDestino != EstadoEnum.Aprobado){
-//           iniciateThread();
-//        }
+        if(estadoOrigen == EstadoEnum.Pendiente || estadoDestino == EstadoEnum.Pendiente){
+           iniciateThread();
+        }
     }
 
     private void iniciateThread() {
@@ -92,11 +104,13 @@ public class FrecuenciaDeVuelo implements Runnable {
         while ((this.estadoOrigen == EstadoEnum.Pendiente || this.estadoDestino == EstadoEnum.Pendiente) && !finalizarThread) {
             try {
                 Thread.currentThread().sleep(1000);
-                LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();
+                if(tiempoEspera % 5 == 0){
+                 LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();   
+                }                
                 tiempoEspera--;
                 if (this.estadoOrigen == EstadoEnum.Aprobado) {
                     if (!origenAprobado) {
-                        tiempoEspera = 4;
+                        tiempoEspera = 15;
                         origenAprobado = true;
                     }
                     if (this.estadoDestino == EstadoEnum.Aprobado || this.estadoDestino == EstadoEnum.Rechazado) {
@@ -105,6 +119,10 @@ public class FrecuenciaDeVuelo implements Runnable {
                         thread.interrupt();
                     }else if(tiempoEspera == 0){
                         this.estadoDestino = EstadoEnum.Rechazado;
+                        System.out.println("Oid Frecuencia: " + this.oid);
+                        conectar();
+                        MapeadorFrecuenciaVuelo mfv = new MapeadorFrecuenciaVuelo();                        
+                        desconectar();
                         finalizarThread = true;
                         thread.interrupt();
                     }
@@ -115,7 +133,7 @@ public class FrecuenciaDeVuelo implements Runnable {
                     thread.interrupt();
                 }
             } catch (InterruptedException ex) {
-
+                System.out.println("ERROR ON THREAD");
             }
         }
         LogicaFrecuenciaVuelo.getInstancia().notificarObservadores();

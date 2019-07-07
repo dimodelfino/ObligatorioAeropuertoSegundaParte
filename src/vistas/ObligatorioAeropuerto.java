@@ -5,11 +5,7 @@
  */
 package vistas;
 
-import modelo.LogicaAeropuerto;
-import modelo.LogicaCompania;
-import modelo.LogicaFrecuenciaVuelo;
 import modelo.LogicaUsuario;
-import modelo.LogicaVuelo;
 
 /**
  *
@@ -22,9 +18,9 @@ public class ObligatorioAeropuerto {
      */
     public static void main(String[] args) {
 
-          LogicaCompania.getInstancia().iniciateCompanyList();
-          LogicaAeropuerto.getInstancia().iniciateAirportsList();
-          LogicaUsuario.getInstancia().iniciateUsersList();
+          //LogicaCompania.getInstancia().iniciateCompanyList();
+          //LogicaAeropuerto.getInstancia().iniciateAirportsList();
+        //  LogicaUsuario.getInstancia().iniciateUsersList();
 //        LogicaFrecuenciaVuelo.getInstancia().iniciateFrecuenciaVueloList();
 //        LogicaVuelo.getInstancia().iniciateListaVuelos();
           new MenuPrincipal().setVisible(true);  

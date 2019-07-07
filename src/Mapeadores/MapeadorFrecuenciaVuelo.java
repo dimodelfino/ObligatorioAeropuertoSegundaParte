@@ -120,7 +120,7 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
 
     @Override
     public void cargarDatos(ResultSet rs) throws SQLException {
-        //inicializarObjeto();
+        inicializarObjeto();
         fv.numero = rs.getString("numero");
         fv.horaPartida = rs.getString("horaPartida");
         fv.diasSemana = Utils.convertirDiaSemanaEnum(rs.getString("diaSemana"));

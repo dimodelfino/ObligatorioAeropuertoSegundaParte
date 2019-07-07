@@ -23,7 +23,7 @@ import utilities.ExceptionCompania;
 public class LogicaVuelo extends Observable {
 
     private static LogicaVuelo instancia = null;
-     private final BaseDatos bd = BaseDatos.getInstancia();
+    private final BaseDatos bd = BaseDatos.getInstancia();
     
     private void conectar(){
         //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
@@ -34,7 +34,6 @@ public class LogicaVuelo extends Observable {
         bd.desconectar();
     }
     
-
     public static LogicaVuelo getInstancia() {
         if (instancia == null) {
             instancia = new LogicaVuelo();
@@ -42,9 +41,6 @@ public class LogicaVuelo extends Observable {
         return instancia;
     }
 
-//    public ArrayList<Vuelo> getVuelos() {
-//        return vuelos;
-//    }
     //Crea y guarda un vuelo con el numero de frecuencia de vuelo pasada por parametro       
     public void crearVuelo(FrecuenciaDeVuelo fv, Vuelo v) throws ExceptionCompania {                
         Date hoy = new Date();
@@ -166,25 +162,6 @@ public class LogicaVuelo extends Observable {
         }
         return result;
     }
-
-    public void iniciateListaVuelos() {
-        Date hoy = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(hoy);
-        DateFormat formato = new SimpleDateFormat("hh:mm:ss a");
-
-        FrecuenciaDeVuelo fv = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().get(3);
-        Vuelo a = new Vuelo();
-        String horaActual = formato.format(hoy);
-        a.numero = fv.numero;
-        a.fechaPartida = "23/06/2019";
-        a.horaRealPartida = horaActual;
-        a.horaRealLlegada = "22:10:00 AM";
-        a.estado = "VUELO TEST";
-        fv.vuelos.add(a);
-
-        notificarObservadores();
-    }        
 
     public void notificarObservadores() {
         setChanged();

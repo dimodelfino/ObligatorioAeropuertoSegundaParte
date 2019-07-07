@@ -23,8 +23,7 @@ import modelo.FrecuenciaDeVuelo;
  * @author dmoreno
  */
 public class ControladoraCompania implements Observer{
-
-    private static int contador = 5;
+    
     private IVistaCompania vista;
 
     public ControladoraCompania(IVistaCompania apC) {
@@ -59,9 +58,8 @@ public class ControladoraCompania implements Observer{
         FachadaModelo.getInstancia().agregarFrecuencia(numeroFrecuencia, aeroOrigen, aeroDestino, partida, duracion, c, diaSemana);
     }
 
-    public String generarNumeroFrecuencia(Compania c) {
-        String alias = c.alias + contador++;
-        return alias;
+    public String generarNumeroFrecuencia(Compania c) {        
+        return FachadaModelo.getInstancia().generarNumeroFrecuencia(c);
     }
     
     public List<Aeropuerto> getAeropuertos(){

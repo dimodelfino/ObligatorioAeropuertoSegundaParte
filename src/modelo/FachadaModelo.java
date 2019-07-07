@@ -42,7 +42,6 @@ public class FachadaModelo {
 
     //Instancia una FrecuenciaDeVuelo, valida si existe y la envia a LogicaFrecuenciaVuelo a agregarse a su lista
     public void agregarFrecuencia(String num, String origen, String destino, String hrPartida, String duracionEst, Compania c, ArrayList<DiaSemanaEnum> diasSem) throws ExceptionCompania {
-        boolean result = false;
         Aeropuerto aOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(origen);
         Aeropuerto aDestino = LogicaAeropuerto.getInstancia().buscarAeropuertoNombre(destino);
         FrecuenciaDeVuelo fv = new FrecuenciaDeVuelo(num, aOrigen, EstadoEnum.Pendiente, aDestino, EstadoEnum.Pendiente, hrPartida, duracionEst, c, diasSem);
@@ -277,6 +276,12 @@ public class FachadaModelo {
 
     public ArrayList<String> getVuelosString(FrecuenciaDeVuelo fv) {
         return LogicaFrecuenciaVuelo.getInstancia().getVuelosString(fv);
+    }
+    
+    public String generarNumeroFrecuencia(Compania c) {
+        int cantFrecuencias = LogicaFrecuenciaVuelo.getInstancia().getFrecuencias().size()+1;
+        String alias = c.alias + " " + cantFrecuencias;
+        return alias;
     }
 
 }
