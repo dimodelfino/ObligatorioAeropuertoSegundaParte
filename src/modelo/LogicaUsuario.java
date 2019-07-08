@@ -23,8 +23,8 @@ public class LogicaUsuario {
     private final BaseDatos bd = BaseDatos.getInstancia();
 
     private void conectar() {
-        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
-        //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/Aeropuerto", "root", "root");
+        //bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/aeropuerto", "root", "admin");
+        bd.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://127.0.0.1:3307/Aeropuerto", "root", "root");
     }
 
     private void desconectar() {
@@ -60,7 +60,7 @@ public class LogicaUsuario {
         MapeadorUsuarioCompania muc = new MapeadorUsuarioCompania();
         usu.addAll((ArrayList<Usuario>) Persistencia.getInstancia().buscar(muc, " WHERE nombre = '" + nombre + "'" + " AND contrasenia = '" + contrasenia + "'"));
         desconectar();
-        if(usu != null){
+        if(!usu.isEmpty()){
             u = usu.get(0);
         }
         return u;        

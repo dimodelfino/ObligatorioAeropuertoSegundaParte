@@ -8,12 +8,15 @@ package Mapeadores;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modelo.Aeropuerto;
+import modelo.Compania;
+import modelo.DiaSemanaEnum;
+import modelo.EstadoEnum;
 import modelo.FrecuenciaDeVuelo;
 import modelo.LogicaAeropuerto;
 import modelo.LogicaCompania;
 import modelo.Vuelo;
 import persistencia.IMapeador;
-import persistencia.Persistencia;
 import utilities.Utils;
 
 /**
@@ -63,7 +66,8 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
         sql += "'" + fv.duracionEstimada + "',";
         sql += fv.compania.getoId() + ",";
         sql += "'" + fv.diasSemana + "',";
-        sql += getOid() + ")";
+        sql += getOid() + ",";
+        sql += fv.tiempoEspera + ")";        
         sqls.add(sql);
         return sqls;
     }
@@ -74,7 +78,8 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
         String sql = "UPDATE aeropuerto.frecuenciaDeVuelo SET ";
         sql += "estadoOrigen = '" + fv.estadoOrigen + "',";
         sql += "estadoDestino = '" + fv.estadoDestino + "',";
-        sql += "diaSemana = '" + fv.diasSemana + "'";
+        sql += "diaSemana = '" + fv.diasSemana + "',";
+        sql += "segundosRestantes = '" + fv.tiempoEspera + "'";
         sql += " WHERE idFrecuenciaVuelo = " + fv.getOid() + ";";
         sqls.add(sql);
         return sqls;
@@ -120,18 +125,29 @@ public class MapeadorFrecuenciaVuelo implements IMapeador {
     }
 
     @Override
-    public void cargarDatos(ResultSet rs) throws SQLException {
-        //inicializarObjeto();
-        fv.numero = rs.getString("numero");
-        fv.horaPartida = rs.getString("horaPartida");
-        fv.diasSemana = Utils.convertirDiaSemanaEnum(rs.getString("diaSemana"));
-        fv.duracionEstimada = rs.getString("duracionEstimada");
-        fv.estadoOrigen = Utils.getEstadoEnum(rs.getString("estadoOrigen"));
-        fv.estadoDestino = Utils.getEstadoEnum(rs.getString("estadoDestino"));
-        fv.aeropuertoOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoOrigen"));
-        fv.aeropuertoDestino = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoDestino"));
-        fv.compania = LogicaCompania.getInstancia().buscarCompaniaOid(rs.getInt("idCompania"));
-        fv.setOid(rs.getInt("idFrecuenciaVuelo"));
+    public void cargarDatos(ResultSet rs) throws SQLException {        
+//        fv.numero = rs.getString("numero");
+//        fv.horaPartida = rs.getString("horaPartida");
+//        fv.diasSemana = Utils.convertirDiaSemanaEnum(rs.getString("diaSemana"));
+//        fv.duracionEstimada = rs.getString("duracionEstimada");
+//        fv.estadoOrigen = Utils.getEstadoEnum(rs.getString("estadoOrigen"));
+//        fv.estadoDestino = Utils.getEstadoEnum(rs.getString("estadoDestino"));
+//        fv.aeropuertoOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoOrigen"));
+//        fv.aeropuertoDestino = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoDestino"));
+//        fv.compania = LogicaCompania.getInstancia().buscarCompaniaOid(rs.getInt("idCompania"));
+//        fv.setOid(rs.getInt("idFrecuenciaVuelo"));
+        String numero = rs.getString("numero");
+        String horaPartida = rs.getString("horaPartida");
+        ArrayList<DiaSemanaEnum> diasSemana = Utils.convertirDiaSemanaEnum(rs.getString("diaSemana"));
+        String duracionEstimada = rs.getString("duracionEstimada");
+        EstadoEnum estadoOrigen = Utils.getEstadoEnum(rs.getString("estadoOrigen"));
+        EstadoEnum estadoDestino = Utils.getEstadoEnum(rs.getString("estadoDestino"));
+        Aeropuerto aeropuertoOrigen = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoOrigen"));
+        Aeropuerto aeropuertoDestino = LogicaAeropuerto.getInstancia().buscarAeropuertoOid(rs.getInt("idAeropuertoDestino"));
+        Compania compania = LogicaCompania.getInstancia().buscarCompaniaOid(rs.getInt("idCompania"));    
+        int tiempoE = rs.getInt("segundosRestantes");
+        int oId = rs.getInt("idFrecuenciaVuelo");
+        fv = new FrecuenciaDeVuelo(numero, aeropuertoOrigen, estadoOrigen, aeropuertoDestino, estadoDestino, horaPartida, duracionEstimada, compania, diasSemana, oId, tiempoE);        
     }
 
     @Override

@@ -72,7 +72,8 @@ public class MapeadorUsuarioAeropuerto implements IMapeador{
         String sql = "SELECT * FROM usuarioaeropuerto ";
         if (condicion != null && !condicion.isEmpty()) {
             sql += condicion;
-        }        
+        }    
+        System.out.println(sql);
         return sql;
     }
 

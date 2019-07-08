@@ -81,6 +81,7 @@ public class MapeadorUsuarioCompania implements IMapeador{
         if (condicion != null && !condicion.isEmpty()) {
             sql += condicion;
         }        
+        System.out.println(sql);
         return sql;
     }
 

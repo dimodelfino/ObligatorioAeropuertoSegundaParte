@@ -39,7 +39,7 @@ public class BaseDatos {
             stmt = conexion.createStatement();
             System.out.println("Conectado");
         } catch (Exception ex) {
-            System.out.println("No se pudo conectar correctamente: " + ex.getMessage());
+            System.out.println("No se pudo conectar correctamente: " + ex.getMessage() + " " + ex);
         }
     }
 

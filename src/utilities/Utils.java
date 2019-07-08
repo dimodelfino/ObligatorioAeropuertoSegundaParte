@@ -7,18 +7,13 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import modelo.Aeropuerto;
 import modelo.DiaSemanaEnum;
 import modelo.EstadoEnum;
 import modelo.strategy.ITipoAeropuerto;
 import modelo.strategy.Internacional;
 import modelo.strategy.Nacional;
 import modelo.strategy.Regional;
-import vistas.AplicacionAeropuerto;
-import vistas.AplicacionCompania;
-import vistas.AplicacionMonitoreo;
 import vistas.TipoVentanaEnum;
-import static vistas.TipoVentanaEnum.Monitoreo;
 
 /**
  *
